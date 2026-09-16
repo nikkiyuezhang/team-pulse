@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Pulse</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fb;
+      color: #17324d;
+    }
+
+    .header {
+      background: white;
+      border-bottom: 1px solid #e5eaf0;
+      padding: 18px 24px;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      font-size: 32px;
+    }
+
+    .brand-title {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .brand-subtitle {
+      font-size: 13px;
+      color: #75879a;
+      margin-top: 2px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-button {
+      border: 0;
+      background: transparent;
+      color: #52667a;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .nav-button.active {
+      background: #eaf2ff;
+      color: #1769e0;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #e9f3ff, #f7fbff);
+      border-bottom: 1px solid #dfe8f2;
+      padding: 30px 24px;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .week-label {
+      color: #60758a;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .week-title {
+      font-size: 30px;
+      font-weight: 750;
+      margin: 0;
+    }
+
+    .week-message {
+      color: #60758a;
+      margin-top: 8px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 28px auto;
+      padding: 0 24px 40px;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      border: 1px solid #e1e7ee;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(30, 55, 80, 0.05);
+    }
+
+    .card-header {
+      padding: 22px;
+    }
+
+    .focus-header {
+      background: #edf5ff;
+    }
+
+    .win-header {
+      background: #edf9f1;
+    }
+
+    .day-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .card-question {
+      color: #63768a;
+      font-size: 14px;
+    }
+
+    .add-button {
+      margin-top: 16px;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 17px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .focus-button {
+      background: #2475e8;
+      color: white;
+    }
+
+    .win-button {
+      background: #149557;
+      color: white;
+    }
+
+    .people {
+      padding: 0 22px;
+    }
+
+    .person {
+      display: flex;
+      gap: 14px;
+      padding: 20px 0;
+      border-bottom: 1px solid #edf0f4;
+    }
+
+    .person:last-child {
+      border-bottom: none;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 700;
+      background: #e5efff;
+      color: #1769e0;
+    }
+
+    .avatar.pink {
+      background: #ffe5f0;
+      color: #cc3976;
+    }
+
+    .person-name {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .items {
+      margin: 0;
+      padding-left: 20px;
+      color: #42566b;
+      line-height: 1.7;
+    }
+
+    .empty {
+      color: #8a99a8;
+      font-style: italic;
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 22px;
+    }
+
+    .small-card {
+      background: white;
+      border: 1px solid #e1e7ee;
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .small-title {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    .week-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #edf0f4;
+      color: #52667a;
+    }
+
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .stat {
+      background: #f4f7fb;
+      border-radius: 12px;
+      text-align: center;
+      padding: 16px 8px;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1769e0;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #718397;
+      margin-top: 5px;
+    }
+
+    .year-button {
+      width: 100%;
+      margin-top: 18px;
+      border: none;
+      background: #7453d8;
+      color: white;
+      border-radius: 10px;
+      padding: 13px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        display: none;
+      }
+
+      .week-title {
+        font-size: 24px;
+      }
+
+      .main-grid,
+      .bottom-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 0 14px 30px;
+      }
+
+      .header,
+      .hero {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+
+      <div class="brand">
+        <div class="brand-icon">👥</div>
+
+        <div>
+          <div class="brand-title">Team Pulse</div>
+          <div class="brand-subtitle">
+            Small updates. Big progress.
+          </div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-button active">This Week</button>
+        <button class="nav-button">Previous Weeks</button>
+        <button class="nav-button">Year in Review</button>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <section class="hero">
+    <div class="hero-inner">
+
+      <div class="week-label">
+        THIS WEEK
+      </div>
+
+      <h1 class="week-title">
+        Week of 14 – 18 September 2026
+      </h1>
+
+      <div class="week-message">
+        Share what matters this week, then celebrate the wins.
+      </div>
+
+    </div>
+  </section>
+
+
+  <main class="container">
+
+    <div class="main-grid">
+
+      <!-- MONDAY FOCUS -->
+
+      <section class="card">
+
+        <div class="card-header focus-header">
+
+          <div class="day-label">
+            🎯 MONDAY
+          </div>
+
+          <div class="card-title">
+            Key Focus of the Week
+          </div>
+
+          <div class="card-question">
+            What are your main priorities this week?
+          </div>
+
+          <button class="add-button focus-button">
+            + Add My Focus
+          </button>
+
+        </div>
+
+        <div class="people">
+
+          <div class="person">
+            <div class="avatar pink">NX</div>
+
+            <div>
+              <div class="person-name">Nikki</div>
+
+              <ul class="items">
+                <li>Finalise this week's priority analysis</li>
+                <li>Progress key reporting work</li>
+                <li>Prepare stakeholder updates</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="person">
+            <div class="avatar">DX</div>
+
+            <div>
+              <div class="person-name">Danny</div>
+
+              <div class="empty">
+                No focus shared yet.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FRIDAY WINS -->
+
+      <section class="card">
+
+        <div class="card-header win-header">
+
+          <div class="day-label">
+            🏆 FRIDAY
+          </div>
+
+          <div class="card-title">
+            Wins for the Week
+          </div>
+
+          <div class="card-question">
+            What did you achieve, big or small?
+          </div>
+
+          <button class="add-button win-button">
+            + Add My Win
+          </button>
+
+        </div>
+
+        <div class="people">
+
+          <div class="person">
+            <div class="avatar pink">NX</div>
+
+            <div>
+              <div class="person-name">Nikki</div>
+
+              <ul class="items">
+                <li>Completed major weekly reporting</li>
+                <li>Progressed key analysis</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="person">
+            <div class="avatar">DX</div>
+
+            <div>
+              <div class="person-name">Danny</div>
+
+              <div class="empty">
+                No wins shared yet.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <div class="bottom-grid">
+
+      <!-- PREVIOUS WEEKS -->
+
+      <section class="small-card">
+
+        <div class="small-title">
+          📅 Previous Weeks
+        </div>
+
+        <div class="week-row">
+          <span>7 – 11 September</span>
+          <span>✓ Completed</span>
+        </div>
+
+        <div class="week-row">
+          <span>31 Aug – 4 September</span>
+          <span>✓ Completed</span>
+        </div>
+
+        <div class="week-row">
+          <span>24 – 28 August</span>
+          <span>✓ Completed</span>
+        </div>
+
+      </section>
+
+
+      <!-- YEAR REVIEW -->
+
+      <section class="small-card">
+
+        <div class="small-title">
+          ✨ 2026 Year in Review
+        </div>
+
+        <div class="summary-stats">
+
+          <div class="stat">
+            <div class="stat-number">38</div>
+            <div class="stat-label">Weeks</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-number">—</div>
+            <div class="stat-label">Focus Items</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-number">—</div>
+            <div class="stat-label">Wins Shared</div>
+          </div>
+
+        </div>
+
+        <button class="year-button">
+          ✨ Generate 2026 Summary
+        </button>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

@@ -3,11 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Team Pulse</title>
 
   <style>
-
     * {
       box-sizing: border-box;
     }
@@ -19,25 +17,24 @@
       color: #17324d;
     }
 
+    button {
+      font-family: inherit;
+    }
 
-    /* =========================
-       HEADER
-    ========================= */
+    /* HEADER */
 
     .header {
-      background: white;
-      border-bottom: 1px solid #e5eaf0;
-      padding: 18px 24px;
+      background: #ffffff;
+      border-bottom: 1px solid #e4e9ef;
+      padding: 16px 24px;
     }
 
     .header-inner {
-      max-width: 1100px;
+      max-width: 1120px;
       margin: auto;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       gap: 20px;
     }
 
@@ -48,12 +45,13 @@
     }
 
     .brand-icon {
-      font-size: 32px;
+      font-size: 31px;
     }
 
     .brand-title {
       font-size: 24px;
-      font-weight: 700;
+      font-weight: 750;
+      color: #102f54;
     }
 
     .brand-subtitle {
@@ -64,17 +62,16 @@
 
     .nav {
       display: flex;
-      gap: 10px;
+      gap: 8px;
+      align-items: center;
     }
 
     .nav-button {
       border: 0;
       background: transparent;
       color: #52667a;
-
-      padding: 10px 15px;
+      padding: 10px 14px;
       border-radius: 20px;
-
       font-weight: 600;
       cursor: pointer;
     }
@@ -85,190 +82,196 @@
     }
 
 
-    /* =========================
-       ACADEMIC CALENDAR
-    ========================= */
+    /* ACADEMIC CALENDAR */
 
     .academic-section {
       padding: 22px 24px 0;
     }
 
     .academic-card {
-      max-width: 1100px;
+      max-width: 1120px;
       margin: auto;
-
-      background:
-        linear-gradient(
-          135deg,
-          #102d55,
-          #17477c
-        );
-
+      background: linear-gradient(135deg, #123663, #1e5a94);
       color: white;
-
       border-radius: 18px;
-
-      padding: 22px 24px;
-
-      box-shadow:
-        0 8px 24px rgba(18, 46, 80, 0.14);
+      padding: 24px 26px;
+      box-shadow: 0 8px 24px rgba(18, 46, 80, 0.14);
     }
 
-    .academic-top {
+    .academic-heading-row {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
       gap: 20px;
+      align-items: flex-start;
     }
 
     .academic-label {
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.7px;
-
+      letter-spacing: .7px;
       color: #b9d5f2;
-
       margin-bottom: 7px;
     }
 
     .academic-title {
-      font-size: 23px;
-      font-weight: 700;
+      font-size: 30px;
+      font-weight: 750;
+      margin: 0;
     }
 
-    .academic-subtitle {
+    .academic-description {
       color: #d5e5f5;
       font-size: 14px;
-
       margin-top: 6px;
     }
 
-    .countdown-box {
-      text-align: right;
-      min-width: 180px;
-    }
-
-    .countdown-number {
-      font-size: 30px;
-      font-weight: 750;
-    }
-
-    .countdown-label {
-      color: #d5e5f5;
-      font-size: 13px;
-
-      margin-top: 3px;
-    }
-
-
-    /* progress bar */
-
-    .academic-progress {
-      height: 8px;
-
-      background:
-        rgba(255,255,255,0.18);
-
+    .today-badge {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 8px 12px;
       border-radius: 20px;
-
-      overflow: hidden;
-
-      margin-top: 20px;
+      font-size: 12px;
+      color: #e7f2fc;
+      white-space: nowrap;
     }
 
-    .academic-progress-bar {
-      height: 100%;
-
-      width: 0%;
-
-      background: #72c6ff;
-
-      border-radius: 20px;
-
-      transition: width .4s ease;
-    }
-
-
-    /* milestone row */
-
-    .academic-bottom {
+    .countdown-grid {
       display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap: 15px;
-
-      margin-top: 18px;
-    }
-
-    .milestone {
-      border-right:
-        1px solid rgba(255,255,255,0.16);
-
-      padding-right: 12px;
-    }
-
-    .milestone:last-child {
-      border-right: none;
-    }
-
-    .milestone-label {
-      font-size: 11px;
-
-      text-transform: uppercase;
-
-      letter-spacing: .5px;
-
-      color: #a9c9e8;
-
-      margin-bottom: 5px;
-    }
-
-    .milestone-value {
-      font-size: 14px;
-      font-weight: 650;
-    }
-
-
-    /* =========================
-       WEEK HERO
-    ========================= */
-
-    .hero {
-      background:
-        linear-gradient(
-          135deg,
-          #e9f3ff,
-          #f7fbff
-        );
-
-      border-bottom:
-        1px solid #dfe8f2;
-
-      padding: 28px 24px;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
       margin-top: 22px;
     }
 
+    .countdown-card {
+      border-radius: 14px;
+      padding: 18px 20px;
+      min-height: 125px;
+    }
+
+    .start-countdown {
+      background: linear-gradient(135deg, #e6f1ff, #cfe5ff);
+      color: #123663;
+    }
+
+    .census-countdown {
+      background: linear-gradient(135deg, #e5f9ef, #cef2df);
+      color: #126648;
+    }
+
+    .countdown-heading {
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: .4px;
+      margin-bottom: 8px;
+    }
+
+    .countdown-content {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .big-countdown {
+      font-size: 40px;
+      line-height: 1;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .big-countdown span {
+      font-size: 15px;
+      font-weight: 750;
+    }
+
+    .week-countdown {
+      text-align: right;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .countdown-date {
+      font-size: 12px;
+      font-weight: 500;
+      opacity: .82;
+      margin-top: 3px;
+    }
+
+    .timeline {
+      position: relative;
+      margin-top: 26px;
+      padding-top: 13px;
+    }
+
+    .timeline-line {
+      height: 7px;
+      background: rgba(255,255,255,.22);
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .timeline-progress {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #7cc7ff, #7de0c1);
+      border-radius: 20px;
+      transition: width .3s ease;
+    }
+
+    .timeline-dates {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      margin-top: 10px;
+    }
+
+    .timeline-item {
+      font-size: 12px;
+      color: #d8e8f7;
+    }
+
+    .timeline-item:nth-child(2) {
+      text-align: center;
+    }
+
+    .timeline-item:nth-child(3) {
+      text-align: right;
+    }
+
+    .timeline-name {
+      font-weight: 700;
+      color: white;
+      margin-bottom: 3px;
+    }
+
+
+    /* CURRENT WEEK */
+
+    .hero {
+      background: linear-gradient(135deg, #eaf4ff, #f7fbff);
+      border-bottom: 1px solid #dfe8f2;
+      margin-top: 22px;
+      padding: 28px 24px;
+    }
+
     .hero-inner {
-      max-width: 1100px;
+      max-width: 1120px;
       margin: auto;
     }
 
     .week-label {
       color: #60758a;
-
-      font-size: 14px;
-      font-weight: 600;
-
-      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 7px;
     }
 
     .week-title {
       font-size: 30px;
       font-weight: 750;
-
       margin: 0;
+      color: #102f54;
     }
 
     .week-message {
@@ -277,46 +280,26 @@
     }
 
 
-    /* =========================
-       MAIN
-    ========================= */
+    /* MAIN */
 
     .container {
-      max-width: 1100px;
-
-      margin: 28px auto;
-
-      padding:
-        0 24px 40px;
+      max-width: 1120px;
+      margin: 26px auto;
+      padding: 0 24px 40px;
     }
 
     .main-grid {
       display: grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
+      grid-template-columns: 1fr 1fr;
       gap: 22px;
     }
 
-
-    /* =========================
-       WEEKLY CARDS
-    ========================= */
-
     .card {
       background: white;
-
       border-radius: 18px;
-
-      border:
-        1px solid #e1e7ee;
-
+      border: 1px solid #e1e7ee;
       overflow: hidden;
-
-      box-shadow:
-        0 4px 18px
-        rgba(30, 55, 80, 0.05);
+      box-shadow: 0 4px 18px rgba(30,55,80,.05);
     }
 
     .card-header {
@@ -334,17 +317,15 @@
     .day-label {
       font-size: 12px;
       font-weight: 700;
-
       letter-spacing: .5px;
-
       margin-bottom: 6px;
     }
 
     .card-title {
       font-size: 22px;
       font-weight: 700;
-
       margin-bottom: 7px;
+      color: #102f54;
     }
 
     .card-question {
@@ -354,15 +335,10 @@
 
     .add-button {
       margin-top: 16px;
-
       border: none;
-
       border-radius: 10px;
-
       padding: 11px 17px;
-
       font-weight: 700;
-
       cursor: pointer;
     }
 
@@ -377,9 +353,7 @@
     }
 
 
-    /* =========================
-       TEAM MEMBERS
-    ========================= */
+    /* TEAM */
 
     .people {
       padding: 0 22px;
@@ -387,13 +361,9 @@
 
     .person {
       display: flex;
-
       gap: 14px;
-
       padding: 20px 0;
-
-      border-bottom:
-        1px solid #edf0f4;
+      border-bottom: 1px solid #edf0f4;
     }
 
     .person:last-child {
@@ -403,17 +373,12 @@
     .avatar {
       width: 42px;
       height: 42px;
-
       border-radius: 50%;
-
       display: flex;
-
       align-items: center;
       justify-content: center;
-
       flex-shrink: 0;
-
-      font-weight: 700;
+      font-weight: 750;
     }
 
     .avatar.nikki {
@@ -433,18 +398,7 @@
 
     .person-name {
       font-weight: 700;
-
-      margin-bottom: 8px;
-    }
-
-    .items {
-      margin: 0;
-
-      padding-left: 20px;
-
-      color: #42566b;
-
-      line-height: 1.7;
+      margin-bottom: 7px;
     }
 
     .empty {
@@ -453,120 +407,77 @@
     }
 
 
-    /* =========================
-       BOTTOM
-    ========================= */
+    /* BOTTOM */
 
     .bottom-grid {
       display: grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
+      grid-template-columns: 1fr 1fr;
       gap: 22px;
-
       margin-top: 22px;
     }
 
     .small-card {
       background: white;
-
-      border:
-        1px solid #e1e7ee;
-
+      border: 1px solid #e1e7ee;
       border-radius: 18px;
-
       padding: 22px;
     }
 
     .small-title {
       font-weight: 700;
-
       font-size: 18px;
-
       margin-bottom: 16px;
+      color: #102f54;
     }
 
     .week-row {
       display: flex;
-
-      justify-content:
-        space-between;
-
-      gap: 10px;
-
+      justify-content: space-between;
+      gap: 12px;
       padding: 12px 0;
-
-      border-bottom:
-        1px solid #edf0f4;
-
+      border-bottom: 1px solid #edf0f4;
       color: #52667a;
     }
 
-
-    /* =========================
-       YEAR SUMMARY
-    ========================= */
-
     .summary-stats {
       display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
 
     .stat {
       background: #f4f7fb;
-
       border-radius: 12px;
-
       text-align: center;
-
       padding: 16px 8px;
     }
 
     .stat-number {
       font-size: 24px;
-
       font-weight: 700;
-
       color: #1769e0;
     }
 
     .stat-label {
       font-size: 12px;
-
       color: #718397;
-
       margin-top: 5px;
     }
 
     .year-button {
       width: 100%;
-
       margin-top: 18px;
-
       border: none;
-
       background: #7453d8;
-
       color: white;
-
       border-radius: 10px;
-
       padding: 13px;
-
       font-weight: 700;
-
       cursor: pointer;
     }
 
 
-    /* =========================
-       MOBILE
-    ========================= */
+    /* MOBILE */
 
     @media (max-width: 760px) {
 
@@ -575,40 +486,41 @@
       }
 
       .academic-section {
-        padding:
-          14px 14px 0;
+        padding: 14px 14px 0;
       }
 
       .academic-card {
         padding: 20px;
       }
 
-      .academic-top {
+      .academic-heading-row {
         display: block;
       }
 
-      .countdown-box {
-        text-align: left;
-
-        margin-top: 18px;
+      .today-badge {
+        display: inline-block;
+        margin-top: 14px;
       }
 
-      .academic-bottom {
+      .countdown-grid {
         grid-template-columns: 1fr;
       }
 
-      .milestone {
-        border-right: none;
-
-        border-bottom:
-          1px solid
-          rgba(255,255,255,0.15);
-
-        padding-bottom: 10px;
+      .countdown-content {
+        display: block;
       }
 
-      .week-title {
-        font-size: 24px;
+      .week-countdown {
+        text-align: left;
+        margin-top: 12px;
+      }
+
+      .timeline-dates {
+        gap: 8px;
+      }
+
+      .timeline-item {
+        font-size: 10px;
       }
 
       .main-grid,
@@ -616,9 +528,12 @@
         grid-template-columns: 1fr;
       }
 
+      .week-title {
+        font-size: 24px;
+      }
+
       .container {
-        padding:
-          0 14px 30px;
+        padding: 0 14px 30px;
       }
 
       .header,
@@ -627,19 +542,19 @@
         padding-right: 14px;
       }
 
+      .academic-title {
+        font-size: 26px;
+      }
+
     }
 
   </style>
-
 </head>
 
 
 <body>
 
-
-  <!-- =========================
-       HEADER
-  ========================= -->
+  <!-- HEADER -->
 
   <header class="header">
 
@@ -647,24 +562,16 @@
 
       <div class="brand">
 
-        <div class="brand-icon">
-          👥
-        </div>
+        <div class="brand-icon">👥</div>
 
         <div>
-
-          <div class="brand-title">
-            Team Pulse
-          </div>
-
+          <div class="brand-title">Team Pulse</div>
           <div class="brand-subtitle">
             Small updates. Big progress.
           </div>
-
         </div>
 
       </div>
-
 
       <nav class="nav">
 
@@ -680,6 +587,10 @@
           Year in Review
         </button>
 
+        <button class="nav-button">
+          📅 Academic Calendar
+        </button>
+
       </nav>
 
     </div>
@@ -687,16 +598,13 @@
   </header>
 
 
-
-  <!-- =========================
-       ACADEMIC CALENDAR
-  ========================= -->
+  <!-- ACADEMIC CALENDAR -->
 
   <section class="academic-section">
 
     <div class="academic-card">
 
-      <div class="academic-top">
+      <div class="academic-heading-row">
 
         <div>
 
@@ -704,91 +612,139 @@
             📅 UNE ACADEMIC CALENDAR
           </div>
 
-          <div
+          <h2
             class="academic-title"
             id="academicTitle">
-            Loading academic calendar...
-          </div>
+            Academic Calendar
+          </h2>
 
-          <div
-            class="academic-subtitle"
-            id="academicSubtitle">
-          </div>
-
-        </div>
-
-
-        <div class="countdown-box">
-
-          <div
-            class="countdown-number"
-            id="countdownNumber">
-            —
-          </div>
-
-          <div
-            class="countdown-label"
-            id="countdownLabel">
-            Loading...
+          <div class="academic-description">
+            Key dates and countdowns for the next Census Date
           </div>
 
         </div>
-
-      </div>
-
-
-      <div class="academic-progress">
 
         <div
-          class="academic-progress-bar"
-          id="academicProgress">
+          class="today-badge"
+          id="todayBadge">
+          Today
         </div>
 
       </div>
 
 
-      <div class="academic-bottom">
+      <!-- TWO COUNTDOWNS -->
 
-        <div class="milestone">
+      <div class="countdown-grid">
 
-          <div class="milestone-label">
-            Teaching Starts
+        <!-- TRIMESTER START -->
+
+        <div class="countdown-card start-countdown">
+
+          <div class="countdown-heading">
+            ▶ TRIMESTER STARTS IN
           </div>
 
-          <div
-            class="milestone-value"
-            id="teachingStart">
-            —
+          <div class="countdown-content">
+
+            <div
+              class="big-countdown"
+              id="startDays">
+              —
+            </div>
+
+            <div
+              class="week-countdown"
+              id="startWeeks">
+              —
+            </div>
+
           </div>
 
         </div>
 
 
-        <div class="milestone">
+        <!-- CENSUS -->
 
-          <div class="milestone-label">
-            Census Date
+        <div class="countdown-card census-countdown">
+
+          <div class="countdown-heading">
+            🎯 CENSUS DATE IN
           </div>
 
+          <div class="countdown-content">
+
+            <div
+              class="big-countdown"
+              id="censusDays">
+              —
+            </div>
+
+            <div
+              class="week-countdown"
+              id="censusWeeks">
+              —
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- TIMELINE -->
+
+      <div class="timeline">
+
+        <div class="timeline-line">
+
           <div
-            class="milestone-value"
-            id="censusDate">
-            —
+            class="timeline-progress"
+            id="timelineProgress">
           </div>
 
         </div>
 
 
-        <div class="milestone">
+        <div class="timeline-dates">
 
-          <div class="milestone-label">
-            Teaching Ends
+          <div class="timeline-item">
+
+            <div class="timeline-name">
+              Teaching Starts
+            </div>
+
+            <div id="teachingStart">
+              —
+            </div>
+
           </div>
 
-          <div
-            class="milestone-value"
-            id="teachingEnd">
-            —
+
+          <div class="timeline-item">
+
+            <div class="timeline-name">
+              Census Date
+            </div>
+
+            <div id="censusDate">
+              —
+            </div>
+
+          </div>
+
+
+          <div class="timeline-item">
+
+            <div class="timeline-name">
+              Teaching Ends
+            </div>
+
+            <div id="teachingEnd">
+              —
+            </div>
+
           </div>
 
         </div>
@@ -800,10 +756,7 @@
   </section>
 
 
-
-  <!-- =========================
-       CURRENT WEEK
-  ========================= -->
+  <!-- THIS WEEK -->
 
   <section class="hero">
 
@@ -816,14 +769,11 @@
       <h1
         class="week-title"
         id="currentWeek">
-
-        Loading this week...
-
+        This Week
       </h1>
 
       <div class="week-message">
-        Share what matters this week,
-        then celebrate the wins.
+        Share what matters this week, then celebrate the wins.
       </div>
 
     </div>
@@ -831,18 +781,14 @@
   </section>
 
 
-
-  <!-- =========================
-       MAIN CONTENT
-  ========================= -->
+  <!-- MAIN -->
 
   <main class="container">
-
 
     <div class="main-grid">
 
 
-      <!-- MONDAY FOCUS -->
+      <!-- MONDAY -->
 
       <section class="card">
 
@@ -857,24 +803,17 @@
           </div>
 
           <div class="card-question">
-            What are your main priorities
-            this week?
+            What are your main priorities this week?
           </div>
 
-          <button
-            class="add-button focus-button">
-
+          <button class="add-button focus-button">
             + Add My Focus
-
           </button>
 
         </div>
 
 
         <div class="people">
-
-
-          <!-- NIKKI -->
 
           <div class="person">
 
@@ -883,21 +822,14 @@
             </div>
 
             <div>
-
-              <div class="person-name">
-                Nikki
-              </div>
-
+              <div class="person-name">Nikki</div>
               <div class="empty">
                 No focus shared yet.
               </div>
-
             </div>
 
           </div>
 
-
-          <!-- PENNY -->
 
           <div class="person">
 
@@ -906,21 +838,14 @@
             </div>
 
             <div>
-
-              <div class="person-name">
-                Penny
-              </div>
-
+              <div class="person-name">Penny</div>
               <div class="empty">
                 No focus shared yet.
               </div>
-
             </div>
 
           </div>
 
-
-          <!-- MEGAN -->
 
           <div class="person">
 
@@ -929,27 +854,20 @@
             </div>
 
             <div>
-
-              <div class="person-name">
-                Megan
-              </div>
-
+              <div class="person-name">Megan</div>
               <div class="empty">
                 No focus shared yet.
               </div>
-
             </div>
 
           </div>
-
 
         </div>
 
       </section>
 
 
-
-      <!-- FRIDAY WINS -->
+      <!-- FRIDAY -->
 
       <section class="card">
 
@@ -964,24 +882,17 @@
           </div>
 
           <div class="card-question">
-            What did you achieve,
-            big or small?
+            What did you achieve, big or small?
           </div>
 
-          <button
-            class="add-button win-button">
-
+          <button class="add-button win-button">
             + Add My Win
-
           </button>
 
         </div>
 
 
         <div class="people">
-
-
-          <!-- NIKKI -->
 
           <div class="person">
 
@@ -990,21 +901,14 @@
             </div>
 
             <div>
-
-              <div class="person-name">
-                Nikki
-              </div>
-
+              <div class="person-name">Nikki</div>
               <div class="empty">
                 No wins shared yet.
               </div>
-
             </div>
 
           </div>
 
-
-          <!-- PENNY -->
 
           <div class="person">
 
@@ -1013,21 +917,14 @@
             </div>
 
             <div>
-
-              <div class="person-name">
-                Penny
-              </div>
-
+              <div class="person-name">Penny</div>
               <div class="empty">
                 No wins shared yet.
               </div>
-
             </div>
 
           </div>
 
-
-          <!-- MEGAN -->
 
           <div class="person">
 
@@ -1036,37 +933,24 @@
             </div>
 
             <div>
-
-              <div class="person-name">
-                Megan
-              </div>
-
+              <div class="person-name">Megan</div>
               <div class="empty">
                 No wins shared yet.
               </div>
-
             </div>
 
           </div>
-
 
         </div>
 
       </section>
 
-
     </div>
 
 
-
-    <!-- =========================
-         BOTTOM ROW
-    ========================= -->
+    <!-- BOTTOM -->
 
     <div class="bottom-grid">
-
-
-      <!-- PREVIOUS WEEKS -->
 
       <section class="small-card">
 
@@ -1087,97 +971,63 @@
       </section>
 
 
-
-      <!-- YEAR REVIEW -->
-
       <section class="small-card">
 
         <div class="small-title">
-          ✨ 2026 Year in Review
+          ✨ <span id="reviewYear">2026</span> Year in Review
         </div>
-
 
         <div class="summary-stats">
 
-
           <div class="stat">
-
             <div
               class="stat-number"
               id="weeksNumber">
-
               —
-
             </div>
-
             <div class="stat-label">
               Weeks
             </div>
-
           </div>
 
-
           <div class="stat">
-
-            <div class="stat-number">
-              —
-            </div>
-
+            <div class="stat-number">—</div>
             <div class="stat-label">
               Focus Items
             </div>
-
           </div>
 
-
           <div class="stat">
-
-            <div class="stat-number">
-              —
-            </div>
-
+            <div class="stat-number">—</div>
             <div class="stat-label">
               Wins Shared
             </div>
-
           </div>
-
 
         </div>
 
-
         <button class="year-button">
-
-          ✨ Generate 2026 Summary
-
+          ✨ Generate Year Summary
         </button>
-
 
       </section>
 
-
     </div>
-
 
   </main>
 
 
-
-  <!-- =========================
-       JAVASCRIPT
-  ========================= -->
-
   <script>
 
     /*
-      UNE Academic Calendar
+      ==============================================
+      UNE PRINCIPAL DATES
+      ==============================================
 
-      These dates are stored here so the
-      dashboard can automatically change
-      based on today's date.
+      2026 and 2027 trimester dates.
 
-      Later we can move this information
-      into the database if desired.
+      The dashboard automatically selects the
+      trimester containing the next Census Date.
     */
 
     const academicPeriods = [
@@ -1227,17 +1077,13 @@
     ];
 
 
-
     /*
-      Convert YYYY-MM-DD into a local
-      JavaScript date without timezone
-      shifting the calendar day.
+      Parse YYYY-MM-DD as a local date.
     */
 
     function parseDate(dateString) {
 
-      const parts =
-        dateString.split("-");
+      const parts = dateString.split("-");
 
       return new Date(
         Number(parts[0]),
@@ -1248,10 +1094,8 @@
     }
 
 
-
     /*
-      Remove time from a date so that
-      calculations are based on days.
+      Remove time from a date.
     */
 
     function startOfDay(date) {
@@ -1265,10 +1109,8 @@
     }
 
 
-
     /*
-      Difference between two dates
-      in calendar days.
+      Calendar-day difference.
     */
 
     function daysBetween(from, to) {
@@ -1276,7 +1118,7 @@
       const oneDay =
         1000 * 60 * 60 * 24;
 
-      return Math.ceil(
+      return Math.round(
         (
           startOfDay(to) -
           startOfDay(from)
@@ -1286,9 +1128,8 @@
     }
 
 
-
     /*
-      Friendly date format.
+      Full date.
     */
 
     function formatDate(date) {
@@ -1305,9 +1146,8 @@
     }
 
 
-
     /*
-      Short date for the weekly heading.
+      Week heading date.
     */
 
     function formatWeekDate(date) {
@@ -1323,10 +1163,61 @@
     }
 
 
+    /*
+      Convert days into weeks + days.
+
+      33 -> 4 weeks 5 days
+    */
+
+    function formatWeeksAndDays(totalDays) {
+
+      if (totalDays <= 0) {
+        return "Today";
+      }
+
+      const weeks =
+        Math.floor(totalDays / 7);
+
+      const days =
+        totalDays % 7;
+
+      let text = "";
+
+
+      if (weeks > 0) {
+
+        text +=
+          weeks +
+          (weeks === 1
+            ? " week"
+            : " weeks");
+
+      }
+
+
+      if (days > 0) {
+
+        if (text !== "") {
+          text += " ";
+        }
+
+        text +=
+          days +
+          (days === 1
+            ? " day"
+            : " days");
+
+      }
+
+
+      return text;
+
+    }
+
 
     /*
-      Automatically calculate Monday
-      and Friday for the current week.
+      Automatically calculate the
+      current Monday-Friday week.
     */
 
     function updateCurrentWeek() {
@@ -1360,15 +1251,29 @@
       );
 
 
-      const sameYear =
-        monday.getFullYear() ===
-        friday.getFullYear();
-
-
       let text;
 
 
-      if (sameYear) {
+      if (
+        monday.getMonth() === friday.getMonth() &&
+        monday.getFullYear() === friday.getFullYear()
+      ) {
+
+        text =
+          "Week of " +
+          monday.getDate() +
+          " – " +
+          friday.getDate() +
+          " " +
+          friday.toLocaleDateString(
+            "en-AU",
+            {
+              month: "long",
+              year: "numeric"
+            }
+          );
+
+      } else {
 
         text =
           "Week of " +
@@ -1377,14 +1282,6 @@
           formatWeekDate(friday) +
           " " +
           friday.getFullYear();
-
-      } else {
-
-        text =
-          "Week of " +
-          formatDate(monday) +
-          " – " +
-          formatDate(friday);
 
       }
 
@@ -1396,19 +1293,16 @@
     }
 
 
-
     /*
-      Find the academic period that is
-      most relevant today.
+      Find the trimester whose Census
+      Date is today or still ahead.
 
-      During teaching:
-      show the current trimester.
-
-      Between trimesters:
-      show the next trimester.
+      Once one Census Date passes,
+      Team Pulse moves automatically
+      to the next trimester.
     */
 
-    function getRelevantPeriod(today) {
+    function getNextCensusPeriod(today) {
 
       for (
         let i = 0;
@@ -1419,48 +1313,12 @@
         const period =
           academicPeriods[i];
 
-        const start =
-          parseDate(period.start);
-
-        const end =
-          parseDate(period.end);
+        const census =
+          parseDate(period.census);
 
 
-        if (
-          today >= start &&
-          today <= end
-        ) {
-
-          return {
-            period: period,
-            status: "current"
-          };
-
-        }
-
-      }
-
-
-      for (
-        let i = 0;
-        i < academicPeriods.length;
-        i++
-      ) {
-
-        const period =
-          academicPeriods[i];
-
-        const start =
-          parseDate(period.start);
-
-
-        if (today < start) {
-
-          return {
-            period: period,
-            status: "upcoming"
-          };
-
+        if (today <= census) {
+          return period;
         }
 
       }
@@ -1471,35 +1329,28 @@
     }
 
 
-
     /*
-      Calculate Teaching Week.
-
-      Week 1 starts on the trimester
-      teaching start date.
+      Teaching Week after the
+      trimester has started.
     */
 
     function getTeachingWeek(
       today,
-      teachingStart
+      start
     ) {
 
-      const days =
-        daysBetween(
-          teachingStart,
-          today
-        );
+      const elapsed =
+        daysBetween(start, today);
 
       return (
-        Math.floor(days / 7) + 1
+        Math.floor(elapsed / 7) + 1
       );
 
     }
 
 
-
     /*
-      Update the Academic Calendar card.
+      Academic Calendar dashboard.
     */
 
     function updateAcademicCalendar() {
@@ -1507,33 +1358,50 @@
       const today =
         startOfDay(new Date());
 
-      const relevant =
-        getRelevantPeriod(today);
+
+      /*
+        Today badge
+      */
+
+      document
+        .getElementById("todayBadge")
+        .textContent =
+          "Today · " +
+          formatDate(today);
 
 
-      if (!relevant) {
+      const period =
+        getNextCensusPeriod(today);
+
+
+      if (!period) {
 
         document
-          .getElementById(
-            "academicTitle"
-          )
+          .getElementById("academicTitle")
           .textContent =
-            "Academic calendar";
+            "Academic Calendar";
 
         document
-          .getElementById(
-            "academicSubtitle"
-          )
+          .getElementById("startDays")
+          .textContent = "—";
+
+        document
+          .getElementById("startWeeks")
           .textContent =
-            "No future trimester dates are currently loaded.";
+            "Calendar update required";
+
+        document
+          .getElementById("censusDays")
+          .textContent = "—";
+
+        document
+          .getElementById("censusWeeks")
+          .textContent =
+            "Calendar update required";
 
         return;
 
       }
-
-
-      const period =
-        relevant.period;
 
 
       const start =
@@ -1546,293 +1414,228 @@
         parseDate(period.end);
 
 
+      document
+        .getElementById("academicTitle")
+        .textContent =
+          period.name;
+
+
       /*
-        Display milestone dates.
+        Key dates
       */
 
       document
-        .getElementById(
-          "teachingStart"
-        )
+        .getElementById("teachingStart")
         .textContent =
           formatDate(start);
 
 
       document
-        .getElementById(
-          "censusDate"
-        )
+        .getElementById("censusDate")
         .textContent =
           formatDate(census);
 
 
       document
-        .getElementById(
-          "teachingEnd"
-        )
+        .getElementById("teachingEnd")
         .textContent =
           formatDate(end);
 
 
-
       /*
-        BEFORE TEACHING STARTS
+        --------------------------------
+        TRIMESTER START COUNTDOWN
+        --------------------------------
       */
 
-      if (today < start) {
+      const daysToStart =
+        daysBetween(today, start);
 
-        const daysToStart =
-          daysBetween(today, start);
+
+      if (daysToStart > 0) {
+
+        document
+          .getElementById("startDays")
+          .innerHTML =
+            daysToStart +
+            " <span>DAYS</span>";
 
 
         document
-          .getElementById(
-            "academicTitle"
-          )
-          .textContent =
-            period.name +
-            " · Upcoming";
+          .getElementById("startWeeks")
+          .innerHTML =
+            formatWeeksAndDays(
+              daysToStart
+            ) +
+            '<div class="countdown-date">' +
+            "until " +
+            formatDate(start) +
+            "</div>";
+
+      }
+
+      else if (daysToStart === 0) {
+
+        document
+          .getElementById("startDays")
+          .innerHTML =
+            'TODAY';
 
 
         document
-          .getElementById(
-            "academicSubtitle"
-          )
-          .textContent =
-            "Next milestone: Teaching starts " +
-            formatDate(start);
+          .getElementById("startWeeks")
+          .innerHTML =
+            "Trimester starts today" +
+            '<div class="countdown-date">' +
+            formatDate(start) +
+            "</div>";
+
+      }
+
+      else {
+
+        const teachingWeek =
+          getTeachingWeek(
+            today,
+            start
+          );
 
 
         document
-          .getElementById(
-            "countdownNumber"
-          )
-          .textContent =
-            daysToStart;
+          .getElementById("startDays")
+          .innerHTML =
+            "STARTED";
 
 
         document
-          .getElementById(
-            "countdownLabel"
-          )
-          .textContent =
-            daysToStart === 1
-              ? "day to Teaching Start"
-              : "days to Teaching Start";
-
-
-        document
-          .getElementById(
-            "academicProgress"
-          )
-          .style.width =
-            "0%";
-
-
-        return;
+          .getElementById("startWeeks")
+          .innerHTML =
+            "Teaching Week " +
+            teachingWeek +
+            '<div class="countdown-date">' +
+            "Started " +
+            formatDate(start) +
+            "</div>";
 
       }
 
 
-
       /*
-        DURING TRIMESTER
+        --------------------------------
+        CENSUS COUNTDOWN
+        --------------------------------
       */
 
-      const teachingWeek =
-        getTeachingWeek(
+      const daysToCensus =
+        daysBetween(
           today,
-          start
+          census
         );
 
 
-      document
-        .getElementById(
-          "academicTitle"
-        )
-        .textContent =
-          period.name +
-          " · Teaching Week " +
-          teachingWeek;
+      if (daysToCensus > 0) {
 
-
-
-      /*
-        BEFORE / ON CENSUS
-      */
-
-      if (today <= census) {
-
-        const daysToCensus =
-          daysBetween(
-            today,
-            census
-          );
+        document
+          .getElementById("censusDays")
+          .innerHTML =
+            daysToCensus +
+            " <span>DAYS</span>";
 
 
         document
-          .getElementById(
-            "academicSubtitle"
-          )
-          .textContent =
-            "Next milestone: Census Date · " +
-            formatDate(census);
+          .getElementById("censusWeeks")
+          .innerHTML =
+            formatWeeksAndDays(
+              daysToCensus
+            ) +
+            '<div class="countdown-date">' +
+            "until " +
+            formatDate(census) +
+            "</div>";
+
+      }
+
+      else {
+
+        document
+          .getElementById("censusDays")
+          .innerHTML =
+            "TODAY";
 
 
-        if (daysToCensus === 0) {
+        document
+          .getElementById("censusWeeks")
+          .innerHTML =
+            "Census Date" +
+            '<div class="countdown-date">' +
+            formatDate(census) +
+            "</div>";
 
-          document
-            .getElementById(
-              "countdownNumber"
-            )
-            .textContent =
-              "TODAY";
-
-
-          document
-            .getElementById(
-              "countdownLabel"
-            )
-            .textContent =
-              "Census Date";
-
-        } else {
-
-          document
-            .getElementById(
-              "countdownNumber"
-            )
-            .textContent =
-              daysToCensus;
+      }
 
 
-          document
-            .getElementById(
-              "countdownLabel"
-            )
-            .textContent =
-              daysToCensus === 1
-                ? "day to Census"
-                : "days to Census";
+      /*
+        --------------------------------
+        TIMELINE PROGRESS
+        --------------------------------
 
-        }
+        Before teaching start = 0%
+        Census = roughly midpoint
+        Teaching end = 100%
+      */
+
+      let progress = 0;
 
 
-        /*
-          Progress from teaching start
-          to census.
-        */
+      if (today < start) {
 
-        const total =
+        progress = 0;
+
+      }
+
+      else if (today >= end) {
+
+        progress = 100;
+
+      }
+
+      else {
+
+        const totalDays =
           daysBetween(
             start,
-            census
+            end
           );
 
-
-        const elapsed =
+        const elapsedDays =
           daysBetween(
             start,
             today
           );
 
 
-        const progress =
-          Math.max(
-            0,
-            Math.min(
-              100,
-              (elapsed / total) * 100
-            )
-          );
-
-
-        document
-          .getElementById(
-            "academicProgress"
-          )
-          .style.width =
-            progress + "%";
-
-
-        return;
+        progress =
+          (
+            elapsedDays /
+            totalDays
+          ) * 100;
 
       }
 
 
-
-      /*
-        AFTER CENSUS
-      */
-
-      const daysToEnd =
-        daysBetween(
-          today,
-          end
-        );
-
-
-      document
-        .getElementById(
-          "academicSubtitle"
-        )
-        .textContent =
-          "✓ Census complete · Next milestone: Teaching ends " +
-          formatDate(end);
-
-
-      document
-        .getElementById(
-          "countdownNumber"
-        )
-        .textContent =
-          daysToEnd;
-
-
-      document
-        .getElementById(
-          "countdownLabel"
-        )
-        .textContent =
-          daysToEnd === 1
-            ? "day to Teaching End"
-            : "days to Teaching End";
-
-
-      /*
-        Progress across full trimester.
-      */
-
-      const totalTrimester =
-        daysBetween(
-          start,
-          end
-        );
-
-
-      const trimesterElapsed =
-        daysBetween(
-          start,
-          today
-        );
-
-
-      const progress =
+      progress =
         Math.max(
           0,
           Math.min(
             100,
-            (
-              trimesterElapsed /
-              totalTrimester
-            ) * 100
+            progress
           )
         );
 
 
       document
         .getElementById(
-          "academicProgress"
+          "timelineProgress"
         )
         .style.width =
           progress + "%";
@@ -1840,20 +1643,24 @@
     }
 
 
-
     /*
-      Number of calendar weeks elapsed
-      in the current year.
+      Temporary calendar week count.
 
-      This is temporary.
-      Later this number will come from
-      actual Team Pulse records in D1.
+      Later this will be replaced by
+      actual Team Pulse records from D1.
     */
 
-    function updateYearWeek() {
+    function updateYearSummary() {
 
       const today =
         startOfDay(new Date());
+
+
+      document
+        .getElementById("reviewYear")
+        .textContent =
+          today.getFullYear();
+
 
       const yearStart =
         new Date(
@@ -1863,7 +1670,7 @@
         );
 
 
-      const days =
+      const elapsed =
         daysBetween(
           yearStart,
           today
@@ -1871,33 +1678,28 @@
 
 
       const weekNumber =
-        Math.floor(days / 7) + 1;
+        Math.floor(
+          elapsed / 7
+        ) + 1;
 
 
       document
-        .getElementById(
-          "weeksNumber"
-        )
+        .getElementById("weeksNumber")
         .textContent =
           weekNumber;
 
     }
 
 
-
     /*
-      Start dashboard.
+      START TEAM PULSE
     */
 
     updateCurrentWeek();
-
     updateAcademicCalendar();
-
-    updateYearWeek();
-
+    updateYearSummary();
 
   </script>
-
 
 </body>
 </html>

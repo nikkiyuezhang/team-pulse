@@ -614,36 +614,75 @@ button { cursor: pointer; }
   scroll-margin-top: 90px;
 }
 
-.small-card {
+.year-card {
   background:white;
   border:1px solid #e1e7ee;
   border-radius:18px;
-  padding:22px;
+  padding:24px;
+  box-shadow:0 4px 18px rgba(30,55,80,.05);
 }
 
-.small-title {
-  font-weight:700;
-  font-size:18px;
-  margin-bottom:16px;
+.year-top {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:20px;
+}
+
+.year-title {
+  font-weight:750;
+  font-size:24px;
   color:#102f54;
+}
+
+.year-subtitle {
+  color:#718397;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.year-tabs {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.year-tab {
+  border:1px solid #dbe3ec;
+  background:#f8fafc;
+  color:#53697e;
+  border-radius:20px;
+  padding:9px 14px;
+  font-weight:700;
+}
+
+.year-tab:hover {
+  background:#f0f4f8;
+}
+
+.year-tab.active {
+  background:#7453d8;
+  border-color:#7453d8;
+  color:white;
 }
 
 .summary-stats {
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:10px;
+  gap:12px;
 }
 
 .stat {
   background:#f4f7fb;
-  border-radius:12px;
+  border-radius:14px;
   text-align:center;
-  padding:16px 8px;
+  padding:19px 10px;
 }
 
 .stat-number {
-  font-size:24px;
-  font-weight:700;
+  font-size:28px;
+  font-weight:800;
   color:#1769e0;
 }
 
@@ -651,6 +690,160 @@ button { cursor: pointer; }
   font-size:12px;
   color:#718397;
   margin-top:5px;
+  font-weight:700;
+}
+
+.year-divider {
+  height:1px;
+  background:#e8edf2;
+  margin:24px 0 20px;
+}
+
+.monthly-heading {
+  font-size:18px;
+  font-weight:750;
+  color:#102f54;
+}
+
+.monthly-description {
+  color:#718397;
+  font-size:13px;
+  margin-top:4px;
+  margin-bottom:15px;
+}
+
+.month-card {
+  border:1px solid #e2e8ef;
+  border-radius:14px;
+  margin-bottom:12px;
+  overflow:hidden;
+}
+
+.month-header {
+  width:100%;
+  border:0;
+  background:#fafbfd;
+  padding:15px 17px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  text-align:left;
+}
+
+.month-header:hover {
+  background:#f5f8fb;
+}
+
+.month-title {
+  font-weight:750;
+  color:#173a5e;
+  font-size:15px;
+}
+
+.month-summary {
+  color:#8292a2;
+  font-size:12px;
+  margin-top:3px;
+}
+
+.month-arrow {
+  color:#73879a;
+  transition:transform .2s;
+}
+
+.month-card.open .month-arrow {
+  transform:rotate(180deg);
+}
+
+.month-body {
+  display:none;
+  padding:5px 17px 17px;
+  border-top:1px solid #edf0f4;
+}
+
+.month-card.open .month-body {
+  display:block;
+}
+
+.month-person {
+  padding:15px 0;
+  border-bottom:1px solid #edf0f4;
+}
+
+.month-person:last-child {
+  border-bottom:0;
+}
+
+.month-person-heading {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:11px;
+}
+
+.month-person-heading .avatar {
+  width:32px;
+  height:32px;
+  font-size:12px;
+}
+
+.month-person-name {
+  font-weight:750;
+  color:#173a5e;
+}
+
+.month-columns {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.month-column-title {
+  font-size:11px;
+  font-weight:750;
+  letter-spacing:.3px;
+  margin-bottom:7px;
+}
+
+.month-focus-title { color:#2475e8; }
+.month-win-title { color:#149557; }
+
+.month-entry {
+  background:#f7f9fc;
+  padding:10px 11px;
+  border-radius:9px;
+  margin-bottom:6px;
+}
+
+.month-entry-week {
+  color:#8a99a8;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:4px;
+}
+
+.month-entry-text {
+  color:#4c6175;
+  font-size:13px;
+  line-height:1.45;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+.month-empty {
+  color:#9aa7b3;
+  font-size:13px;
+  font-style:italic;
+}
+
+.year-empty {
+  border:1px dashed #cad5df;
+  border-radius:13px;
+  padding:25px;
+  text-align:center;
+  color:#7b8c9c;
+  background:#fafbfd;
 }
 
 .year-button {
@@ -662,6 +855,11 @@ button { cursor: pointer; }
   border-radius:10px;
   padding:13px;
   font-weight:700;
+}
+
+.year-button:disabled {
+  opacity:.55;
+  cursor:not-allowed;
 }
 
 
@@ -847,6 +1045,22 @@ button { cursor: pointer; }
 
   .history-count {
     display:none;
+  }
+
+  .year-top {
+    display:block;
+  }
+
+  .year-tabs {
+    margin-top:15px;
+  }
+
+  .summary-stats {
+    grid-template-columns:1fr;
+  }
+
+  .month-columns {
+    grid-template-columns:1fr;
   }
 }
 </style>
@@ -1067,17 +1281,34 @@ button { cursor: pointer; }
 
 <section class="year-section" id="yearReview">
 
-  <div class="small-card">
+  <div class="year-card">
 
-    <div class="small-title">
-      ✨ <span id="reviewYear">2026</span> Year in Review
+    <div class="year-top">
+
+      <div>
+        <div class="section-eyebrow">ANNUAL RECORD</div>
+        <div class="year-title">
+          ✨ <span id="reviewYear">2026</span> Year in Review
+        </div>
+        <div class="year-subtitle" id="yearSubtitle">
+          Team activity across the year
+        </div>
+      </div>
+
+      <div class="year-tabs">
+        <button class="year-tab active" data-person="Team" onclick="setYearPerson('Team')">Team</button>
+        <button class="year-tab" data-person="Megan" onclick="setYearPerson('Megan')">Megan</button>
+        <button class="year-tab" data-person="Penny" onclick="setYearPerson('Penny')">Penny</button>
+        <button class="year-tab" data-person="Nikki" onclick="setYearPerson('Nikki')">Nikki</button>
+      </div>
+
     </div>
 
     <div class="summary-stats">
 
       <div class="stat">
-        <div class="stat-number" id="weeksNumber">—</div>
-        <div class="stat-label">Weeks</div>
+        <div class="stat-number" id="weeksNumber">0</div>
+        <div class="stat-label">Weeks Active</div>
       </div>
 
       <div class="stat">
@@ -1092,8 +1323,19 @@ button { cursor: pointer; }
 
     </div>
 
-    <button class="year-button">
-      ✨ Generate Year Summary
+    <div class="year-divider"></div>
+
+    <div class="monthly-heading">Monthly Highlights</div>
+    <div class="monthly-description" id="monthlyDescription">
+      Focus and wins recorded by the team, grouped by month.
+    </div>
+
+    <div id="monthlyHighlights">
+      <div class="year-empty">Loading year activity...</div>
+    </div>
+
+    <button class="year-button" disabled title="AI summary will be added in a later step">
+      ✨ Generate Year Summary — Coming Next
     </button>
 
   </div>
@@ -1134,9 +1376,9 @@ button { cursor: pointer; }
 
       <select class="form-select" id="updatePerson">
         <option value="">Select your name</option>
-        <option value="Nikki">Nikki</option>
-        <option value="Penny">Penny</option>
         <option value="Megan">Megan</option>
+        <option value="Penny">Penny</option>
+        <option value="Nikki">Nikki</option>
       </select>
 
     </div>
@@ -1179,9 +1421,9 @@ button { cursor: pointer; }
 /* TEAM */
 
 const teamMembers = [
-  {name:"Nikki", initial:"N", avatarClass:"nikki"},
+  {name:"Megan", initial:"M", avatarClass:"megan"},
   {name:"Penny", initial:"P", avatarClass:"penny"},
-  {name:"Megan", initial:"M", avatarClass:"megan"}
+  {name:"Nikki", initial:"N", avatarClass:"nikki"}
 ];
 
 
@@ -1552,7 +1794,7 @@ async function loadUpdates() {
 
     renderUpdates();
     renderPreviousWeeks();
-    updateCounts();
+    renderYearReview();
 
   } catch(error) {
 
@@ -2337,9 +2579,31 @@ async function deleteUpdate(id) {
 }
 
 
-/* YEAR COUNTS */
+/* YEAR IN REVIEW */
 
-function updateCounts() {
+let selectedYearPerson = "Team";
+
+
+function setYearPerson(person) {
+
+  selectedYearPerson = person;
+
+  document
+    .querySelectorAll(".year-tab")
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.person===person
+      );
+    });
+
+
+  renderYearReview();
+}
+
+
+function getYearRecords() {
 
   const year =
     String(
@@ -2347,38 +2611,22 @@ function updateCounts() {
     );
 
 
-  const records =
-    allUpdates.filter(
-      u =>
-        u.week_start &&
-        u.week_start.startsWith(year)
-    );
-
-
-  document
-    .getElementById("focusCount")
-    .textContent =
-      records.filter(
-        u=>u.type==="focus"
-      ).length;
-
-
-  document
-    .getElementById("winCount")
-    .textContent =
-      records.filter(
-        u=>u.type==="win"
-      ).length;
+  return allUpdates.filter(
+    update =>
+      update.week_start &&
+      update.week_start.startsWith(year) &&
+      (
+        selectedYearPerson==="Team" ||
+        update.person===selectedYearPerson
+      )
+  );
 }
 
 
-function updateYear() {
-
-  const today =
-    new Date();
+function renderYearReview() {
 
   const year =
-    today.getFullYear();
+    new Date().getFullYear();
 
 
   document
@@ -2387,20 +2635,311 @@ function updateYear() {
       year;
 
 
-  const start =
-    new Date(
-      year,
-      0,
-      1
-    );
+  const records =
+    getYearRecords();
+
+
+  const activeWeeks =
+    new Set(
+      records.map(
+        update => update.week_start
+      )
+    ).size;
+
+
+  const focusTotal =
+    records.filter(
+      update => update.type==="focus"
+    ).length;
+
+
+  const winTotal =
+    records.filter(
+      update => update.type==="win"
+    ).length;
 
 
   document
     .getElementById("weeksNumber")
     .textContent =
-      Math.floor(
-        daysBetween(start,today)/7
-      )+1;
+      activeWeeks;
+
+
+  document
+    .getElementById("focusCount")
+    .textContent =
+      focusTotal;
+
+
+  document
+    .getElementById("winCount")
+    .textContent =
+      winTotal;
+
+
+  document
+    .getElementById("yearSubtitle")
+    .textContent =
+      selectedYearPerson==="Team"
+        ? "Team activity across the year"
+        : `${selectedYearPerson}'s activity across the year`;
+
+
+  document
+    .getElementById("monthlyDescription")
+    .textContent =
+      selectedYearPerson==="Team"
+        ? "Focus and wins recorded by Megan, Penny and Nikki, grouped by month."
+        : `${selectedYearPerson}'s focus and wins, grouped by month.`;
+
+
+  renderMonthlyHighlights(records);
+}
+
+
+function renderMonthlyHighlights(records) {
+
+  const container =
+    document.getElementById(
+      "monthlyHighlights"
+    );
+
+
+  if (!records.length) {
+
+    container.innerHTML =
+      `<div class="year-empty">
+        No updates recorded for this view yet.
+      </div>`;
+
+    return;
+  }
+
+
+  const monthKeys =
+    [
+      ...new Set(
+        records.map(update =>
+          update.week_start.slice(0,7)
+        )
+      )
+    ]
+    .sort()
+    .reverse();
+
+
+  let html = "";
+
+
+  monthKeys.forEach(
+    (monthKey,index) => {
+
+      const monthRecords =
+        records.filter(
+          update =>
+            update.week_start.startsWith(monthKey)
+        );
+
+
+      const monthDate =
+        parseDate(
+          `${monthKey}-01`
+        );
+
+
+      const monthName =
+        monthDate.toLocaleDateString(
+          "en-AU",
+          {
+            month:"long",
+            year:"numeric"
+          }
+        );
+
+
+      const focusTotal =
+        monthRecords.filter(
+          update =>
+            update.type==="focus"
+        ).length;
+
+
+      const winTotal =
+        monthRecords.filter(
+          update =>
+            update.type==="win"
+        ).length;
+
+
+      let bodyHTML = "";
+
+
+      const membersToShow =
+        selectedYearPerson==="Team"
+          ? teamMembers
+          : teamMembers.filter(
+              member =>
+                member.name===selectedYearPerson
+            );
+
+
+      membersToShow.forEach(
+        member => {
+
+          const personRecords =
+            monthRecords.filter(
+              update =>
+                update.person===member.name
+            );
+
+
+          if (
+            selectedYearPerson==="Team" &&
+            !personRecords.length
+          ) {
+            return;
+          }
+
+
+          const focuses =
+            personRecords.filter(
+              update =>
+                update.type==="focus"
+            );
+
+
+          const wins =
+            personRecords.filter(
+              update =>
+                update.type==="win"
+            );
+
+
+          const focusHTML =
+            focuses.length
+              ? focuses.map(
+                  update =>
+                    `<div class="month-entry">
+                      <div class="month-entry-week">
+                        ${formatWeekTitle(update.week_start)}
+                      </div>
+                      <div class="month-entry-text">
+                        ${escapeHTML(update.text)}
+                      </div>
+                    </div>`
+                ).join("")
+              : `<div class="month-empty">
+                  No focus recorded
+                </div>`;
+
+
+          const winHTML =
+            wins.length
+              ? wins.map(
+                  update =>
+                    `<div class="month-entry">
+                      <div class="month-entry-week">
+                        ${formatWeekTitle(update.week_start)}
+                      </div>
+                      <div class="month-entry-text">
+                        ${escapeHTML(update.text)}
+                      </div>
+                    </div>`
+                ).join("")
+              : `<div class="month-empty">
+                  No win recorded
+                </div>`;
+
+
+          bodyHTML += `
+            <div class="month-person">
+
+              <div class="month-person-heading">
+                <div class="avatar ${member.avatarClass}">
+                  ${member.initial}
+                </div>
+                <div class="month-person-name">
+                  ${member.name}
+                </div>
+              </div>
+
+              <div class="month-columns">
+
+                <div>
+                  <div class="month-column-title month-focus-title">
+                    🎯 FOCUS
+                  </div>
+                  ${focusHTML}
+                </div>
+
+                <div>
+                  <div class="month-column-title month-win-title">
+                    🏆 WINS
+                  </div>
+                  ${winHTML}
+                </div>
+
+              </div>
+
+            </div>
+          `;
+        }
+      );
+
+
+      html += `
+        <div class="month-card ${index===0 ? "open" : ""}" id="yearMonth${index}">
+
+          <button class="month-header" onclick="toggleYearMonth(${index})">
+
+            <div>
+              <div class="month-title">
+                ${monthName}
+              </div>
+
+              <div class="month-summary">
+                ${focusTotal} focus ${focusTotal===1 ? "item" : "items"}
+                ·
+                ${winTotal} ${winTotal===1 ? "win" : "wins"}
+              </div>
+            </div>
+
+            <div class="month-arrow">▼</div>
+
+          </button>
+
+          <div class="month-body">
+            ${bodyHTML}
+          </div>
+
+        </div>
+      `;
+    }
+  );
+
+
+  container.innerHTML =
+    html;
+}
+
+
+function toggleYearMonth(index) {
+
+  document
+    .getElementById(
+      `yearMonth${index}`
+    )
+    .classList
+    .toggle("open");
+}
+
+
+function updateYear() {
+
+  document
+    .getElementById("reviewYear")
+    .textContent =
+      new Date().getFullYear();
 }
 
 

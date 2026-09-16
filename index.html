@@ -3,14 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Team Pulse</title>
 
 <style>
-
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -19,24 +15,11 @@ body {
   color: #17324d;
 }
 
-button,
-input,
-textarea,
-select {
-  font-family: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-
-/* =========================
-   HEADER
-========================= */
+button, textarea, select { font-family: inherit; }
+button { cursor: pointer; }
 
 .header {
-  background: #ffffff;
+  background: #fff;
   border-bottom: 1px solid #e4e9ef;
   padding: 16px 24px;
 }
@@ -56,9 +39,7 @@ button {
   gap: 12px;
 }
 
-.brand-icon {
-  font-size: 31px;
-}
+.brand-icon { font-size: 31px; }
 
 .brand-title {
   font-size: 24px;
@@ -92,9 +73,7 @@ button {
 }
 
 
-/* =========================
-   ACADEMIC CALENDAR
-========================= */
+/* ACADEMIC CALENDAR */
 
 .academic-section {
   padding: 22px 24px 0;
@@ -139,7 +118,6 @@ button {
 
 .today-badge {
   background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.12);
   padding: 8px 12px;
   border-radius: 20px;
   font-size: 12px;
@@ -161,19 +139,18 @@ button {
 }
 
 .start-countdown {
-  background: linear-gradient(135deg, #e6f1ff, #cfe5ff);
+  background: linear-gradient(135deg,#e6f1ff,#cfe5ff);
   color: #123663;
 }
 
 .census-countdown {
-  background: linear-gradient(135deg, #e5f9ef, #cef2df);
+  background: linear-gradient(135deg,#e5f9ef,#cef2df);
   color: #126648;
 }
 
 .countdown-heading {
   font-size: 12px;
   font-weight: 750;
-  letter-spacing: .4px;
   margin-bottom: 8px;
 }
 
@@ -223,14 +200,14 @@ button {
 
 .timeline-progress {
   height: 100%;
-  width: 0%;
+  width: 0;
   background: linear-gradient(90deg,#7cc7ff,#7de0c1);
   border-radius: 20px;
 }
 
 .timeline-dates {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3,1fr);
   margin-top: 10px;
 }
 
@@ -239,13 +216,8 @@ button {
   color: #d8e8f7;
 }
 
-.timeline-item:nth-child(2) {
-  text-align: center;
-}
-
-.timeline-item:nth-child(3) {
-  text-align: right;
-}
+.timeline-item:nth-child(2) { text-align:center; }
+.timeline-item:nth-child(3) { text-align:right; }
 
 .timeline-name {
   font-weight: 700;
@@ -254,9 +226,7 @@ button {
 }
 
 
-/* =========================
-   CURRENT WEEK
-========================= */
+/* WEEK */
 
 .hero {
   background: linear-gradient(135deg,#eaf4ff,#f7fbff);
@@ -290,9 +260,7 @@ button {
 }
 
 
-/* =========================
-   MAIN CARDS
-========================= */
+/* MAIN */
 
 .container {
   max-width: 1120px;
@@ -314,22 +282,13 @@ button {
   box-shadow: 0 4px 18px rgba(30,55,80,.05);
 }
 
-.card-header {
-  padding: 22px;
-}
-
-.focus-header {
-  background: #edf5ff;
-}
-
-.win-header {
-  background: #edf9f1;
-}
+.card-header { padding:22px; }
+.focus-header { background:#edf5ff; }
+.win-header { background:#edf9f1; }
 
 .day-label {
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: .5px;
   margin-bottom: 6px;
 }
 
@@ -341,951 +300,737 @@ button {
 }
 
 .card-question {
-  color: #63768a;
-  font-size: 14px;
+  color:#63768a;
+  font-size:14px;
 }
 
 .add-button {
-  margin-top: 16px;
-  border: none;
-  border-radius: 10px;
-  padding: 11px 17px;
-  font-weight: 700;
+  margin-top:16px;
+  border:none;
+  border-radius:10px;
+  padding:11px 17px;
+  font-weight:700;
 }
 
 .focus-button {
-  background: #2475e8;
-  color: white;
+  background:#2475e8;
+  color:white;
 }
 
 .win-button {
-  background: #149557;
-  color: white;
+  background:#149557;
+  color:white;
 }
 
 
-/* =========================
-   PEOPLE
-========================= */
+/* PEOPLE */
 
-.people {
-  padding: 0 22px;
-}
+.people { padding:0 22px; }
 
 .person {
-  display: flex;
-  gap: 14px;
-  padding: 20px 0;
-  border-bottom: 1px solid #edf0f4;
+  display:flex;
+  gap:14px;
+  padding:20px 0;
+  border-bottom:1px solid #edf0f4;
 }
 
-.person:last-child {
-  border-bottom: none;
-}
+.person:last-child { border-bottom:none; }
 
 .avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-weight: 750;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  font-weight:750;
 }
 
 .avatar.nikki {
-  background: #ffe5f0;
-  color: #cc3976;
+  background:#ffe5f0;
+  color:#cc3976;
 }
 
 .avatar.penny {
-  background: #e5efff;
-  color: #1769e0;
+  background:#e5efff;
+  color:#1769e0;
 }
 
 .avatar.megan {
-  background: #eee8ff;
-  color: #7254c7;
+  background:#eee8ff;
+  color:#7254c7;
 }
 
-.person-content {
-  flex: 1;
-}
+.person-content { flex:1; }
 
 .person-name {
-  font-weight: 700;
-  margin-bottom: 7px;
+  font-weight:700;
+  margin-bottom:7px;
 }
 
 .empty {
-  color: #8a99a8;
-  font-style: italic;
+  color:#8a99a8;
+  font-style:italic;
 }
 
 .update-item {
-  background: #f7f9fc;
-  border-radius: 10px;
-  padding: 10px 12px;
-  margin-top: 7px;
-  line-height: 1.45;
-  font-size: 14px;
-  color: #42576c;
+  background:#f7f9fc;
+  border-radius:11px;
+  padding:11px 12px;
+  margin-top:8px;
 }
 
+.update-text {
+  line-height:1.45;
+  font-size:14px;
+  color:#42576c;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
 
-/* =========================
-   BOTTOM
-========================= */
+.update-actions {
+  display:flex;
+  gap:8px;
+  margin-top:9px;
+}
+
+.edit-button,
+.delete-button {
+  border:none;
+  background:transparent;
+  padding:4px 0;
+  font-size:12px;
+  font-weight:700;
+}
+
+.edit-button { color:#2475e8; }
+.delete-button { color:#c44343; }
+
+
+/* BOTTOM */
 
 .bottom-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 22px;
-  margin-top: 22px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+  margin-top:22px;
 }
 
 .small-card {
-  background: white;
-  border: 1px solid #e1e7ee;
-  border-radius: 18px;
-  padding: 22px;
+  background:white;
+  border:1px solid #e1e7ee;
+  border-radius:18px;
+  padding:22px;
 }
 
 .small-title {
-  font-weight: 700;
-  font-size: 18px;
-  margin-bottom: 16px;
-  color: #102f54;
+  font-weight:700;
+  font-size:18px;
+  margin-bottom:16px;
+  color:#102f54;
 }
 
 .week-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid #edf0f4;
-  color: #52667a;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid #edf0f4;
+  color:#52667a;
 }
 
 .summary-stats {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 10px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
 }
 
 .stat {
-  background: #f4f7fb;
-  border-radius: 12px;
-  text-align: center;
-  padding: 16px 8px;
+  background:#f4f7fb;
+  border-radius:12px;
+  text-align:center;
+  padding:16px 8px;
 }
 
 .stat-number {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1769e0;
+  font-size:24px;
+  font-weight:700;
+  color:#1769e0;
 }
 
 .stat-label {
-  font-size: 12px;
-  color: #718397;
-  margin-top: 5px;
+  font-size:12px;
+  color:#718397;
+  margin-top:5px;
 }
 
 .year-button {
-  width: 100%;
-  margin-top: 18px;
-  border: none;
-  background: #7453d8;
-  color: white;
-  border-radius: 10px;
-  padding: 13px;
-  font-weight: 700;
+  width:100%;
+  margin-top:18px;
+  border:none;
+  background:#7453d8;
+  color:white;
+  border-radius:10px;
+  padding:13px;
+  font-weight:700;
 }
 
 
-/* =========================
-   MODAL
-========================= */
+/* MODAL */
 
 .modal-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(15,35,55,.52);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(15,35,55,.52);
+  z-index:1000;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
 
-.modal-backdrop.show {
-  display: flex;
-}
+.modal-backdrop.show { display:flex; }
 
 .modal {
-  background: white;
-  width: 100%;
-  max-width: 520px;
-  border-radius: 18px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.22);
-  overflow: hidden;
+  background:white;
+  width:100%;
+  max-width:520px;
+  border-radius:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.22);
+  overflow:hidden;
 }
 
 .modal-header {
-  padding: 22px 24px 16px;
-  border-bottom: 1px solid #edf0f4;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding:22px 24px 16px;
+  border-bottom:1px solid #edf0f4;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .modal-title {
-  font-size: 21px;
-  font-weight: 750;
-  color: #102f54;
+  font-size:21px;
+  font-weight:750;
+  color:#102f54;
 }
 
 .close-button {
-  border: none;
-  background: #f2f5f8;
-  border-radius: 50%;
-  width: 34px;
-  height: 34px;
-  font-size: 18px;
+  border:none;
+  background:#f2f5f8;
+  border-radius:50%;
+  width:34px;
+  height:34px;
+  font-size:18px;
 }
 
-.modal-body {
-  padding: 22px 24px;
-}
+.modal-body { padding:22px 24px; }
 
-.form-group {
-  margin-bottom: 18px;
-}
+.form-group { margin-bottom:18px; }
 
 .form-label {
-  display: block;
-  font-size: 13px;
-  font-weight: 700;
-  color: #40566b;
-  margin-bottom: 7px;
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  color:#40566b;
+  margin-bottom:7px;
 }
 
 .form-select,
 .form-textarea {
-  width: 100%;
-  border: 1px solid #ccd6e0;
-  border-radius: 10px;
-  padding: 12px;
-  font-size: 15px;
-  color: #263f57;
-  background: white;
+  width:100%;
+  border:1px solid #ccd6e0;
+  border-radius:10px;
+  padding:12px;
+  font-size:15px;
+  color:#263f57;
+  background:white;
 }
 
 .form-textarea {
-  resize: vertical;
-  min-height: 120px;
-  line-height: 1.45;
+  resize:vertical;
+  min-height:120px;
+  line-height:1.45;
 }
 
 .modal-footer {
-  padding: 0 24px 22px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+  padding:0 24px 22px;
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
 }
 
 .cancel-button {
-  border: 1px solid #d5dde6;
-  background: white;
-  color: #52667a;
-  padding: 11px 18px;
-  border-radius: 10px;
-  font-weight: 700;
+  border:1px solid #d5dde6;
+  background:white;
+  color:#52667a;
+  padding:11px 18px;
+  border-radius:10px;
+  font-weight:700;
 }
 
 .save-button {
-  border: none;
-  background: #2475e8;
-  color: white;
-  padding: 11px 18px;
-  border-radius: 10px;
-  font-weight: 700;
+  border:none;
+  background:#2475e8;
+  color:white;
+  padding:11px 18px;
+  border-radius:10px;
+  font-weight:700;
+}
+
+.save-button.win-mode {
+  background:#149557;
 }
 
 .save-button:disabled {
-  opacity: .6;
-  cursor: wait;
+  opacity:.6;
+  cursor:wait;
 }
 
 .form-message {
-  display: none;
-  margin-bottom: 15px;
-  border-radius: 9px;
-  padding: 10px 12px;
-  font-size: 13px;
+  display:none;
+  margin-bottom:15px;
+  border-radius:9px;
+  padding:10px 12px;
+  font-size:13px;
 }
 
 .form-message.error {
-  display: block;
-  background: #fff0f0;
-  color: #b12d2d;
+  display:block;
+  background:#fff0f0;
+  color:#b12d2d;
 }
 
 .form-message.success {
-  display: block;
-  background: #edf9f1;
-  color: #137044;
+  display:block;
+  background:#edf9f1;
+  color:#137044;
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
-@media (max-width:760px) {
-
-  .nav {
-    display: none;
-  }
+@media(max-width:760px) {
+  .nav { display:none; }
 
   .academic-section {
-    padding: 14px 14px 0;
+    padding:14px 14px 0;
   }
 
-  .academic-card {
-    padding: 20px;
-  }
+  .academic-card { padding:20px; }
 
-  .academic-heading-row {
-    display: block;
-  }
+  .academic-heading-row { display:block; }
 
   .today-badge {
-    display: inline-block;
-    margin-top: 14px;
+    display:inline-block;
+    margin-top:14px;
   }
 
-  .countdown-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .countdown-content {
-    display: block;
-  }
-
-  .week-countdown {
-    text-align: left;
-    margin-top: 12px;
-  }
-
+  .countdown-grid,
   .main-grid,
   .bottom-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns:1fr;
+  }
+
+  .countdown-content { display:block; }
+
+  .week-countdown {
+    text-align:left;
+    margin-top:12px;
   }
 
   .container {
-    padding: 0 14px 30px;
+    padding:0 14px 30px;
   }
 
   .header,
   .hero {
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left:14px;
+    padding-right:14px;
   }
-
 }
-
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =========================
-     HEADER
-========================= -->
-
 <header class="header">
-
   <div class="header-inner">
 
     <div class="brand">
-
       <div class="brand-icon">👥</div>
-
       <div>
         <div class="brand-title">Team Pulse</div>
-        <div class="brand-subtitle">
-          Small updates. Big progress.
-        </div>
+        <div class="brand-subtitle">Small updates. Big progress.</div>
       </div>
-
     </div>
 
-
     <nav class="nav">
-
-      <button class="nav-button active">
-        This Week
-      </button>
-
-      <button class="nav-button">
-        Previous Weeks
-      </button>
-
-      <button class="nav-button">
-        Year in Review
-      </button>
-
-      <button class="nav-button">
-        📅 Academic Calendar
-      </button>
-
+      <button class="nav-button active">This Week</button>
+      <button class="nav-button">Previous Weeks</button>
+      <button class="nav-button">Year in Review</button>
+      <button class="nav-button">📅 Academic Calendar</button>
     </nav>
 
   </div>
-
 </header>
 
 
-
-<!-- =========================
-     ACADEMIC CALENDAR
-========================= -->
-
 <section class="academic-section">
+<div class="academic-card">
 
-  <div class="academic-card">
+  <div class="academic-heading-row">
 
-    <div class="academic-heading-row">
-
-      <div>
-
-        <div class="academic-label">
-          📅 UNE ACADEMIC CALENDAR
-        </div>
-
-        <h2
-          class="academic-title"
-          id="academicTitle">
-          Academic Calendar
-        </h2>
-
-        <div class="academic-description">
-          Key dates and countdowns for the next Census Date
-        </div>
-
+    <div>
+      <div class="academic-label">📅 UNE ACADEMIC CALENDAR</div>
+      <h2 class="academic-title" id="academicTitle">Academic Calendar</h2>
+      <div class="academic-description">
+        Key dates and countdowns for the next Census Date
       </div>
-
-
-      <div
-        class="today-badge"
-        id="todayBadge">
-        Today
-      </div>
-
     </div>
 
-
-
-    <div class="countdown-grid">
-
-
-      <div class="countdown-card start-countdown">
-
-        <div class="countdown-heading">
-          ▶ TRIMESTER STARTS IN
-        </div>
-
-        <div class="countdown-content">
-
-          <div
-            class="big-countdown"
-            id="startDays">
-            —
-          </div>
-
-          <div
-            class="week-countdown"
-            id="startWeeks">
-            —
-          </div>
-
-        </div>
-
-      </div>
-
-
-
-      <div class="countdown-card census-countdown">
-
-        <div class="countdown-heading">
-          🎯 CENSUS DATE IN
-        </div>
-
-        <div class="countdown-content">
-
-          <div
-            class="big-countdown"
-            id="censusDays">
-            —
-          </div>
-
-          <div
-            class="week-countdown"
-            id="censusWeeks">
-            —
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-
-    <div class="timeline">
-
-      <div class="timeline-line">
-
-        <div
-          class="timeline-progress"
-          id="timelineProgress">
-        </div>
-
-      </div>
-
-
-      <div class="timeline-dates">
-
-        <div class="timeline-item">
-          <div class="timeline-name">
-            Teaching Starts
-          </div>
-          <div id="teachingStart">—</div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-name">
-            Census Date
-          </div>
-          <div id="censusDate">—</div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-name">
-            Teaching Ends
-          </div>
-          <div id="teachingEnd">—</div>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- =========================
-     THIS WEEK
-========================= -->
-
-<section class="hero">
-
-  <div class="hero-inner">
-
-    <div class="week-label">
-      THIS WEEK
-    </div>
-
-    <h1
-      class="week-title"
-      id="currentWeek">
-      This Week
-    </h1>
-
-    <div class="week-message">
-      Share what matters this week, then celebrate the wins.
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- =========================
-     MAIN
-========================= -->
-
-<main class="container">
-
-  <div class="main-grid">
-
-
-    <!-- MONDAY FOCUS -->
-
-    <section class="card">
-
-      <div class="card-header focus-header">
-
-        <div class="day-label">
-          🎯 MONDAY
-        </div>
-
-        <div class="card-title">
-          Key Focus of the Week
-        </div>
-
-        <div class="card-question">
-          What are your main priorities this week?
-        </div>
-
-        <button
-          class="add-button focus-button"
-          id="addFocusButton">
-          + Add My Focus
-        </button>
-
-      </div>
-
-
-      <div
-        class="people"
-        id="focusPeople">
-      </div>
-
-    </section>
-
-
-
-    <!-- FRIDAY WINS -->
-
-    <section class="card">
-
-      <div class="card-header win-header">
-
-        <div class="day-label">
-          🏆 FRIDAY
-        </div>
-
-        <div class="card-title">
-          Wins for the Week
-        </div>
-
-        <div class="card-question">
-          What did you achieve, big or small?
-        </div>
-
-        <button
-          class="add-button win-button"
-          id="addWinButton">
-          + Add My Win
-        </button>
-
-      </div>
-
-
-      <div
-        class="people"
-        id="winPeople">
-      </div>
-
-    </section>
+    <div class="today-badge" id="todayBadge">Today</div>
 
   </div>
 
 
+  <div class="countdown-grid">
 
-  <!-- BOTTOM -->
-
-  <div class="bottom-grid">
-
-    <section class="small-card">
-
-      <div class="small-title">
-        📅 Previous Weeks
+    <div class="countdown-card start-countdown">
+      <div class="countdown-heading">▶ TRIMESTER STARTS IN</div>
+      <div class="countdown-content">
+        <div class="big-countdown" id="startDays">—</div>
+        <div class="week-countdown" id="startWeeks">—</div>
       </div>
+    </div>
 
-      <div class="week-row">
-        <span>Previous weekly updates</span>
-        <span>Coming soon</span>
+    <div class="countdown-card census-countdown">
+      <div class="countdown-heading">🎯 CENSUS DATE IN</div>
+      <div class="countdown-content">
+        <div class="big-countdown" id="censusDays">—</div>
+        <div class="week-countdown" id="censusWeeks">—</div>
       </div>
-
-      <div class="week-row">
-        <span>History will build automatically</span>
-        <span>—</span>
-      </div>
-
-    </section>
-
-
-
-    <section class="small-card">
-
-      <div class="small-title">
-        ✨
-        <span id="reviewYear">2026</span>
-        Year in Review
-      </div>
-
-      <div class="summary-stats">
-
-        <div class="stat">
-          <div
-            class="stat-number"
-            id="weeksNumber">
-            —
-          </div>
-          <div class="stat-label">
-            Weeks
-          </div>
-        </div>
-
-        <div class="stat">
-          <div
-            class="stat-number"
-            id="focusCount">
-            0
-          </div>
-          <div class="stat-label">
-            Focus Items
-          </div>
-        </div>
-
-        <div class="stat">
-          <div
-            class="stat-number"
-            id="winCount">
-            0
-          </div>
-          <div class="stat-label">
-            Wins Shared
-          </div>
-        </div>
-
-      </div>
-
-      <button class="year-button">
-        ✨ Generate Year Summary
-      </button>
-
-    </section>
+    </div>
 
   </div>
 
-</main>
 
+  <div class="timeline">
 
-
-<!-- =========================
-     ADD FOCUS MODAL
-========================= -->
-
-<div
-  class="modal-backdrop"
-  id="focusModal">
-
-  <div class="modal">
-
-    <div class="modal-header">
-
-      <div class="modal-title">
-        🎯 Add My Focus
-      </div>
-
-      <button
-        class="close-button"
-        id="closeFocusModal">
-        ×
-      </button>
-
+    <div class="timeline-line">
+      <div class="timeline-progress" id="timelineProgress"></div>
     </div>
 
+    <div class="timeline-dates">
 
-    <div class="modal-body">
-
-      <div
-        class="form-message"
-        id="focusMessage">
+      <div class="timeline-item">
+        <div class="timeline-name">Teaching Starts</div>
+        <div id="teachingStart">—</div>
       </div>
 
-
-      <div class="form-group">
-
-        <label
-          class="form-label"
-          for="focusPerson">
-          Who are you?
-        </label>
-
-        <select
-          class="form-select"
-          id="focusPerson">
-
-          <option value="">
-            Select your name
-          </option>
-
-          <option value="Nikki">
-            Nikki
-          </option>
-
-          <option value="Penny">
-            Penny
-          </option>
-
-          <option value="Megan">
-            Megan
-          </option>
-
-        </select>
-
+      <div class="timeline-item">
+        <div class="timeline-name">Census Date</div>
+        <div id="censusDate">—</div>
       </div>
 
-
-      <div class="form-group">
-
-        <label
-          class="form-label"
-          for="focusText">
-          What is your key focus this week?
-        </label>
-
-        <textarea
-          class="form-textarea"
-          id="focusText"
-          maxlength="1000"
-          placeholder="Share your key priority or priorities for the week...">
-        </textarea>
-
+      <div class="timeline-item">
+        <div class="timeline-name">Teaching Ends</div>
+        <div id="teachingEnd">—</div>
       </div>
-
-    </div>
-
-
-    <div class="modal-footer">
-
-      <button
-        class="cancel-button"
-        id="cancelFocusButton">
-        Cancel
-      </button>
-
-      <button
-        class="save-button"
-        id="saveFocusButton">
-        Save Focus
-      </button>
 
     </div>
 
   </div>
 
 </div>
+</section>
 
+
+<section class="hero">
+<div class="hero-inner">
+
+  <div class="week-label">THIS WEEK</div>
+
+  <h1 class="week-title" id="currentWeek">
+    This Week
+  </h1>
+
+  <div class="week-message">
+    Share what matters this week, then celebrate the wins.
+  </div>
+
+</div>
+</section>
+
+
+<main class="container">
+
+<div class="main-grid">
+
+  <section class="card">
+
+    <div class="card-header focus-header">
+
+      <div class="day-label">🎯 MONDAY</div>
+
+      <div class="card-title">
+        Key Focus of the Week
+      </div>
+
+      <div class="card-question">
+        What are your main priorities this week?
+      </div>
+
+      <button
+        class="add-button focus-button"
+        onclick="openAddModal('focus')">
+        + Add My Focus
+      </button>
+
+    </div>
+
+    <div class="people" id="focusPeople"></div>
+
+  </section>
+
+
+  <section class="card">
+
+    <div class="card-header win-header">
+
+      <div class="day-label">🏆 FRIDAY</div>
+
+      <div class="card-title">
+        Wins for the Week
+      </div>
+
+      <div class="card-question">
+        What did you achieve, big or small?
+      </div>
+
+      <button
+        class="add-button win-button"
+        onclick="openAddModal('win')">
+        + Add My Win
+      </button>
+
+    </div>
+
+    <div class="people" id="winPeople"></div>
+
+  </section>
+
+</div>
+
+
+<div class="bottom-grid">
+
+  <section class="small-card">
+
+    <div class="small-title">
+      📅 Previous Weeks
+    </div>
+
+    <div class="week-row">
+      <span>Previous weekly updates</span>
+      <span>Coming soon</span>
+    </div>
+
+    <div class="week-row">
+      <span>History will build automatically</span>
+      <span>—</span>
+    </div>
+
+  </section>
+
+
+  <section class="small-card">
+
+    <div class="small-title">
+      ✨ <span id="reviewYear">2026</span> Year in Review
+    </div>
+
+    <div class="summary-stats">
+
+      <div class="stat">
+        <div class="stat-number" id="weeksNumber">—</div>
+        <div class="stat-label">Weeks</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number" id="focusCount">0</div>
+        <div class="stat-label">Focus Items</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number" id="winCount">0</div>
+        <div class="stat-label">Wins Shared</div>
+      </div>
+
+    </div>
+
+    <button class="year-button">
+      ✨ Generate Year Summary
+    </button>
+
+  </section>
+
+</div>
+
+</main>
+
+
+<!-- ADD / EDIT MODAL -->
+
+<div class="modal-backdrop" id="updateModal">
+
+<div class="modal">
+
+  <div class="modal-header">
+
+    <div class="modal-title" id="modalTitle">
+      Add Update
+    </div>
+
+    <button class="close-button" onclick="closeModal()">
+      ×
+    </button>
+
+  </div>
+
+
+  <div class="modal-body">
+
+    <div class="form-message" id="formMessage"></div>
+
+
+    <div class="form-group">
+
+      <label class="form-label">
+        Who are you?
+      </label>
+
+      <select class="form-select" id="updatePerson">
+
+        <option value="">Select your name</option>
+        <option value="Nikki">Nikki</option>
+        <option value="Penny">Penny</option>
+        <option value="Megan">Megan</option>
+
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label class="form-label" id="updateQuestion">
+        What would you like to share?
+      </label>
+
+      <textarea
+        class="form-textarea"
+        id="updateText"
+        maxlength="1000">
+      </textarea>
+
+    </div>
+
+  </div>
+
+
+  <div class="modal-footer">
+
+    <button
+      class="cancel-button"
+      onclick="closeModal()">
+      Cancel
+    </button>
+
+    <button
+      class="save-button"
+      id="saveButton"
+      onclick="saveUpdate()">
+      Save
+    </button>
+
+  </div>
+
+</div>
+</div>
 
 
 <script>
 
-/* =========================
-   TEAM
-========================= */
+/* TEAM */
 
 const teamMembers = [
-  {
-    name: "Nikki",
-    initial: "N",
-    avatarClass: "nikki"
-  },
-  {
-    name: "Penny",
-    initial: "P",
-    avatarClass: "penny"
-  },
-  {
-    name: "Megan",
-    initial: "M",
-    avatarClass: "megan"
-  }
+  {name:"Nikki", initial:"N", avatarClass:"nikki"},
+  {name:"Penny", initial:"P", avatarClass:"penny"},
+  {name:"Megan", initial:"M", avatarClass:"megan"}
 ];
 
 
-
-/* =========================
-   ACADEMIC DATES
-========================= */
+/* ACADEMIC DATES */
 
 const academicPeriods = [
 
   {
-    name: "T1 2026",
-    start: "2026-02-23",
-    census: "2026-03-23",
-    end: "2026-05-22"
+    name:"T1 2026",
+    start:"2026-02-23",
+    census:"2026-03-23",
+    end:"2026-05-22"
   },
 
   {
-    name: "T2 2026",
-    start: "2026-06-22",
-    census: "2026-07-20",
-    end: "2026-09-18"
+    name:"T2 2026",
+    start:"2026-06-22",
+    census:"2026-07-20",
+    end:"2026-09-18"
   },
 
   {
-    name: "T3 2026",
-    start: "2026-10-19",
-    census: "2026-11-16",
-    end: "2027-01-22"
+    name:"T3 2026",
+    start:"2026-10-19",
+    census:"2026-11-16",
+    end:"2027-01-22"
   },
 
   {
-    name: "T1 2027",
-    start: "2027-02-22",
-    census: "2027-03-22",
-    end: "2027-05-21"
+    name:"T1 2027",
+    start:"2027-02-22",
+    census:"2027-03-22",
+    end:"2027-05-21"
   },
 
   {
-    name: "T2 2027",
-    start: "2027-06-21",
-    census: "2027-07-19",
-    end: "2027-09-17"
+    name:"T2 2027",
+    start:"2027-06-21",
+    census:"2027-07-19",
+    end:"2027-09-17"
   },
 
   {
-    name: "T3 2027",
-    start: "2027-10-18",
-    census: "2027-11-15",
-    end: "2028-01-21"
+    name:"T3 2027",
+    start:"2027-10-18",
+    census:"2027-11-15",
+    end:"2028-01-21"
   }
 
 ];
 
 
+/* DATE HELPERS */
 
-/* =========================
-   DATE HELPERS
-========================= */
+function parseDate(value) {
 
-function parseDate(dateString) {
-
-  const parts =
-    dateString.split("-");
+  const p = value.split("-");
 
   return new Date(
-    Number(parts[0]),
-    Number(parts[1]) - 1,
-    Number(parts[2])
+    Number(p[0]),
+    Number(p[1])-1,
+    Number(p[2])
   );
-
 }
 
 
@@ -1296,22 +1041,18 @@ function startOfDay(date) {
     date.getMonth(),
     date.getDate()
   );
-
 }
 
 
-function daysBetween(from, to) {
-
-  const oneDay =
-    1000 * 60 * 60 * 24;
+function daysBetween(from,to) {
 
   return Math.round(
     (
       startOfDay(to) -
       startOfDay(from)
-    ) / oneDay
+    ) /
+    86400000
   );
-
 }
 
 
@@ -1320,102 +1061,59 @@ function formatDate(date) {
   return date.toLocaleDateString(
     "en-AU",
     {
-      day: "numeric",
-      month: "short",
-      year: "numeric"
+      day:"numeric",
+      month:"short",
+      year:"numeric"
     }
   );
-
-}
-
-
-function formatShortDate(date) {
-
-  return date.toLocaleDateString(
-    "en-AU",
-    {
-      day: "numeric",
-      month: "short"
-    }
-  );
-
 }
 
 
 function formatISODate(date) {
 
-  const year =
-    date.getFullYear();
+  const y = date.getFullYear();
 
-  const month =
-    String(
-      date.getMonth() + 1
-    ).padStart(2,"0");
+  const m =
+    String(date.getMonth()+1)
+      .padStart(2,"0");
 
-  const day =
-    String(
-      date.getDate()
-    ).padStart(2,"0");
+  const d =
+    String(date.getDate())
+      .padStart(2,"0");
 
-  return (
-    year +
-    "-" +
-    month +
-    "-" +
-    day
-  );
-
+  return `${y}-${m}-${d}`;
 }
 
 
-function formatWeeksAndDays(totalDays) {
+function formatWeeksAndDays(total) {
 
-  if (totalDays <= 0) {
-    return "Today";
-  }
+  if (total <= 0) return "Today";
 
   const weeks =
-    Math.floor(totalDays / 7);
+    Math.floor(total/7);
 
   const days =
-    totalDays % 7;
+    total%7;
 
-  let parts = [];
+  const parts = [];
 
-
-  if (weeks > 0) {
-
+  if (weeks) {
     parts.push(
-      weeks +
-      (weeks === 1
-        ? " week"
-        : " weeks")
+      `${weeks} ${weeks===1 ? "week" : "weeks"}`
     );
-
   }
 
-
-  if (days > 0) {
-
+  if (days) {
     parts.push(
-      days +
-      (days === 1
-        ? " day"
-        : " days")
+      `${days} ${days===1 ? "day" : "days"}`
     );
-
   }
-
 
   return parts.join(" ");
-
 }
 
 
-
-/* =========================
-   CURRENT WEEK
-========================= */
+/* WEEK */
 
 function getCurrentMonday() {
 
@@ -1425,21 +1123,17 @@ function getCurrentMonday() {
   const day =
     today.getDay();
 
-  const difference =
-    day === 0
-      ? -6
-      : 1 - day;
+  const diff =
+    day===0 ? -6 : 1-day;
 
   const monday =
     new Date(today);
 
   monday.setDate(
-    today.getDate() +
-    difference
+    today.getDate()+diff
   );
 
   return monday;
-
 }
 
 
@@ -1452,98 +1146,33 @@ function updateCurrentWeek() {
     new Date(monday);
 
   friday.setDate(
-    monday.getDate() + 4
+    monday.getDate()+4
   );
 
-
-  let text;
-
-
-  if (
-    monday.getMonth() ===
-      friday.getMonth() &&
-    monday.getFullYear() ===
-      friday.getFullYear()
-  ) {
-
-    text =
-      "Week of " +
-      monday.getDate() +
-      " – " +
-      friday.getDate() +
-      " " +
-      friday.toLocaleDateString(
-        "en-AU",
-        {
-          month: "long",
-          year: "numeric"
-        }
-      );
-
-  } else {
-
-    text =
-      "Week of " +
-      formatShortDate(monday) +
-      " – " +
-      formatShortDate(friday) +
-      " " +
-      friday.getFullYear();
-
-  }
-
+  const month =
+    friday.toLocaleDateString(
+      "en-AU",
+      {
+        month:"long",
+        year:"numeric"
+      }
+    );
 
   document
     .getElementById("currentWeek")
     .textContent =
-      text;
-
+      `Week of ${monday.getDate()} – ${friday.getDate()} ${month}`;
 }
 
 
-
-/* =========================
-   ACADEMIC CALENDAR
-========================= */
+/* ACADEMIC CALENDAR */
 
 function getNextCensusPeriod(today) {
 
-  for (
-    let i = 0;
-    i < academicPeriods.length;
-    i++
-  ) {
-
-    const period =
-      academicPeriods[i];
-
-    const census =
-      parseDate(period.census);
-
-
-    if (today <= census) {
-      return period;
-    }
-
-  }
-
-  return null;
-
-}
-
-
-function getTeachingWeek(
-  today,
-  start
-) {
-
-  const elapsed =
-    daysBetween(start,today);
-
-  return (
-    Math.floor(elapsed / 7) + 1
+  return academicPeriods.find(
+    period =>
+      today <= parseDate(period.census)
   );
-
 }
 
 
@@ -1552,22 +1181,15 @@ function updateAcademicCalendar() {
   const today =
     startOfDay(new Date());
 
-
   document
     .getElementById("todayBadge")
     .textContent =
-      "Today · " +
-      formatDate(today);
-
+      "Today · " + formatDate(today);
 
   const period =
     getNextCensusPeriod(today);
 
-
-  if (!period) {
-    return;
-  }
-
+  if (!period) return;
 
   const start =
     parseDate(period.start);
@@ -1578,24 +1200,20 @@ function updateAcademicCalendar() {
   const end =
     parseDate(period.end);
 
-
   document
     .getElementById("academicTitle")
     .textContent =
       period.name;
-
 
   document
     .getElementById("teachingStart")
     .textContent =
       formatDate(start);
 
-
   document
     .getElementById("censusDate")
     .textContent =
       formatDate(census);
-
 
   document
     .getElementById("teachingEnd")
@@ -1603,535 +1221,422 @@ function updateAcademicCalendar() {
       formatDate(end);
 
 
-
-  /* START COUNTDOWN */
-
   const daysToStart =
     daysBetween(today,start);
-
 
   if (daysToStart > 0) {
 
     document
       .getElementById("startDays")
       .innerHTML =
-        daysToStart +
-        " <span>DAYS</span>";
-
+        `${daysToStart} <span>DAYS</span>`;
 
     document
       .getElementById("startWeeks")
       .innerHTML =
-        formatWeeksAndDays(
-          daysToStart
-        ) +
-        '<div class="countdown-date">' +
-        "until " +
-        formatDate(start) +
-        "</div>";
+        `${formatWeeksAndDays(daysToStart)}
+        <div class="countdown-date">
+        until ${formatDate(start)}
+        </div>`;
 
-  }
+  } else {
 
-  else if (daysToStart === 0) {
+    const week =
+      Math.floor(
+        daysBetween(start,today)/7
+      )+1;
 
     document
       .getElementById("startDays")
       .textContent =
-        "TODAY";
-
-
-    document
-      .getElementById("startWeeks")
-      .innerHTML =
-        "Trimester starts today" +
-        '<div class="countdown-date">' +
-        formatDate(start) +
-        "</div>";
-
-  }
-
-  else {
-
-    const teachingWeek =
-      getTeachingWeek(
-        today,
-        start
-      );
-
-
-    document
-      .getElementById("startDays")
-      .textContent =
-        "STARTED";
-
+        daysToStart===0
+          ? "TODAY"
+          : "STARTED";
 
     document
       .getElementById("startWeeks")
       .innerHTML =
-        "Teaching Week " +
-        teachingWeek +
-        '<div class="countdown-date">' +
-        "Started " +
-        formatDate(start) +
-        "</div>";
-
+        daysToStart===0
+          ? `Trimester starts today
+             <div class="countdown-date">
+             ${formatDate(start)}
+             </div>`
+          : `Teaching Week ${week}
+             <div class="countdown-date">
+             Started ${formatDate(start)}
+             </div>`;
   }
 
-
-
-  /* CENSUS COUNTDOWN */
 
   const daysToCensus =
-    daysBetween(
-      today,
-      census
-    );
+    daysBetween(today,census);
 
+  document
+    .getElementById("censusDays")
+    .innerHTML =
+      daysToCensus===0
+        ? "TODAY"
+        : `${daysToCensus} <span>DAYS</span>`;
 
-  if (daysToCensus > 0) {
+  document
+    .getElementById("censusWeeks")
+    .innerHTML =
+      daysToCensus===0
+        ? `Census Date
+           <div class="countdown-date">
+           ${formatDate(census)}
+           </div>`
+        : `${formatWeeksAndDays(daysToCensus)}
+           <div class="countdown-date">
+           until ${formatDate(census)}
+           </div>`;
 
-    document
-      .getElementById("censusDays")
-      .innerHTML =
-        daysToCensus +
-        " <span>DAYS</span>";
-
-
-    document
-      .getElementById("censusWeeks")
-      .innerHTML =
-        formatWeeksAndDays(
-          daysToCensus
-        ) +
-        '<div class="countdown-date">' +
-        "until " +
-        formatDate(census) +
-        "</div>";
-
-  }
-
-  else {
-
-    document
-      .getElementById("censusDays")
-      .textContent =
-        "TODAY";
-
-
-    document
-      .getElementById("censusWeeks")
-      .innerHTML =
-        "Census Date" +
-        '<div class="countdown-date">' +
-        formatDate(census) +
-        "</div>";
-
-  }
-
-
-
-  /* TIMELINE */
 
   let progress = 0;
 
-
-  if (today < start) {
-
-    progress = 0;
-
-  }
-
-  else if (today >= end) {
+  if (today >= end) {
 
     progress = 100;
 
-  }
-
-  else {
-
-    const totalDays =
-      daysBetween(start,end);
-
-    const elapsedDays =
-      daysBetween(start,today);
-
+  } else if (today >= start) {
 
     progress =
-      (
-        elapsedDays /
-        totalDays
-      ) * 100;
-
+      daysBetween(start,today) /
+      daysBetween(start,end) *
+      100;
   }
 
-
-  progress =
-    Math.max(
-      0,
-      Math.min(
-        100,
-        progress
-      )
-    );
-
-
   document
-    .getElementById(
-      "timelineProgress"
-    )
+    .getElementById("timelineProgress")
     .style.width =
-      progress + "%";
-
+      Math.max(
+        0,
+        Math.min(100,progress)
+      ) + "%";
 }
 
 
-
-/* =========================
-   RENDER TEAM
-========================= */
-
-function createPersonHTML(
-  member,
-  updates,
-  type
-) {
-
-  const matching =
-    updates.filter(
-      update =>
-        update.person === member.name &&
-        update.type === type
-    );
-
-
-  let content = "";
-
-
-  if (matching.length === 0) {
-
-    content =
-      '<div class="empty">' +
-      (
-        type === "focus"
-          ? "No focus shared yet."
-          : "No wins shared yet."
-      ) +
-      "</div>";
-
-  }
-
-  else {
-
-    matching.forEach(
-      update => {
-
-        content +=
-          '<div class="update-item">' +
-          escapeHTML(update.text) +
-          "</div>";
-
-      }
-    );
-
-  }
-
-
-  return `
-    <div class="person">
-
-      <div class="avatar ${member.avatarClass}">
-        ${member.initial}
-      </div>
-
-      <div class="person-content">
-
-        <div class="person-name">
-          ${member.name}
-        </div>
-
-        ${content}
-
-      </div>
-
-    </div>
-  `;
-
-}
-
-
-function renderTeamUpdates(
-  updates
-) {
-
-  const monday =
-    formatISODate(
-      getCurrentMonday()
-    );
-
-
-  const thisWeekUpdates =
-    updates.filter(
-      update =>
-        update.week_start === monday
-    );
-
-
-  let focusHTML = "";
-  let winHTML = "";
-
-
-  teamMembers.forEach(
-    member => {
-
-      focusHTML +=
-        createPersonHTML(
-          member,
-          thisWeekUpdates,
-          "focus"
-        );
-
-
-      winHTML +=
-        createPersonHTML(
-          member,
-          thisWeekUpdates,
-          "win"
-        );
-
-    }
-  );
-
-
-  document
-    .getElementById("focusPeople")
-    .innerHTML =
-      focusHTML;
-
-
-  document
-    .getElementById("winPeople")
-    .innerHTML =
-      winHTML;
-
-}
-
-
-
-/* =========================
-   LOAD FROM D1
-========================= */
+/* DATA */
 
 let allUpdates = [];
-
 
 async function loadUpdates() {
 
   try {
 
     const response =
-      await fetch(
-        "/api/updates"
-      );
-
+      await fetch("/api/updates");
 
     const data =
       await response.json();
 
-
     if (!response.ok) {
-
       throw new Error(
-        data.error ||
-        "Unable to load updates."
+        data.error || "Unable to load updates."
       );
-
     }
-
 
     allUpdates =
       data.updates || [];
 
+    renderUpdates();
+    updateCounts();
 
-    renderTeamUpdates(
-      allUpdates
-    );
+  } catch(error) {
 
-
-    updateSummaryCounts();
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Unable to load updates:",
-      error
-    );
-
-
-    renderTeamUpdates([]);
+    console.error(error);
 
   }
-
 }
 
 
+/* SAFE TEXT */
 
-/* =========================
-   YEAR COUNTS
-========================= */
+function escapeHTML(value) {
 
-function updateSummaryCounts() {
+  const div =
+    document.createElement("div");
 
-  const currentYear =
-    new Date()
-      .getFullYear();
+  div.textContent =
+    value;
+
+  return div.innerHTML;
+}
 
 
-  const yearUpdates =
+/* RENDER */
+
+function renderUpdates() {
+
+  const weekStart =
+    formatISODate(
+      getCurrentMonday()
+    );
+
+  const weekly =
     allUpdates.filter(
-      update =>
-        update.week_start &&
-        update.week_start.startsWith(
-          String(currentYear)
-        )
+      u => u.week_start===weekStart
     );
 
-
-  const focusCount =
-    yearUpdates.filter(
-      update =>
-        update.type === "focus"
-    ).length;
-
-
-  const winCount =
-    yearUpdates.filter(
-      update =>
-        update.type === "win"
-    ).length;
-
-
-  document
-    .getElementById("focusCount")
-    .textContent =
-      focusCount;
-
-
-  document
-    .getElementById("winCount")
-    .textContent =
-      winCount;
-
-}
-
-
-function updateYearSummary() {
-
-  const today =
-    startOfDay(new Date());
-
-
-  document
-    .getElementById("reviewYear")
-    .textContent =
-      today.getFullYear();
-
-
-  const yearStart =
-    new Date(
-      today.getFullYear(),
-      0,
-      1
-    );
-
-
-  const elapsed =
-    daysBetween(
-      yearStart,
-      today
-    );
-
-
-  document
-    .getElementById("weeksNumber")
-    .textContent =
-      Math.floor(
-        elapsed / 7
-      ) + 1;
-
-}
-
-
-
-/* =========================
-   MODAL
-========================= */
-
-const focusModal =
-  document.getElementById(
-    "focusModal"
+  renderType(
+    "focus",
+    "focusPeople",
+    weekly
   );
 
+  renderType(
+    "win",
+    "winPeople",
+    weekly
+  );
+}
 
-function openFocusModal() {
+
+function renderType(
+  type,
+  containerId,
+  updates
+) {
+
+  let html = "";
+
+  teamMembers.forEach(member => {
+
+    const items =
+      updates.filter(
+        u =>
+          u.person===member.name &&
+          u.type===type
+      );
+
+    let itemHTML = "";
+
+    if (!items.length) {
+
+      itemHTML =
+        `<div class="empty">
+          ${type==="focus"
+            ? "No focus shared yet."
+            : "No wins shared yet."}
+        </div>`;
+
+    } else {
+
+      items.forEach(update => {
+
+        itemHTML += `
+          <div class="update-item">
+
+            <div class="update-text">
+              ${escapeHTML(update.text)}
+            </div>
+
+            <div class="update-actions">
+
+              <button
+                class="edit-button"
+                onclick="openEditModal(${update.id})">
+                Edit
+              </button>
+
+              <button
+                class="delete-button"
+                onclick="deleteUpdate(${update.id})">
+                Delete
+              </button>
+
+            </div>
+
+          </div>
+        `;
+      });
+    }
+
+    html += `
+      <div class="person">
+
+        <div class="avatar ${member.avatarClass}">
+          ${member.initial}
+        </div>
+
+        <div class="person-content">
+
+          <div class="person-name">
+            ${member.name}
+          </div>
+
+          ${itemHTML}
+
+        </div>
+
+      </div>
+    `;
+  });
 
   document
-    .getElementById("focusMessage")
+    .getElementById(containerId)
+    .innerHTML =
+      html;
+}
+
+
+/* MODAL */
+
+let modalMode = "add";
+let editingId = null;
+let currentType = "focus";
+
+
+function openAddModal(type) {
+
+  modalMode = "add";
+  editingId = null;
+  currentType = type;
+
+  document
+    .getElementById("updatePerson")
+    .value = "";
+
+  document
+    .getElementById("updatePerson")
+    .disabled = false;
+
+  document
+    .getElementById("updateText")
+    .value = "";
+
+  document
+    .getElementById("formMessage")
     .className =
       "form-message";
 
+  configureModal(type);
 
   document
-    .getElementById("focusMessage")
+    .getElementById("updateModal")
+    .classList.add("show");
+}
+
+
+function openEditModal(id) {
+
+  const update =
+    allUpdates.find(
+      u => Number(u.id)===Number(id)
+    );
+
+  if (!update) return;
+
+  modalMode = "edit";
+  editingId = update.id;
+  currentType = update.type;
+
+  document
+    .getElementById("updatePerson")
+    .value =
+      update.person;
+
+  document
+    .getElementById("updatePerson")
+    .disabled =
+      true;
+
+  document
+    .getElementById("updateText")
+    .value =
+      update.text;
+
+  document
+    .getElementById("formMessage")
+    .className =
+      "form-message";
+
+  configureModal(update.type);
+
+  document
+    .getElementById("modalTitle")
     .textContent =
-      "";
+      update.type==="focus"
+        ? "✏️ Edit Focus"
+        : "✏️ Edit Win";
 
-
-  focusModal
-    .classList
-    .add("show");
-
+  document
+    .getElementById("updateModal")
+    .classList.add("show");
 }
 
 
-function closeFocusModal() {
+function configureModal(type) {
 
-  focusModal
-    .classList
-    .remove("show");
+  const isFocus =
+    type==="focus";
 
+  document
+    .getElementById("modalTitle")
+    .textContent =
+      isFocus
+        ? "🎯 Add My Focus"
+        : "🏆 Add My Win";
+
+  document
+    .getElementById("updateQuestion")
+    .textContent =
+      isFocus
+        ? "What is your key focus this week?"
+        : "What was your win this week?";
+
+  document
+    .getElementById("updateText")
+    .placeholder =
+      isFocus
+        ? "Share your key priority or priorities..."
+        : "Share something you achieved this week...";
+
+  const saveButton =
+    document.getElementById("saveButton");
+
+  saveButton.textContent =
+    isFocus
+      ? "Save Focus"
+      : "Save Win";
+
+  saveButton.classList.toggle(
+    "win-mode",
+    !isFocus
+  );
 }
 
 
+function closeModal() {
 
-/* =========================
-   SAVE FOCUS
-========================= */
+  document
+    .getElementById("updateModal")
+    .classList.remove("show");
+}
 
-async function saveFocus() {
+
+/* SAVE */
+
+async function saveUpdate() {
 
   const person =
     document
-      .getElementById("focusPerson")
+      .getElementById("updatePerson")
       .value;
-
 
   const text =
     document
-      .getElementById("focusText")
+      .getElementById("updateText")
       .value
       .trim();
 
-
   const message =
     document
-      .getElementById("focusMessage");
+      .getElementById("formMessage");
 
-
-  const saveButton =
+  const button =
     document
-      .getElementById("saveFocusButton");
+      .getElementById("saveButton");
 
 
   if (!person) {
@@ -2143,7 +1648,6 @@ async function saveFocus() {
       "Please select your name.";
 
     return;
-
   }
 
 
@@ -2153,54 +1657,58 @@ async function saveFocus() {
       "form-message error";
 
     message.textContent =
-      "Please enter your focus.";
+      "Please enter your update.";
 
     return;
-
   }
 
 
-  saveButton.disabled = true;
-
-  saveButton.textContent =
-    "Saving...";
+  button.disabled = true;
+  button.textContent = "Saving...";
 
 
   try {
 
-    const weekStart =
-      formatISODate(
-        getCurrentMonday()
-      );
+    let method;
+    let body;
+
+
+    if (modalMode==="edit") {
+
+      method = "PATCH";
+
+      body = {
+        id: editingId,
+        person,
+        type: currentType,
+        text
+      };
+
+    } else {
+
+      method = "POST";
+
+      body = {
+        week_start:
+          formatISODate(
+            getCurrentMonday()
+          ),
+        person,
+        type: currentType,
+        text
+      };
+    }
 
 
     const response =
       await fetch(
         "/api/updates",
         {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json"
+          method,
+          headers:{
+            "Content-Type":"application/json"
           },
-
-          body:
-            JSON.stringify(
-              {
-                week_start:
-                  weekStart,
-
-                person:
-                  person,
-
-                type:
-                  "focus",
-
-                text:
-                  text
-              }
-            )
+          body:JSON.stringify(body)
         }
       );
 
@@ -2212,10 +1720,8 @@ async function saveFocus() {
     if (!response.ok) {
 
       throw new Error(
-        data.error ||
-        "Unable to save focus."
+        data.error || "Unable to save."
       );
-
     }
 
 
@@ -2223,28 +1729,20 @@ async function saveFocus() {
       "form-message success";
 
     message.textContent =
-      "Focus saved successfully.";
-
-
-    document
-      .getElementById("focusText")
-      .value =
-        "";
+      modalMode==="edit"
+        ? "Update saved successfully."
+        : "Added successfully.";
 
 
     await loadUpdates();
 
 
     setTimeout(
-      () => {
-        closeFocusModal();
-      },
-      500
+      closeModal,
+      450
     );
 
-  }
-
-  catch (error) {
+  } catch(error) {
 
     message.className =
       "form-message error";
@@ -2252,123 +1750,165 @@ async function saveFocus() {
     message.textContent =
       error.message;
 
+  } finally {
+
+    button.disabled = false;
+
+    configureModal(currentType);
   }
-
-  finally {
-
-    saveButton.disabled =
-      false;
-
-    saveButton.textContent =
-      "Save Focus";
-
-  }
-
 }
 
 
+/* DELETE */
 
-/* =========================
-   SECURITY HELPER
-========================= */
+async function deleteUpdate(id) {
 
-function escapeHTML(value) {
+  const update =
+    allUpdates.find(
+      u => Number(u.id)===Number(id)
+    );
 
-  const div =
-    document.createElement("div");
+  if (!update) return;
 
-  div.textContent =
-    value;
 
-  return div.innerHTML;
+  const label =
+    update.type==="focus"
+      ? "focus"
+      : "win";
 
+
+  const confirmed =
+    confirm(
+      `Delete this ${label}?\n\n${update.text}`
+    );
+
+
+  if (!confirmed) return;
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/updates",
+        {
+          method:"DELETE",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+            id:update.id,
+            person:update.person,
+            type:update.type
+          })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.error || "Unable to delete."
+      );
+    }
+
+
+    await loadUpdates();
+
+
+  } catch(error) {
+
+    alert(
+      "Delete failed: " +
+      error.message
+    );
+  }
 }
 
 
+/* COUNTS */
 
-/* =========================
-   BUTTON EVENTS
-========================= */
+function updateCounts() {
+
+  const year =
+    String(
+      new Date().getFullYear()
+    );
+
+  const records =
+    allUpdates.filter(
+      u =>
+        u.week_start &&
+        u.week_start.startsWith(year)
+    );
+
+  document
+    .getElementById("focusCount")
+    .textContent =
+      records.filter(
+        u=>u.type==="focus"
+      ).length;
+
+  document
+    .getElementById("winCount")
+    .textContent =
+      records.filter(
+        u=>u.type==="win"
+      ).length;
+}
+
+
+function updateYear() {
+
+  const today =
+    new Date();
+
+  const year =
+    today.getFullYear();
+
+  document
+    .getElementById("reviewYear")
+    .textContent =
+      year;
+
+  const start =
+    new Date(year,0,1);
+
+  document
+    .getElementById("weeksNumber")
+    .textContent =
+      Math.floor(
+        daysBetween(start,today)/7
+      )+1;
+}
+
+
+/* CLOSE MODAL ON BACKGROUND */
 
 document
-  .getElementById("addFocusButton")
-  .addEventListener(
-    "click",
-    openFocusModal
-  );
-
-
-document
-  .getElementById("closeFocusModal")
-  .addEventListener(
-    "click",
-    closeFocusModal
-  );
-
-
-document
-  .getElementById("cancelFocusButton")
-  .addEventListener(
-    "click",
-    closeFocusModal
-  );
-
-
-document
-  .getElementById("saveFocusButton")
-  .addEventListener(
-    "click",
-    saveFocus
-  );
-
-
-focusModal
+  .getElementById("updateModal")
   .addEventListener(
     "click",
     function(event) {
 
       if (
-        event.target ===
-        focusModal
+        event.target === this
       ) {
-
-        closeFocusModal();
-
+        closeModal();
       }
-
     }
   );
 
 
-/*
-  Wins button deliberately comes next.
-
-  We first confirm Focus is saving
-  correctly before activating Wins.
-*/
-
-document
-  .getElementById("addWinButton")
-  .addEventListener(
-    "click",
-    function() {
-
-      alert(
-        "Wins will be activated next."
-      );
-
-    }
-  );
-
-
-
-/* =========================
-   START TEAM PULSE
-========================= */
+/* START */
 
 updateCurrentWeek();
 updateAcademicCalendar();
-updateYearSummary();
+updateYear();
 loadUpdates();
 
 </script>

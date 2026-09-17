@@ -1078,6 +1078,29 @@ button { cursor: pointer; }
     grid-template-columns:1fr;
   }
 }
+
+
+/* TEAM NOTICE */
+.notice-bar { max-width:1120px; margin:18px auto 0; padding:0 24px; }
+.notice-shell { display:flex; align-items:center; gap:12px; background:#fff8df; border:1px solid #f1df9c; border-radius:14px; padding:10px 12px; overflow:hidden; box-shadow:0 3px 12px rgba(30,55,80,.04); }
+.notice-label { flex-shrink:0; font-size:12px; font-weight:800; color:#8a6710; letter-spacing:.35px; }
+.notice-window { flex:1; overflow:hidden; min-width:0; white-space:nowrap; }
+.notice-track { display:inline-block; padding-left:100%; animation:noticeScroll 28s linear infinite; color:#5d5133; font-size:13px; }
+.notice-shell:hover .notice-track { animation-play-state:paused; }
+@keyframes noticeScroll { from { transform:translateX(0); } to { transform:translateX(-100%); } }
+.notice-manage { flex-shrink:0; border:0; background:#f3d86f; color:#5e4a0b; padding:8px 11px; border-radius:9px; font-size:12px; font-weight:750; }
+.notice-empty { color:#8b8169; }
+.notice-separator { padding:0 16px; color:#b49a45; }
+.notice-list { max-height:260px; overflow:auto; margin-top:8px; }
+.notice-list-item { border:1px solid #e5e9ee; border-radius:10px; padding:11px; margin-bottom:9px; background:#fafbfd; }
+.notice-list-top { display:flex; justify-content:space-between; gap:12px; }
+.notice-list-person { font-weight:750; color:#173a5e; font-size:13px; }
+.notice-list-text { margin-top:5px; color:#4c6175; font-size:13px; line-height:1.4; white-space:pre-wrap; }
+.notice-list-meta { margin-top:6px; color:#8a99a8; font-size:11px; }
+.notice-list-actions { display:flex; gap:10px; margin-top:7px; }
+.notice-expiry { width:100%; border:1px solid #ccd6e0; border-radius:10px; padding:11px 12px; font-size:14px; }
+@media(max-width:760px) { .notice-bar { padding:0 14px; margin-top:12px; } .notice-label { display:none; } .notice-track { animation-duration:22s; } }
+
 </style>
 </head>
 
@@ -1129,6 +1152,17 @@ button { cursor: pointer; }
   </div>
 </header>
 
+
+
+
+<!-- TEAM NOTICE -->
+<section class="notice-bar" id="teamNotice">
+  <div class="notice-shell">
+    <div class="notice-label">📣 TEAM NOTICE</div>
+    <div class="notice-window"><div class="notice-track" id="noticeTrack"><span class="notice-empty">No active announcements.</span></div></div>
+    <button class="notice-manage" onclick="openNoticeModal()">✏️ Manage</button>
+  </div>
+</section>
 
 <section class="academic-section" id="academicCalendar">
 <div class="academic-card">
@@ -1374,6 +1408,38 @@ button { cursor: pointer; }
 </main>
 
 
+
+
+<!-- ANNOUNCEMENT MODAL -->
+<div class="modal-backdrop" id="noticeModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📣 Team Notice</div>
+      <button class="close-button" onclick="closeNoticeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-message" id="noticeMessage"></div>
+      <div class="notice-list" id="noticeList"></div>
+      <div class="form-group">
+        <label class="form-label">Who are you?</label>
+        <select class="form-select" id="noticePerson"><option value="">Select your name</option><option value="Megan">Megan</option><option value="Penny">Penny</option><option value="Nikki">Nikki</option></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Announcement</label>
+        <textarea class="form-textarea" id="noticeText" maxlength="1000" placeholder="What does the team need to know?"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Expiry date (optional)</label>
+        <input class="notice-expiry" id="noticeExpiry" type="date">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="cancel-button" onclick="closeNoticeModal()">Close</button>
+      <button class="save-button" id="noticeSaveButton" onclick="saveAnnouncement()">Add Announcement</button>
+    </div>
+  </div>
+</div>
+
 <!-- ADD / EDIT MODAL -->
 
 <div class="modal-backdrop" id="updateModal">
@@ -1504,6 +1570,7 @@ async function loginTeamPulse() {
     renderUpdates();
     renderPreviousWeeks();
     renderYearReview();
+    await loadAnnouncements();
   } catch (error) {
     sessionStorage.removeItem(TEAM_CODE_STORAGE_KEY);
     errorBox.textContent = error.message;
@@ -1533,6 +1600,7 @@ async function startTeamPulse() {
 
   showApp();
   const ok = await loadUpdates();
+  if (ok) await loadAnnouncements();
   if (!ok) showLogin();
 }
 
@@ -1883,6 +1951,111 @@ function updateAcademicCalendar() {
         0,
         Math.min(100,progress)
       ) + "%";
+}
+
+
+
+
+/* ANNOUNCEMENTS */
+let allAnnouncements = [];
+let editingAnnouncementId = null;
+
+async function loadAnnouncements() {
+  try {
+    const response = await fetch("/api/announcements", { headers: authHeaders() });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Unable to load announcements.");
+    allAnnouncements = data.announcements || [];
+    renderAnnouncementBar();
+    renderAnnouncementList();
+    return true;
+  } catch (error) { console.error(error); return false; }
+}
+
+function activeAnnouncements() {
+  const today = formatISODate(startOfDay(new Date()));
+  return allAnnouncements.filter(a => !a.expires_at || a.expires_at >= today);
+}
+
+function renderAnnouncementBar() {
+  const track = document.getElementById("noticeTrack");
+  if (!track) return;
+  const active = activeAnnouncements();
+  if (!active.length) { track.innerHTML = '<span class="notice-empty">No active announcements.</span>'; return; }
+  track.innerHTML = active.map(a => `<span><strong>${escapeHTML(a.person)}</strong> · ${escapeHTML(a.text)}</span>`).join('<span class="notice-separator">•</span>');
+}
+
+function renderAnnouncementList() {
+  const list = document.getElementById("noticeList");
+  if (!list) return;
+  if (!allAnnouncements.length) { list.innerHTML = '<div class="year-empty">No announcements yet.</div>'; return; }
+  list.innerHTML = allAnnouncements.map(a => `
+    <div class="notice-list-item">
+      <div class="notice-list-person">${escapeHTML(a.person)}</div>
+      <div class="notice-list-text">${escapeHTML(a.text)}</div>
+      <div class="notice-list-meta">${a.expires_at ? 'Expires ' + escapeHTML(a.expires_at) : 'No expiry date'}</div>
+      <div class="notice-list-actions">
+        <button class="edit-button" onclick="editAnnouncement(${a.id})">Edit</button>
+        <button class="delete-button" onclick="deleteAnnouncement(${a.id})">Delete</button>
+      </div>
+    </div>`).join('');
+}
+
+function openNoticeModal() {
+  editingAnnouncementId = null;
+  document.getElementById("noticePerson").value = "";
+  document.getElementById("noticeText").value = "";
+  document.getElementById("noticeExpiry").value = "";
+  document.getElementById("noticeSaveButton").textContent = "Add Announcement";
+  document.getElementById("noticeMessage").className = "form-message";
+  renderAnnouncementList();
+  document.getElementById("noticeModal").classList.add("show");
+}
+
+function closeNoticeModal() { document.getElementById("noticeModal").classList.remove("show"); }
+
+function editAnnouncement(id) {
+  const a = allAnnouncements.find(x => Number(x.id) === Number(id));
+  if (!a) return;
+  editingAnnouncementId = Number(id);
+  document.getElementById("noticePerson").value = a.person;
+  document.getElementById("noticeText").value = a.text;
+  document.getElementById("noticeExpiry").value = a.expires_at || "";
+  document.getElementById("noticeSaveButton").textContent = "Save Changes";
+}
+
+async function saveAnnouncement() {
+  const person = document.getElementById("noticePerson").value;
+  const text = document.getElementById("noticeText").value.trim();
+  const expires_at = document.getElementById("noticeExpiry").value || null;
+  const message = document.getElementById("noticeMessage");
+  const button = document.getElementById("noticeSaveButton");
+  message.className = "form-message";
+  if (!person || !text) { message.textContent = "Please select your name and enter an announcement."; message.className = "form-message error"; return; }
+  button.disabled = true;
+  try {
+    const method = editingAnnouncementId ? "PATCH" : "POST";
+    const body = { person, text, expires_at };
+    if (editingAnnouncementId) body.id = editingAnnouncementId;
+    const response = await fetch("/api/announcements", { method, headers: authHeaders({"Content-Type":"application/json"}), body: JSON.stringify(body) });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Unable to save announcement.");
+    editingAnnouncementId = null;
+    document.getElementById("noticePerson").value = ""; document.getElementById("noticeText").value = ""; document.getElementById("noticeExpiry").value = "";
+    document.getElementById("noticeSaveButton").textContent = "Add Announcement";
+    await loadAnnouncements();
+    message.textContent = "Announcement saved."; message.className = "form-message success";
+  } catch (error) { message.textContent = error.message; message.className = "form-message error"; } finally { button.disabled = false; }
+}
+
+async function deleteAnnouncement(id) {
+  if (!confirm("Delete this announcement?")) return;
+  try {
+    const response = await fetch("/api/announcements", { method:"DELETE", headers:authHeaders({"Content-Type":"application/json"}), body:JSON.stringify({id}) });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Unable to delete announcement.");
+    await loadAnnouncements();
+  } catch (error) { alert(error.message); }
 }
 
 

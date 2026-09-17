@@ -3704,6 +3704,89 @@ document
       }
     }
   );
+/* AI YEAR SUMMARY */
+
+async function generateAiSummary() {
+
+  const button =
+    document.getElementById("generateAiSummaryButton");
+
+  const output =
+    document.getElementById("aiSummaryText");
+
+  if (!button || !output) return;
+
+  // Use the person currently selected in Annual Record.
+  // Falls back to Team if no person is selected.
+  const person =
+    typeof selectedReviewPerson !== "undefined"
+      ? selectedReviewPerson
+      : "Team";
+
+  button.disabled = true;
+  button.textContent = "✨ Generating...";
+
+  output.textContent =
+    "Reading this year's Focus + Wins...";
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/ai-summary",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+            ...authHeaders()
+          },
+
+          body: JSON.stringify({
+            person: person
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(
+        data.error ||
+        "Could not generate summary."
+      );
+    }
+
+    output.textContent =
+      data.summary;
+
+  } catch (error) {
+
+    output.textContent =
+      "AI summary is temporarily unavailable.";
+
+    console.error(
+      "AI summary error:",
+      error
+    );
+
+  } finally {
+
+    button.disabled = false;
+    button.textContent =
+      "✨ Generate AI Summary";
+  }
+}
+
+
+document
+  .getElementById("generateAiSummaryButton")
+  ?.addEventListener(
+    "click",
+    generateAiSummary
+  );
+
 
 
 /* START */

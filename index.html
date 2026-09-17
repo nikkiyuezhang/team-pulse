@@ -731,6 +731,29 @@ button { cursor: pointer; }
 }
 
 
+/* FINAL PREVIOUS WEEK FIX
+   Do not preserve HTML template indentation as visible whitespace. */
+.history-entry {
+  white-space: normal !important;
+  padding: 7px 9px 6px;
+  line-height: 1.35;
+}
+
+.history-entry > div:first-child {
+  margin: 0;
+  padding: 0;
+  white-space: normal;
+  line-height: 1.35;
+}
+
+.history-entry .update-actions {
+  margin: 4px 0 0 0 !important;
+  padding: 0;
+  gap: 10px;
+  min-height: 0;
+}
+
+
 /* YEAR */
 
 .year-section {

@@ -1081,103 +1081,61 @@ button { cursor: pointer; }
 
 
 
-/* GENERATED YEAR SUMMARY */
-.generated-summary {
-  display:none;
-  margin-top:18px;
-  border:1px solid #ddd6fb;
+
+
+/* YEAR KEYWORD CLOUD */
+.keyword-cloud-card {
+  margin-top:22px;
+  border:1px solid #e2e8ef;
   border-radius:16px;
-  overflow:hidden;
-  background:#fcfbff;
+  background:linear-gradient(135deg,#fbfcff,#f7f4ff);
+  padding:20px;
 }
-.generated-summary.show { display:block; }
-.generated-summary-header {
-  padding:20px 22px;
-  background:linear-gradient(135deg,#f0ecff,#faf8ff);
-  border-bottom:1px solid #e4def8;
-}
-.generated-summary-kicker {
-  color:#7453d8;
-  font-size:11px;
+.keyword-cloud-heading {
+  font-size:18px;
   font-weight:800;
-  letter-spacing:.55px;
+  color:#102f54;
 }
-.generated-summary-title {
-  margin-top:5px;
-  color:#2f2557;
-  font-size:21px;
-  font-weight:800;
+.keyword-cloud-description {
+  color:#718397;
+  font-size:13px;
+  margin-top:4px;
 }
-.generated-summary-note {
-  margin-top:5px;
-  color:#776f91;
-  font-size:12px;
-}
-.generated-summary-body { padding:20px 22px; }
-.generated-summary-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-}
-.generated-summary-section {
-  border:1px solid #e5e8ee;
+.keyword-cloud {
+  min-height:190px;
+  margin-top:16px;
+  padding:20px 12px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  align-content:center;
+  gap:8px 15px;
   border-radius:13px;
   background:white;
-  padding:16px;
+  border:1px solid #eceff4;
 }
-.generated-summary-section.full { grid-column:1 / -1; }
-.generated-summary-heading {
-  font-size:14px;
-  font-weight:800;
-  color:#173a5e;
-  margin-bottom:10px;
+.keyword-word {
+  display:inline-block;
+  line-height:1.05;
+  font-weight:750;
+  cursor:default;
+  transition:transform .15s ease, opacity .15s ease;
 }
-.generated-summary-list {
-  margin:0;
-  padding-left:19px;
-  color:#4c6175;
-  font-size:13px;
-  line-height:1.55;
+.keyword-word:hover {
+  transform:scale(1.08);
+  opacity:.78;
 }
-.generated-summary-list li { margin-bottom:7px; }
-.generated-summary-month {
-  padding:10px 0;
-  border-bottom:1px solid #edf0f4;
-}
-.generated-summary-month:last-child { border-bottom:0; }
-.generated-summary-month-title {
-  font-weight:800;
-  color:#173a5e;
-  font-size:13px;
-  margin-bottom:5px;
-}
-.generated-summary-month-text {
-  color:#5a6d80;
-  font-size:12px;
-  line-height:1.5;
-}
-.generated-summary-empty {
+.keyword-cloud-empty {
   color:#8a99a8;
   font-size:13px;
   font-style:italic;
 }
-.generated-summary-actions {
-  display:flex;
-  justify-content:flex-end;
-  margin-top:14px;
-}
-.generated-summary-close {
-  border:1px solid #d8dce4;
-  background:white;
-  color:#5d6f82;
-  border-radius:9px;
-  padding:8px 12px;
-  font-weight:700;
-  font-size:12px;
-}
-@media(max-width:760px) {
-  .generated-summary-grid { grid-template-columns:1fr; }
-  .generated-summary-section.full { grid-column:auto; }
+.keyword-cloud-note {
+  margin-top:10px;
+  color:#8a99a8;
+  font-size:11px;
+  text-align:right;
 }
 
 /* TEAM NOTICE */
@@ -1497,19 +1455,17 @@ button { cursor: pointer; }
       <div class="year-empty">Loading year activity...</div>
     </div>
 
-    <button class="year-button" id="generateYearSummaryButton" onclick="generateYearSummary()">
-      ✨ Generate Year Summary
-    </button>
-
-    <div class="generated-summary" id="generatedYearSummary">
-      <div class="generated-summary-header">
-        <div class="generated-summary-kicker">YEAR SUMMARY REPORT</div>
-        <div class="generated-summary-title" id="generatedSummaryTitle">Year Summary</div>
-        <div class="generated-summary-note">
-          Generated directly from Team Pulse records. No AI interpretation is used in this version.
-        </div>
+    <div class="keyword-cloud-card">
+      <div class="keyword-cloud-heading">☁️ What Defined Our Year</div>
+      <div class="keyword-cloud-description" id="keywordCloudDescription">
+        Most frequently used keywords across the team's Focus and Wins.
       </div>
-      <div class="generated-summary-body" id="generatedSummaryBody"></div>
+      <div class="keyword-cloud" id="keywordCloud">
+        <div class="keyword-cloud-empty">Add more Focus and Wins to build the year's keyword cloud.</div>
+      </div>
+      <div class="keyword-cloud-note">Larger words appeared more often · Hover to see mention count</div>
+    </div>
+
     </div>
 
   </div>
@@ -2068,131 +2024,92 @@ function updateAcademicCalendar() {
 
 
 
-/* GENERATED YEAR SUMMARY */
 
-function summaryRecordsForCurrentSelection() {
-  return getYearRecords();
+
+/* YEAR KEYWORD CLOUD */
+
+const keywordStopWords = new Set([
+  "the","and","for","with","that","this","from","into","onto","than","then","they","them","their",
+  "there","here","have","has","had","will","would","could","should","can","may","might","must",
+  "are","was","were","been","being","is","am","be","to","of","in","on","at","by","as","or","an","a",
+  "it","its","we","our","us","i","my","me","you","your","he","she","his","her","who","what","when",
+  "where","why","how","not","no","yes","do","does","did","done","get","got","make","made","work",
+  "working","week","weekly","focus","focused","win","wins","update","updates","team","main","key",
+  "new","next","also","more","very","all","some","any","about","across","through","up","out","over",
+  "after","before","during","today","tomorrow","monday","tuesday","wednesday","thursday","friday",
+  "complete","completed","continue","continued","prepare","prepared","review","reviewed"
+]);
+
+function normaliseKeyword(word) {
+  let w = word.toLowerCase().replace(/^['’]+|['’]+$/g,"");
+  if (w.length > 4 && w.endsWith("ies")) w = w.slice(0,-3) + "y";
+  else if (w.length > 4 && w.endsWith("ing")) w = w.slice(0,-3);
+  else if (w.length > 4 && w.endsWith("ed")) w = w.slice(0,-2);
+  else if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) w = w.slice(0,-1);
+  return w;
 }
 
-function makeSummaryItems(records, type) {
-  return records
-    .filter(record => record.type === type)
-    .sort((a,b) => a.week_start.localeCompare(b.week_start));
+function buildKeywordCounts(records) {
+  const counts = new Map();
+  const display = new Map();
+
+  records.forEach(record => {
+    const words = String(record.text || "")
+      .replace(/[–—]/g," ")
+      .match(/[A-Za-z][A-Za-z0-9&'’-]{1,}/g) || [];
+
+    words.forEach(raw => {
+      const key = normaliseKeyword(raw);
+      if (key.length < 3 || keywordStopWords.has(key) || /^\d+$/.test(key)) return;
+
+      counts.set(key, (counts.get(key) || 0) + 1);
+
+      if (!display.has(key)) {
+        const looksLikeAcronym = raw.length <= 6 && raw === raw.toUpperCase();
+        display.set(key, looksLikeAcronym ? raw : key.charAt(0).toUpperCase() + key.slice(1));
+      }
+    });
+  });
+
+  return [...counts.entries()]
+    .map(([key,count]) => ({key, count, label:display.get(key)}))
+    .sort((a,b) => b.count - a.count || a.label.localeCompare(b.label))
+    .slice(0,45);
 }
 
-function summaryItemHTML(record, showPerson) {
-  const person = showPerson ? `<strong>${escapeHTML(record.person)}:</strong> ` : "";
-  return `<li>${person}${escapeHTML(record.text)} <span style="color:#97a3af;font-size:11px;">(${escapeHTML(formatWeekTitle(record.week_start))})</span></li>`;
-}
+function renderKeywordCloud() {
+  const cloud = document.getElementById("keywordCloud");
+  const description = document.getElementById("keywordCloudDescription");
+  if (!cloud) return;
 
-function generateYearSummary() {
-  const records = summaryRecordsForCurrentSelection();
-  const year = new Date().getFullYear();
-  const report = document.getElementById("generatedYearSummary");
-  const title = document.getElementById("generatedSummaryTitle");
-  const body = document.getElementById("generatedSummaryBody");
+  const records = getYearRecords();
+  const words = buildKeywordCounts(records);
 
-  const label = selectedYearPerson === "Team" ? "Team" : selectedYearPerson;
-  title.textContent = `${year} Year Summary — ${label}`;
+  if (description) {
+    description.textContent = selectedYearPerson === "Team"
+      ? "Most frequently used keywords across the team's Focus and Wins."
+      : `Most frequently used keywords across ${selectedYearPerson}'s Focus and Wins.`;
+  }
 
-  if (!records.length) {
-    body.innerHTML = `
-      <div class="generated-summary-empty">
-        No ${year} records are available for ${escapeHTML(label)} yet.
-      </div>
-      <div class="generated-summary-actions">
-        <button class="generated-summary-close" onclick="closeGeneratedYearSummary()">Close</button>
-      </div>`;
-    report.classList.add("show");
-    report.scrollIntoView({behavior:"smooth", block:"nearest"});
+  if (!words.length) {
+    cloud.innerHTML = '<div class="keyword-cloud-empty">Add more Focus and Wins to build the year\\'s keyword cloud.</div>';
     return;
   }
 
-  const focuses = makeSummaryItems(records, "focus");
-  const wins = makeSummaryItems(records, "win");
-  const activeWeeks = new Set(records.map(record => record.week_start)).size;
-  const showPerson = selectedYearPerson === "Team";
+  const max = Math.max(...words.map(w => w.count));
+  const min = Math.min(...words.map(w => w.count));
+  const palette = ["#1769e0","#7453d8","#149557","#c46b24","#42576c"];
 
-  const focusHTML = focuses.length
-    ? `<ul class="generated-summary-list">${focuses.map(r => summaryItemHTML(r, showPerson)).join("")}</ul>`
-    : `<div class="generated-summary-empty">No focus items recorded.</div>`;
-
-  const winHTML = wins.length
-    ? `<ul class="generated-summary-list">${wins.map(r => summaryItemHTML(r, showPerson)).join("")}</ul>`
-    : `<div class="generated-summary-empty">No wins recorded.</div>`;
-
-  const monthMap = {};
-  records.forEach(record => {
-    const date = parseDate(record.week_start);
-    const key = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}`;
-    if (!monthMap[key]) monthMap[key] = [];
-    monthMap[key].push(record);
-  });
-
-  const monthlyHTML = Object.keys(monthMap).sort().map(key => {
-    const monthRecords = monthMap[key];
-    const date = parseDate(monthRecords[0].week_start);
-    const monthName = date.toLocaleDateString("en-AU", {month:"long"});
-    const monthFocus = monthRecords.filter(r => r.type === "focus").length;
-    const monthWins = monthRecords.filter(r => r.type === "win").length;
-    const people = [...new Set(monthRecords.map(r => r.person))];
-    const peopleText = showPerson ? ` · ${people.map(escapeHTML).join(", ")}` : "";
-    return `
-      <div class="generated-summary-month">
-        <div class="generated-summary-month-title">${monthName}</div>
-        <div class="generated-summary-month-text">
-          ${monthFocus} focus ${monthFocus === 1 ? "item" : "items"} ·
-          ${monthWins} ${monthWins === 1 ? "win" : "wins"}${peopleText}
-        </div>
-      </div>`;
+  cloud.innerHTML = words.map((word,index) => {
+    const ratio = max === min ? 0.55 : (word.count - min) / (max - min);
+    const size = Math.round(14 + ratio * 28);
+    const weight = Math.round(650 + ratio * 180);
+    const color = palette[index % palette.length];
+    const mentions = `${word.count} ${word.count === 1 ? "mention" : "mentions"}`;
+    return `<span class="keyword-word"
+      style="font-size:${size}px;font-weight:${weight};color:${color}"
+      title="${escapeHTML(word.label)} · ${mentions}">${escapeHTML(word.label)}</span>`;
   }).join("");
-
-  body.innerHTML = `
-    <div class="generated-summary-grid">
-      <div class="generated-summary-section full">
-        <div class="generated-summary-heading">Year at a Glance</div>
-        <div class="summary-stats">
-          <div class="stat">
-            <div class="stat-number">${activeWeeks}</div>
-            <div class="stat-label">Weeks Active</div>
-          </div>
-          <div class="stat">
-            <div class="stat-number">${focuses.length}</div>
-            <div class="stat-label">Focus Items</div>
-          </div>
-          <div class="stat">
-            <div class="stat-number">${wins.length}</div>
-            <div class="stat-label">Wins Shared</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="generated-summary-section">
-        <div class="generated-summary-heading">🎯 Focus Record</div>
-        ${focusHTML}
-      </div>
-
-      <div class="generated-summary-section">
-        <div class="generated-summary-heading">🏆 Achievements & Wins</div>
-        ${winHTML}
-      </div>
-
-      <div class="generated-summary-section full">
-        <div class="generated-summary-heading">📅 Monthly Journey</div>
-        ${monthlyHTML || '<div class="generated-summary-empty">No monthly activity recorded.</div>'}
-      </div>
-    </div>
-
-    <div class="generated-summary-actions">
-      <button class="generated-summary-close" onclick="closeGeneratedYearSummary()">Close Summary</button>
-    </div>`;
-
-  report.classList.add("show");
-  report.scrollIntoView({behavior:"smooth", block:"nearest"});
-}
-
-function closeGeneratedYearSummary() {
-  document.getElementById("generatedYearSummary")?.classList.remove("show");
 }
 
 
@@ -3132,7 +3049,6 @@ let selectedYearPerson = "Team";
 function setYearPerson(person) {
 
   
-  closeGeneratedYearSummary();
 selectedYearPerson = person;
 
   document
@@ -3241,6 +3157,8 @@ function renderYearReview() {
 
 
   renderMonthlyHighlights(records);
+
+  renderKeywordCloud();
 }
 
 

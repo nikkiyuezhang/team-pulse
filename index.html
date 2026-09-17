@@ -82,6 +82,21 @@ button { cursor: pointer; }
 }
 
 
+/* TEAM CODE LOGIN */
+#appContent { display:none; }
+.login-screen { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; background:linear-gradient(135deg,#eef5ff,#f7f4ff); }
+.login-card { width:100%; max-width:430px; background:white; border:1px solid #e1e7ee; border-radius:22px; padding:34px; box-shadow:0 18px 50px rgba(30,55,80,.12); text-align:center; }
+.login-icon { width:62px; height:62px; margin:0 auto 17px; border-radius:18px; display:flex; align-items:center; justify-content:center; background:#edf3ff; font-size:29px; }
+.login-title { font-size:28px; font-weight:800; color:#102f54; }
+.login-subtitle { margin-top:7px; color:#718397; font-size:14px; }
+.login-input { width:100%; margin-top:25px; border:1px solid #ccd6e0; border-radius:11px; padding:13px 14px; font-size:16px; outline:none; }
+.login-input:focus { border-color:#2475e8; box-shadow:0 0 0 3px rgba(36,117,232,.10); }
+.login-button { width:100%; margin-top:12px; border:0; border-radius:11px; padding:13px; background:#2475e8; color:white; font-size:15px; font-weight:750; }
+.login-button:disabled { opacity:.6; cursor:wait; }
+.login-error { display:none; margin-top:13px; padding:10px 12px; border-radius:9px; background:#fff0f0; color:#b12d2d; font-size:13px; }
+.login-note { margin-top:18px; color:#94a1ae; font-size:12px; line-height:1.45; }
+.logout-button { border:1px solid #dbe3ec; background:white; color:#60758a; padding:8px 12px; border-radius:18px; font-weight:700; font-size:12px; }
+
 /* ACADEMIC CALENDAR */
 
 .academic-section {
@@ -1067,6 +1082,19 @@ button { cursor: pointer; }
 </head>
 
 <body>
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-icon">🔒</div>
+    <div class="login-title">Team Pulse</div>
+    <div class="login-subtitle">Private team workspace</div>
+    <input class="login-input" id="teamCodeInput" type="password" placeholder="Enter Team Code" autocomplete="current-password">
+    <button class="login-button" id="loginButton" onclick="loginTeamPulse()">Enter Team Pulse</button>
+    <div class="login-error" id="loginError">Incorrect Team Code.</div>
+    <div class="login-note">Access is limited to the team. The code is kept only for this browser session.</div>
+  </div>
+</div>
+
+<div id="appContent">
 
 <header class="header">
   <div class="header-inner">
@@ -1095,6 +1123,7 @@ button { cursor: pointer; }
       <button class="nav-button" onclick="scrollToSection('academicCalendar')">
         📅 Academic Calendar
       </button>
+      <button class="logout-button" onclick="logoutTeamPulse()">🔒 Lock</button>
     </nav>
 
   </div>
@@ -1416,7 +1445,101 @@ button { cursor: pointer; }
 </div>
 
 
+</div>
+
 <script>
+
+/* TEAM CODE SECURITY */
+const TEAM_CODE_STORAGE_KEY = "team_pulse_team_code";
+
+function getTeamCode() {
+  return sessionStorage.getItem(TEAM_CODE_STORAGE_KEY) || "";
+}
+
+function authHeaders(extra = {}) {
+  return { ...extra, "X-Team-Code": getTeamCode() };
+}
+
+function showLogin() {
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("appContent").style.display = "none";
+}
+
+function showApp() {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("appContent").style.display = "block";
+}
+
+async function loginTeamPulse() {
+  const input = document.getElementById("teamCodeInput");
+  const button = document.getElementById("loginButton");
+  const errorBox = document.getElementById("loginError");
+  const code = input.value.trim();
+
+  errorBox.style.display = "none";
+
+  if (!code) {
+    errorBox.textContent = "Please enter the Team Code.";
+    errorBox.style.display = "block";
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Checking...";
+
+  try {
+    const response = await fetch("/api/updates", {
+      headers: { "X-Team-Code": code }
+    });
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(response.status === 401 ? "Incorrect Team Code." : (data.error || "Unable to sign in."));
+    }
+
+    sessionStorage.setItem(TEAM_CODE_STORAGE_KEY, code);
+    allUpdates = data.updates || [];
+
+    showApp();
+    renderUpdates();
+    renderPreviousWeeks();
+    renderYearReview();
+  } catch (error) {
+    sessionStorage.removeItem(TEAM_CODE_STORAGE_KEY);
+    errorBox.textContent = error.message;
+    errorBox.style.display = "block";
+  } finally {
+    button.disabled = false;
+    button.textContent = "Enter Team Pulse";
+  }
+}
+
+function logoutTeamPulse() {
+  sessionStorage.removeItem(TEAM_CODE_STORAGE_KEY);
+  allUpdates = [];
+  document.getElementById("teamCodeInput").value = "";
+  showLogin();
+}
+
+async function startTeamPulse() {
+  updateCurrentWeek();
+  updateAcademicCalendar();
+  updateYear();
+
+  if (!getTeamCode()) {
+    showLogin();
+    return;
+  }
+
+  showApp();
+  const ok = await loadUpdates();
+  if (!ok) showLogin();
+}
+
+document.getElementById("teamCodeInput").addEventListener("keydown", event => {
+  if (event.key === "Enter") loginTeamPulse();
+});
+
 
 /* TEAM */
 
@@ -1773,7 +1896,9 @@ async function loadUpdates() {
   try {
 
     const response =
-      await fetch("/api/updates");
+      await fetch("/api/updates", {
+        headers: authHeaders()
+      });
 
     const data =
       await response.json();
@@ -1796,6 +1921,8 @@ async function loadUpdates() {
     renderPreviousWeeks();
     renderYearReview();
 
+    return true;
+
   } catch(error) {
 
     console.error(error);
@@ -1806,6 +1933,9 @@ async function loadUpdates() {
         `<div class="previous-empty">
           Unable to load previous weeks.
         </div>`;
+
+    sessionStorage.removeItem(TEAM_CODE_STORAGE_KEY);
+    return false;
   }
 }
 
@@ -2443,7 +2573,8 @@ async function saveUpdate() {
           method,
           headers:{
             "Content-Type":
-              "application/json"
+              "application/json",
+            "X-Team-Code": getTeamCode()
           },
           body:
             JSON.stringify(body)
@@ -2540,7 +2671,8 @@ async function deleteUpdate(id) {
 
           headers:{
             "Content-Type":
-              "application/json"
+              "application/json",
+            "X-Team-Code": getTeamCode()
           },
 
           body:
@@ -2977,10 +3109,7 @@ document
 
 /* START */
 
-updateCurrentWeek();
-updateAcademicCalendar();
-updateYear();
-loadUpdates();
+startTeamPulse();
 
 </script>
 

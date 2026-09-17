@@ -567,8 +567,9 @@ button { cursor: pointer; }
   display: grid;
   grid-template-columns: 145px 1fr 1fr;
   gap: 16px;
-  padding: 17px 0;
+  padding: 12px 0;
   border-bottom: 1px solid #edf0f4;
+  align-items: start;
 }
 
 .history-person:last-child {
@@ -605,7 +606,7 @@ button { cursor: pointer; }
 
 .history-entry {
   background: #f7f9fc;
-  padding: 9px 11px;
+  padding: 9px 11px 7px;
   border-radius: 9px;
   font-size: 13px;
   color: #4c6175;
@@ -613,12 +614,31 @@ button { cursor: pointer; }
   margin-bottom: 6px;
   white-space: pre-wrap;
   word-break: break-word;
+  height: auto;
+  min-height: 0;
 }
 
 .history-no-entry {
   color: #9aa7b3;
   font-size: 13px;
   font-style: italic;
+}
+
+
+.history-entry .update-actions {
+  margin-top: 5px;
+  gap: 10px;
+  line-height: 1;
+}
+
+.history-entry .edit-button,
+.history-entry .delete-button {
+  padding: 2px 0;
+  font-size: 11px;
+}
+
+.history-body {
+  padding-bottom: 10px;
 }
 
 

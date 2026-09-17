@@ -2529,7 +2529,11 @@ function renderPreviousWeeks() {
               ? focuses.map(
                   update =>
                     `<div class="history-entry">
-                      ${escapeHTML(update.text)}
+                      <div>${escapeHTML(update.text)}</div>
+                      <div class="update-actions">
+                        <button class="edit-button" onclick="openEditModal(${update.id})">Edit</button>
+                        <button class="delete-button" onclick="deleteUpdate(${update.id})">Delete</button>
+                      </div>
                     </div>`
                 ).join("")
               : `<div class="history-no-entry">
@@ -2542,7 +2546,11 @@ function renderPreviousWeeks() {
               ? wins.map(
                   update =>
                     `<div class="history-entry">
-                      ${escapeHTML(update.text)}
+                      <div>${escapeHTML(update.text)}</div>
+                      <div class="update-actions">
+                        <button class="edit-button" onclick="openEditModal(${update.id})">Edit</button>
+                        <button class="delete-button" onclick="deleteUpdate(${update.id})">Delete</button>
+                      </div>
                     </div>`
                 ).join("")
               : `<div class="history-no-entry">

@@ -1261,7 +1261,962 @@ button { cursor: pointer; }
 
 
 
-/* SMART YEAR KEYWORD + PHRASE CLOUD */
+/* YEAR KEYWORD CLOUD */
+.keyword-cloud-card {
+  margin-top:22px;
+  border:1px solid #e2e8ef;
+  border-radius:16px;
+  background:linear-gradient(135deg,#fbfcff,#f7f4ff);
+  padding:20px;
+}
+.keyword-cloud-heading {
+  font-size:18px;
+  font-weight:800;
+  color:#102f54;
+}
+.keyword-cloud-description {
+  color:#718397;
+  font-size:13px;
+  margin-top:4px;
+}
+.keyword-cloud {
+  min-height:190px;
+  margin-top:16px;
+  padding:20px 12px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  align-content:center;
+  gap:8px 15px;
+  border-radius:13px;
+  background:white;
+  border:1px solid #eceff4;
+}
+.keyword-word {
+  display:inline-block;
+  line-height:1.05;
+  font-weight:750;
+  cursor:default;
+  transition:transform .15s ease, opacity .15s ease;
+}
+.keyword-word:hover {
+  transform:scale(1.08);
+  opacity:.78;
+}
+.keyword-cloud-empty {
+  color:#8a99a8;
+  font-size:13px;
+  font-style:italic;
+}
+.keyword-cloud-note {
+  margin-top:10px;
+  color:#8a99a8;
+  font-size:11px;
+  text-align:right;
+}
+
+/* TEAM NOTICE */
+.notice-bar { max-width:1120px; margin:18px auto 0; padding:0 24px; }
+.notice-shell { display:flex; align-items:center; gap:12px; background:#fff8df; border:1px solid #f1df9c; border-radius:14px; padding:10px 12px; overflow:hidden; box-shadow:0 3px 12px rgba(30,55,80,.04); }
+.notice-label { flex-shrink:0; font-size:12px; font-weight:800; color:#8a6710; letter-spacing:.35px; }
+.notice-window { flex:1; overflow:hidden; min-width:0; white-space:nowrap; }
+.notice-track { display:inline-block; padding-left:100%; animation:noticeScroll 28s linear infinite; color:#5d5133; font-size:13px; }
+.notice-shell:hover .notice-track { animation-play-state:paused; }
+@keyframes noticeScroll { from { transform:translateX(0); } to { transform:translateX(-100%); } }
+.notice-manage { flex-shrink:0; border:0; background:#f3d86f; color:#5e4a0b; padding:8px 11px; border-radius:9px; font-size:12px; font-weight:750; }
+.notice-empty { color:#8b8169; }
+.notice-separator { padding:0 16px; color:#b49a45; }
+.notice-list { max-height:260px; overflow:auto; margin-top:8px; }
+.notice-list-item { border:1px solid #e5e9ee; border-radius:10px; padding:11px; margin-bottom:9px; background:#fafbfd; }
+.notice-list-top { display:flex; justify-content:space-between; gap:12px; }
+.notice-list-person { font-weight:750; color:#173a5e; font-size:13px; }
+.notice-list-text { margin-top:5px; color:#4c6175; font-size:13px; line-height:1.4; white-space:pre-wrap; }
+.notice-list-meta { margin-top:6px; color:#8a99a8; font-size:11px; }
+.notice-list-actions { display:flex; gap:10px; margin-top:7px; }
+.notice-expiry { width:100%; border:1px solid #ccd6e0; border-radius:10px; padding:11px 12px; font-size:14px; }
+@media(max-width:760px) { .notice-bar { padding:0 14px; margin-top:12px; } .notice-label { display:none; } .notice-track { animation-duration:22s; } }
+
+</style>
+</head>
+
+<body>
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-icon">🔒</div>
+    <div class="login-title">Team Pulse</div>
+    <div class="login-subtitle">Private team workspace</div>
+    <input class="login-input" id="teamCodeInput" type="password" placeholder="Enter Team Code" autocomplete="current-password">
+    <button class="login-button" id="loginButton" onclick="loginTeamPulse()">Enter Team Pulse</button>
+    <div class="login-error" id="loginError">Incorrect Team Code.</div>
+    <div class="login-note">Access is limited to the team. The code is kept only for this browser session.</div>
+  </div>
+</div>
+
+<div id="appContent">
+
+<header class="header">
+  <div class="header-inner">
+
+    <div class="brand">
+      <div class="brand-icon">👥</div>
+      <div>
+        <div class="brand-title">Team Pulse</div>
+        <div class="brand-subtitle">Small updates. Big progress.</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-button active" onclick="scrollToSection('thisWeek')">
+        This Week
+      </button>
+
+      <button class="nav-button" onclick="scrollToSection('previousWeeks')">
+        Previous Weeks
+      </button>
+
+      <button class="nav-button" onclick="scrollToSection('yearReview')">
+        Year in Review
+      </button>
+
+      <button class="nav-button" onclick="scrollToSection('academicCalendar')">
+        📅 Academic Calendar
+      </button>
+      <button class="logout-button" onclick="logoutTeamPulse()">🔒 Log Out</button>
+    </nav>
+
+  </div>
+</header>
+
+
+
+
+<!-- TEAM NOTICE -->
+<section class="notice-bar" id="teamNotice">
+  <div class="notice-shell">
+    <div class="notice-label">📣 TEAM NOTICE</div>
+    <div class="notice-window"><div class="notice-track" id="noticeTrack"><span class="notice-empty">No active announcements.</span></div></div>
+    <button class="notice-manage" onclick="openNoticeModal()">✏️ Manage</button>
+  </div>
+</section>
+
+<section class="academic-section" id="academicCalendar">
+<div class="academic-card">
+
+  <div class="academic-heading-row">
+
+    <div>
+      <div class="academic-label">📅 UNE ACADEMIC CALENDAR</div>
+      <h2 class="academic-title" id="academicTitle">Academic Calendar</h2>
+      <div class="academic-description">
+        Key dates and countdowns for the next Census Date
+      </div>
+    </div>
+
+    <div class="today-badge" id="todayBadge">Today</div>
+
+  </div>
+
+
+  <div class="countdown-grid">
+
+    <div class="countdown-card start-countdown">
+      <div class="countdown-heading">▶ TRIMESTER STARTS IN</div>
+      <div class="countdown-content">
+        <div class="big-countdown" id="startDays">—</div>
+        <div class="week-countdown" id="startWeeks">—</div>
+      </div>
+    </div>
+
+    <div class="countdown-card census-countdown">
+      <div class="countdown-heading">🎯 CENSUS DATE IN</div>
+      <div class="countdown-content">
+        <div class="big-countdown" id="censusDays">—</div>
+        <div class="week-countdown" id="censusWeeks">—</div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="timeline">
+
+    <div class="timeline-line">
+      <div class="timeline-progress" id="timelineProgress"></div>
+    </div>
+
+    <div class="timeline-dates">
+
+      <div class="timeline-item">
+        <div class="timeline-name">Teaching Starts</div>
+        <div id="teachingStart">—</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-name">Census Date</div>
+        <div id="censusDate">—</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-name">Teaching Ends</div>
+        <div id="teachingEnd">—</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+
+<section class="hero" id="thisWeek">
+<div class="hero-inner">
+
+  <div class="week-label">THIS WEEK</div>
+
+  <h1 class="week-title" id="currentWeek">
+    This Week
+  </h1>
+
+  <div class="week-message">
+    Share what matters this week, then celebrate the wins.
+  </div>
+
+</div>
+</section>
+
+
+<main class="container">
+
+<div class="main-grid">
+
+  <section class="card">
+
+    <div class="card-header focus-header">
+
+      <div class="day-label">🎯 MONDAY</div>
+
+      <div class="card-title">
+        Key Focus of the Week
+      </div>
+
+      <div class="card-question">
+        What are your main priorities this week?
+      </div>
+
+      <button
+        class="add-button focus-button"
+        onclick="openAddModal('focus')">
+        + Add My Focus
+      </button>
+
+    </div>
+
+    <div class="people" id="focusPeople"></div>
+
+  </section>
+
+
+  <section class="card">
+
+    <div class="card-header win-header">
+
+      <div class="day-label">🏆 FRIDAY</div>
+
+      <div class="card-title">
+        Wins for the Week
+      </div>
+
+      <div class="card-question">
+        What did you achieve, big or small?
+      </div>
+
+      <button
+        class="add-button win-button"
+        onclick="openAddModal('win')">
+        + Add My Win
+      </button>
+
+    </div>
+
+    <div class="people" id="winPeople"></div>
+
+  </section>
+
+</div>
+
+
+<!-- PREVIOUS WEEKS -->
+
+<section class="previous-section" id="previousWeeks">
+
+  <div class="section-heading-row">
+
+    <div>
+      <div class="section-eyebrow">HISTORY</div>
+      <h2 class="section-title">📅 Previous Weeks</h2>
+      <div class="section-description">
+        A running record of the team's weekly focus and wins.
+      </div>
+    </div>
+
+    <div class="history-count" id="historyCount">
+      0 previous weeks
+    </div>
+
+  </div>
+
+  <div id="previousWeeksContainer">
+    <div class="previous-empty">
+      Loading previous weeks...
+    </div>
+  </div>
+
+</section>
+
+
+<!-- YEAR REVIEW -->
+
+<section class="year-section" id="yearReview">
+
+  <div class="year-card">
+
+    <div class="year-top">
+
+      <div>
+        <div class="section-eyebrow">ANNUAL RECORD</div>
+        <div class="year-title">
+          ✨ <span id="reviewYear">2026</span> Year in Review
+        </div>
+        <div class="year-subtitle" id="yearSubtitle">
+          Team activity across the year
+        </div>
+      </div>
+
+      <div class="year-tabs">
+        <button class="year-tab active" data-person="Team" onclick="setYearPerson('Team')">Team</button>
+        <button class="year-tab" data-person="Megan" onclick="setYearPerson('Megan')">Megan</button>
+        <button class="year-tab" data-person="Penny" onclick="setYearPerson('Penny')">Penny</button>
+        <button class="year-tab" data-person="Nikki" onclick="setYearPerson('Nikki')">Nikki</button>
+      </div>
+
+    </div>
+
+    <div class="summary-stats">
+
+      <div class="stat">
+        <div class="stat-number" id="weeksNumber">0</div>
+        <div class="stat-label">Weeks Active</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number" id="focusCount">0</div>
+        <div class="stat-label">Focus Items</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number" id="winCount">0</div>
+        <div class="stat-label">Wins Shared</div>
+      </div>
+
+    </div>
+
+    <div class="year-divider"></div>
+
+    <div class="monthly-heading">Monthly Highlights</div>
+    <div class="monthly-description" id="monthlyDescription">
+      Focus and wins recorded by the team, grouped by month.
+    </div>
+
+    <div id="monthlyHighlights">
+      <div class="year-empty">Loading year activity...</div>
+    </div>
+
+    <div class="keyword-cloud-card">
+      <div class="keyword-cloud-heading">☁️ What Defined Our Year</div>
+      <div class="keyword-cloud-description" id="keywordCloudDescription">
+        Most frequently used keywords across the team's Focus and Wins.
+      </div>
+      <div class="keyword-cloud" id="keywordCloud">
+        <div class="keyword-cloud-empty">Add more Focus and Wins to build the year's keyword cloud.</div>
+      </div>
+      <div class="keyword-cloud-note">Larger words appeared more often · Hover to see mention count</div>
+    </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+
+
+<!-- ANNOUNCEMENT MODAL -->
+<div class="modal-backdrop" id="noticeModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📣 Team Notice</div>
+      <button class="close-button" onclick="closeNoticeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-message" id="noticeMessage"></div>
+      <div class="notice-list" id="noticeList"></div>
+      <div class="form-group">
+        <label class="form-label">Who are you?</label>
+        <select class="form-select" id="noticePerson"><option value="">Select your name</option><option value="Megan">Megan</option><option value="Penny">Penny</option><option value="Nikki">Nikki</option></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Announcement</label>
+        <textarea class="form-textarea" id="noticeText" maxlength="1000" placeholder="What does the team need to know?"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Expiry date (optional)</label>
+        <input class="notice-expiry" id="noticeExpiry" type="date">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="cancel-button" onclick="closeNoticeModal()">Close</button>
+      <button class="save-button" id="noticeSaveButton" onclick="saveAnnouncement()">Add Announcement</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD / EDIT MODAL -->
+
+<div class="modal-backdrop" id="updateModal">
+
+<div class="modal">
+
+  <div class="modal-header">
+
+    <div class="modal-title" id="modalTitle">
+      Add Update
+    </div>
+
+    <button class="close-button" onclick="closeModal()">
+      ×
+    </button>
+
+  </div>
+
+
+  <div class="modal-body">
+
+    <div class="form-message" id="formMessage"></div>
+
+    <div class="form-group">
+
+      <label class="form-label">
+        Who are you?
+      </label>
+
+      <select class="form-select" id="updatePerson">
+        <option value="">Select your name</option>
+        <option value="Megan">Megan</option>
+        <option value="Penny">Penny</option>
+        <option value="Nikki">Nikki</option>
+      </select>
+
+    </div>
+
+
+    <div class="form-group" id="updateWeekGroup">
+
+      <label class="form-label">
+        Which week?
+      </label>
+
+      <select class="form-select" id="updateWeek">
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label class="form-label" id="updateQuestion">
+        What would you like to share?
+      </label>
+
+      <textarea
+        class="form-textarea"
+        id="updateText"
+        maxlength="1000"></textarea>
+
+    </div>
+
+  </div>
+
+
+  <div class="modal-footer">
+
+    <button class="cancel-button" onclick="closeModal()">
+      Cancel
+    </button>
+
+    <button class="save-button" id="saveButton" onclick="saveUpdate()">
+      Save
+    </button>
+
+  </div>
+
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+/* TEAM CODE SECURITY */
+const TEAM_CODE_STORAGE_KEY = "team_pulse_team_code";
+
+function getTeamCode() {
+  return sessionStorage.getItem(TEAM_CODE_STORAGE_KEY) || "";
+}
+
+function authHeaders(extra = {}) {
+  return { ...extra, "X-Team-Code": getTeamCode() };
+}
+
+function showLogin() {
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("appContent").style.display = "none";
+}
+
+function showApp() {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("appContent").style.display = "block";
+}
+
+async function loginTeamPulse() {
+  const input = document.getElementById("teamCodeInput");
+  const button = document.getElementById("loginButton");
+  const errorBox = document.getElementById("loginError");
+  const code = input.value.trim();
+
+  errorBox.style.display = "none";
+
+  if (!code) {
+    errorBox.textContent = "Please enter the Team Code.";
+    errorBox.style.display = "block";
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Checking...";
+
+  try {
+    const response = await fetch("/api/updates", {
+      headers: { "X-Team-Code": code }
+    });
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(response.status === 401 ? "Incorrect Team Code." : (data.error || "Unable to sign in."));
+    }
+
+    sessionStorage.setItem(TEAM_CODE_STORAGE_KEY, code);
+    allUpdates = data.updates || [];
+
+    showApp();
+    renderUpdates();
+    renderPreviousWeeks();
+    renderYearReview();
+    await loadAnnouncements();
+  } catch (error) {
+    sessionStorage.removeItem(TEAM_CODE_STORAGE_KEY);
+    errorBox.textContent = error.message;
+    errorBox.style.display = "block";
+  } finally {
+    button.disabled = false;
+    button.textContent = "Enter Team Pulse";
+  }
+}
+
+function logoutTeamPulse() {
+  sessionStorage.removeItem(TEAM_CODE_STORAGE_KEY);
+  allUpdates = [];
+  document.getElementById("teamCodeInput").value = "";
+  showLogin();
+}
+
+async function startTeamPulse() {
+  updateCurrentWeek();
+  updateAcademicCalendar();
+  updateYear();
+
+  if (!getTeamCode()) {
+    showLogin();
+    return;
+  }
+
+  showApp();
+  const ok = await loadUpdates();
+  if (ok) await loadAnnouncements();
+  if (!ok) showLogin();
+}
+
+document.getElementById("teamCodeInput").addEventListener("keydown", event => {
+  if (event.key === "Enter") loginTeamPulse();
+});
+
+
+/* TEAM */
+
+const teamMembers = [
+  {name:"Megan", initial:"M", avatarClass:"megan"},
+  {name:"Penny", initial:"P", avatarClass:"penny"},
+  {name:"Nikki", initial:"N", avatarClass:"nikki"}
+];
+
+
+/* ACADEMIC DATES */
+
+const academicPeriods = [
+
+  {name:"T1 2026", start:"2026-02-23", census:"2026-03-23", end:"2026-05-22"},
+  {name:"T2 2026", start:"2026-06-22", census:"2026-07-20", end:"2026-09-18"},
+  {name:"T3 2026", start:"2026-10-19", census:"2026-11-16", end:"2027-01-22"},
+
+  {name:"T1 2027", start:"2027-02-22", census:"2027-03-22", end:"2027-05-21"},
+  {name:"T2 2027", start:"2027-06-21", census:"2027-07-19", end:"2027-09-17"},
+  {name:"T3 2027", start:"2027-10-18", census:"2027-11-15", end:"2028-01-21"}
+
+];
+
+
+/* DATE HELPERS */
+
+function parseDate(value) {
+
+  const p = value.split("-");
+
+  return new Date(
+    Number(p[0]),
+    Number(p[1])-1,
+    Number(p[2])
+  );
+}
+
+
+function startOfDay(date) {
+
+  return new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate()
+  );
+}
+
+
+function daysBetween(from,to) {
+
+  return Math.round(
+    (
+      startOfDay(to) -
+      startOfDay(from)
+    ) / 86400000
+  );
+}
+
+
+function formatDate(date) {
+
+  return date.toLocaleDateString(
+    "en-AU",
+    {
+      day:"numeric",
+      month:"short",
+      year:"numeric"
+    }
+  );
+}
+
+
+function formatISODate(date) {
+
+  const y = date.getFullYear();
+
+  const m =
+    String(date.getMonth()+1)
+      .padStart(2,"0");
+
+  const d =
+    String(date.getDate())
+      .padStart(2,"0");
+
+  return `${y}-${m}-${d}`;
+}
+
+
+function formatWeeksAndDays(total) {
+
+  if (total <= 0) return "Today";
+
+  const weeks = Math.floor(total/7);
+  const days = total%7;
+  const parts = [];
+
+  if (weeks) {
+    parts.push(
+      `${weeks} ${weeks===1 ? "week" : "weeks"}`
+    );
+  }
+
+  if (days) {
+    parts.push(
+      `${days} ${days===1 ? "day" : "days"}`
+    );
+  }
+
+  return parts.join(" ");
+}
+
+
+/* CURRENT WEEK */
+
+function getCurrentMonday() {
+
+  const today = startOfDay(new Date());
+  const day = today.getDay();
+  const diff = day===0 ? -6 : 1-day;
+
+  const monday = new Date(today);
+
+  monday.setDate(
+    today.getDate()+diff
+  );
+
+  return monday;
+}
+
+
+function getFriday(monday) {
+
+  const friday = new Date(monday);
+
+  friday.setDate(
+    monday.getDate()+4
+  );
+
+  return friday;
+}
+
+
+function formatWeekTitle(weekStartString) {
+
+  const monday =
+    parseDate(weekStartString);
+
+  const friday =
+    getFriday(monday);
+
+  const sameMonth =
+    monday.getMonth() === friday.getMonth();
+
+  if (sameMonth) {
+
+    return (
+      `Week of ${monday.getDate()} – ${friday.getDate()} ` +
+      friday.toLocaleDateString(
+        "en-AU",
+        {
+          month:"long",
+          year:"numeric"
+        }
+      )
+    );
+  }
+
+  return (
+    `Week of ${monday.toLocaleDateString("en-AU",{day:"numeric",month:"short"})}` +
+    ` – ${friday.toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"})}`
+  );
+}
+
+
+function updateCurrentWeek() {
+
+  document
+    .getElementById("currentWeek")
+    .textContent =
+      formatWeekTitle(
+        formatISODate(
+          getCurrentMonday()
+        )
+      );
+}
+
+
+/* ACADEMIC CALENDAR */
+
+function getNextCensusPeriod(today) {
+
+  return academicPeriods.find(
+    period =>
+      today <= parseDate(period.census)
+  );
+}
+
+
+function updateAcademicCalendar() {
+
+  const today =
+    startOfDay(new Date());
+
+  document
+    .getElementById("todayBadge")
+    .textContent =
+      "Today · " + formatDate(today);
+
+
+  const period =
+    getNextCensusPeriod(today);
+
+  if (!period) return;
+
+
+  const start =
+    parseDate(period.start);
+
+  const census =
+    parseDate(period.census);
+
+  const end =
+    parseDate(period.end);
+
+
+  document
+    .getElementById("academicTitle")
+    .textContent =
+      period.name;
+
+  document
+    .getElementById("teachingStart")
+    .textContent =
+      formatDate(start);
+
+  document
+    .getElementById("censusDate")
+    .textContent =
+      formatDate(census);
+
+  document
+    .getElementById("teachingEnd")
+    .textContent =
+      formatDate(end);
+
+
+  const daysToStart =
+    daysBetween(today,start);
+
+
+  if (daysToStart > 0) {
+
+    document
+      .getElementById("startDays")
+      .innerHTML =
+        `${daysToStart} <span>DAYS</span>`;
+
+    document
+      .getElementById("startWeeks")
+      .innerHTML =
+        `${formatWeeksAndDays(daysToStart)}
+        <div class="countdown-date">
+        until ${formatDate(start)}
+        </div>`;
+
+  } else {
+
+    const week =
+      Math.floor(
+        daysBetween(start,today)/7
+      )+1;
+
+    document
+      .getElementById("startDays")
+      .textContent =
+        daysToStart===0
+          ? "TODAY"
+          : "STARTED";
+
+    document
+      .getElementById("startWeeks")
+      .innerHTML =
+        daysToStart===0
+          ? `Trimester starts today
+             <div class="countdown-date">
+             ${formatDate(start)}
+             </div>`
+          : `Teaching Week ${week}
+             <div class="countdown-date">
+             Started ${formatDate(start)}
+             </div>`;
+  }
+
+
+  const daysToCensus =
+    daysBetween(today,census);
+
+
+  document
+    .getElementById("censusDays")
+    .innerHTML =
+      daysToCensus===0
+        ? "TODAY"
+        : `${daysToCensus} <span>DAYS</span>`;
+
+
+  document
+    .getElementById("censusWeeks")
+    .innerHTML =
+      daysToCensus===0
+        ? `Census Date
+           <div class="countdown-date">
+           ${formatDate(census)}
+           </div>`
+        : `${formatWeeksAndDays(daysToCensus)}
+           <div class="countdown-date">
+           until ${formatDate(census)}
+           </div>`;
+
+
+  let progress = 0;
+
+  if (today >= end) {
+
+    progress = 100;
+
+  } else if (today >= start) {
+
+    progress =
+      daysBetween(start,today) /
+      daysBetween(start,end) *
+      100;
+  }
+
+
+  document
+    .getElementById("timelineProgress")
+    .style.width =
+      Math.max(
+        0,
+        Math.min(100,progress)
+      ) + "%";
+}
+
+
+
+
+
+
+
+/* YEAR KEYWORD CLOUD */
 
 const keywordStopWords = new Set([
   "the","and","for","with","that","this","from","into","onto","than","then","they","them","their",
@@ -1275,103 +2230,37 @@ const keywordStopWords = new Set([
   "complete","completed","continue","continued","prepare","prepared","review","reviewed","previous"
 ]);
 
-/* Conservative aliases only — avoids destructive stemming such as analysis → analysi. */
-const keywordAliases = {
-  "analyses":"analysis",
-  "applications":"application",
-  "applicants":"applicant",
-  "enrolments":"enrolment",
-  "enrollments":"enrollment",
-  "students":"student",
-  "courses":"course",
-  "reports":"report",
-  "dashboards":"dashboard",
-  "meetings":"meeting",
-  "flights":"flight",
-  "forecasts":"forecast",
-  "strategies":"strategy",
-  "markets":"market"
-};
-
 function normaliseKeyword(word) {
-  const clean = String(word || "")
+  return word
     .toLowerCase()
     .replace(/^['’]+|['’]+$/g,"");
-  return keywordAliases[clean] || clean;
-}
-
-function smartTokenise(text) {
-  const rawWords = String(text || "")
-    .replace(/[–—/]/g," ")
-    .match(/[A-Za-z][A-Za-z0-9&'’-]{1,}/g) || [];
-
-  return rawWords.map(raw => {
-    const key = normaliseKeyword(raw);
-    const acronym = raw.length <= 7 && raw === raw.toUpperCase();
-    const label = acronym ? raw : key.charAt(0).toUpperCase() + key.slice(1);
-    return {
-      raw,
-      key,
-      label,
-      useful: key.length >= 3 && !keywordStopWords.has(key) && !/^\d+$/.test(key)
-    };
-  });
 }
 
 function buildKeywordCounts(records) {
-  const items = new Map();
-
-  function addItem(key, label, score, mentions, isPhrase=false) {
-    if (!key) return;
-    const existing = items.get(key) || { key, label, score:0, mentions:0, isPhrase };
-    existing.score += score;
-    existing.mentions += mentions;
-    if (isPhrase) existing.isPhrase = true;
-    items.set(key, existing);
-  }
+  const counts = new Map();
+  const display = new Map();
 
   records.forEach(record => {
-    const tokens = smartTokenise(record.text);
-    const weight = record.type === "win" ? 1.3 : 1.0;
+    const words = String(record.text || "")
+      .replace(/[–—]/g," ")
+      .match(/[A-Za-z][A-Za-z0-9&'’-]{1,}/g) || [];
 
-    /* Single concepts */
-    tokens.forEach(token => {
-      if (!token.useful) return;
-      addItem(token.key, token.label, weight, 1, false);
+    words.forEach(raw => {
+      const key = normaliseKeyword(raw);
+      if (key.length < 3 || keywordStopWords.has(key) || /^\d+$/.test(key)) return;
+
+      counts.set(key, (counts.get(key) || 0) + 1);
+
+      if (!display.has(key)) {
+        const looksLikeAcronym = raw.length <= 6 && raw === raw.toUpperCase();
+        display.set(key, looksLikeAcronym ? raw : key.charAt(0).toUpperCase() + key.slice(1));
+      }
     });
-
-    /* Meaningful two-word phrases. Stopwords break phrases rather than being removed. */
-    for (let i = 0; i < tokens.length - 1; i++) {
-      const a = tokens[i];
-      const b = tokens[i + 1];
-      if (!a.useful || !b.useful) continue;
-      if (a.key === b.key) continue;
-
-      const phraseKey = `${a.key} ${b.key}`;
-      const phraseLabel = `${a.label} ${b.label}`;
-      addItem(phraseKey, phraseLabel, weight * 1.55, 1, true);
-    }
-
-    /* Three-word phrases are included only when all three words are meaningful. */
-    for (let i = 0; i < tokens.length - 2; i++) {
-      const a = tokens[i], b = tokens[i + 1], c = tokens[i + 2];
-      if (!a.useful || !b.useful || !c.useful) continue;
-      const phraseKey = `${a.key} ${b.key} ${c.key}`;
-      const phraseLabel = `${a.label} ${b.label} ${c.label}`;
-      addItem(phraseKey, phraseLabel, weight * 1.8, 1, true);
-    }
   });
 
-  let ranked = [...items.values()];
-
-  /* Repeated phrases are especially informative; one-off long phrases are kept,
-     but ranked below recurring concepts. */
-  ranked.forEach(item => {
-    if (item.isPhrase && item.mentions >= 2) item.score *= 1.25;
-  });
-
-  return ranked
-    .sort((a,b) => b.score - a.score || b.mentions - a.mentions || a.label.localeCompare(b.label))
+  return [...counts.entries()]
+    .map(([key,count]) => ({key, count, label:display.get(key)}))
+    .sort((a,b) => b.count - a.count || a.label.localeCompare(b.label))
     .slice(0,45);
 }
 
@@ -1385,8 +2274,8 @@ function renderKeywordCloud() {
 
   if (description) {
     description.textContent = selectedYearPerson === "Team"
-      ? "Smart themes and phrases drawn from the team's Focus and Wins."
-      : `Smart themes and phrases drawn from ${selectedYearPerson}'s Focus and Wins.`;
+      ? "Most frequently used keywords across the team's Focus and Wins."
+      : `Most frequently used keywords across ${selectedYearPerson}'s Focus and Wins.`;
   }
 
   if (!words.length) {
@@ -1394,20 +2283,19 @@ function renderKeywordCloud() {
     return;
   }
 
-  const max = Math.max(...words.map(w => w.score));
-  const min = Math.min(...words.map(w => w.score));
+  const max = Math.max(...words.map(w => w.count));
+  const min = Math.min(...words.map(w => w.count));
   const palette = ["#1769e0","#7453d8","#149557","#c46b24","#42576c"];
 
   cloud.innerHTML = words.map((word,index) => {
-    const ratio = max === min ? 0.55 : (word.score - min) / (max - min);
+    const ratio = max === min ? 0.55 : (word.count - min) / (max - min);
     const size = Math.round(14 + ratio * 28);
     const weight = Math.round(650 + ratio * 180);
     const color = palette[index % palette.length];
-    const mentions = `${word.mentions} ${word.mentions === 1 ? "mention" : "mentions"}`;
-    const kind = word.isPhrase ? "phrase" : "keyword";
+    const mentions = `${word.count} ${word.count === 1 ? "mention" : "mentions"}`;
     return `<span class="keyword-word"
       style="font-size:${size}px;font-weight:${weight};color:${color}"
-      title="${escapeHTML(word.label)} · ${mentions} · ${kind}">${escapeHTML(word.label)}</span>`;
+      title="${escapeHTML(word.label)} · ${mentions}">${escapeHTML(word.label)}</span>`;
   }).join("");
 }
 

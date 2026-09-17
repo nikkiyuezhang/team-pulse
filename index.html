@@ -1546,6 +1546,18 @@ button { cursor: pointer; }
     </div>
 
 
+    <div class="form-group" id="updateWeekGroup">
+
+      <label class="form-label">
+        Which week?
+      </label>
+
+      <select class="form-select" id="updateWeek">
+      </select>
+
+    </div>
+
+
     <div class="form-group">
 
       <label class="form-label" id="updateQuestion">
@@ -2037,16 +2049,13 @@ const keywordStopWords = new Set([
   "working","week","weekly","focus","focused","win","wins","update","updates","team","main","key",
   "new","next","also","more","very","all","some","any","about","across","through","up","out","over",
   "after","before","during","today","tomorrow","monday","tuesday","wednesday","thursday","friday",
-  "complete","completed","continue","continued","prepare","prepared","review","reviewed"
+  "complete","completed","continue","continued","prepare","prepared","review","reviewed","previous"
 ]);
 
 function normaliseKeyword(word) {
-  let w = word.toLowerCase().replace(/^['’]+|['’]+$/g,"");
-  if (w.length > 4 && w.endsWith("ies")) w = w.slice(0,-3) + "y";
-  else if (w.length > 4 && w.endsWith("ing")) w = w.slice(0,-3);
-  else if (w.length > 4 && w.endsWith("ed")) w = w.slice(0,-2);
-  else if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) w = w.slice(0,-1);
-  return w;
+  return word
+    .toLowerCase()
+    .replace(/^['’]+|['’]+$/g,"");
 }
 
 function buildKeywordCounts(records) {
@@ -2655,6 +2664,34 @@ let editingId = null;
 let currentType = "focus";
 
 
+function populateWeekOptions(selectedWeek = null) {
+
+  const select = document.getElementById("updateWeek");
+  if (!select) return;
+
+  const currentMonday = getCurrentMonday();
+  let html = "";
+
+  for (let i = 0; i < 9; i++) {
+    const monday = new Date(currentMonday);
+    monday.setDate(currentMonday.getDate() - (i * 7));
+
+    const value = formatISODate(monday);
+    const friday = new Date(monday);
+    friday.setDate(monday.getDate() + 4);
+
+    const label = i === 0
+      ? `Current week · ${formatWeekTitle(value)}`
+      : `${i} ${i === 1 ? "week" : "weeks"} ago · ${formatWeekTitle(value)}`;
+
+    html += `<option value="${value}">${label}</option>`;
+  }
+
+  select.innerHTML = html;
+  select.value = selectedWeek || formatISODate(currentMonday);
+}
+
+
 function openAddModal(type) {
 
   modalMode = "add";
@@ -2675,6 +2712,14 @@ function openAddModal(type) {
   document
     .getElementById("updateText")
     .value = "";
+
+
+  populateWeekOptions();
+
+
+  document
+    .getElementById("updateWeek")
+    .disabled = false;
 
 
   document
@@ -2725,6 +2770,20 @@ function openEditModal(id) {
     .getElementById("updateText")
     .value =
       update.text;
+
+
+  populateWeekOptions(update.week_start);
+
+
+  const weekSelect = document.getElementById("updateWeek");
+  if (weekSelect && ![...weekSelect.options].some(option => option.value === update.week_start)) {
+    const option = document.createElement("option");
+    option.value = update.week_start;
+    option.textContent = formatWeekTitle(update.week_start);
+    weekSelect.prepend(option);
+    weekSelect.value = update.week_start;
+  }
+  weekSelect.disabled = true;
 
 
   document
@@ -2825,6 +2884,12 @@ async function saveUpdate() {
       .trim();
 
 
+  const selectedWeek =
+    document
+      .getElementById("updateWeek")
+      .value;
+
+
   const message =
     document
       .getElementById("formMessage");
@@ -2885,10 +2950,7 @@ async function saveUpdate() {
       method = "POST";
 
       body = {
-        week_start:
-          formatISODate(
-            getCurrentMonday()
-          ),
+        week_start: selectedWeek,
         person,
         type:currentType,
         text

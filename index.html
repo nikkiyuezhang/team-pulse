@@ -3718,10 +3718,10 @@ async function generateAiSummary() {
 
   // Use the person currently selected in Annual Record.
   // Falls back to Team if no person is selected.
-  const person =
-    typeof selectedReviewPerson !== "undefined"
-      ? selectedReviewPerson
-      : "Team";
+ const person =
+  typeof selectedYearPerson !== "undefined"
+    ? selectedYearPerson
+    : "Team";
 
   button.disabled = true;
   button.textContent = "✨ Generating...";

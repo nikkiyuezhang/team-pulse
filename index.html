@@ -1080,6 +1080,106 @@ button { cursor: pointer; }
 }
 
 
+
+/* GENERATED YEAR SUMMARY */
+.generated-summary {
+  display:none;
+  margin-top:18px;
+  border:1px solid #ddd6fb;
+  border-radius:16px;
+  overflow:hidden;
+  background:#fcfbff;
+}
+.generated-summary.show { display:block; }
+.generated-summary-header {
+  padding:20px 22px;
+  background:linear-gradient(135deg,#f0ecff,#faf8ff);
+  border-bottom:1px solid #e4def8;
+}
+.generated-summary-kicker {
+  color:#7453d8;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.55px;
+}
+.generated-summary-title {
+  margin-top:5px;
+  color:#2f2557;
+  font-size:21px;
+  font-weight:800;
+}
+.generated-summary-note {
+  margin-top:5px;
+  color:#776f91;
+  font-size:12px;
+}
+.generated-summary-body { padding:20px 22px; }
+.generated-summary-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.generated-summary-section {
+  border:1px solid #e5e8ee;
+  border-radius:13px;
+  background:white;
+  padding:16px;
+}
+.generated-summary-section.full { grid-column:1 / -1; }
+.generated-summary-heading {
+  font-size:14px;
+  font-weight:800;
+  color:#173a5e;
+  margin-bottom:10px;
+}
+.generated-summary-list {
+  margin:0;
+  padding-left:19px;
+  color:#4c6175;
+  font-size:13px;
+  line-height:1.55;
+}
+.generated-summary-list li { margin-bottom:7px; }
+.generated-summary-month {
+  padding:10px 0;
+  border-bottom:1px solid #edf0f4;
+}
+.generated-summary-month:last-child { border-bottom:0; }
+.generated-summary-month-title {
+  font-weight:800;
+  color:#173a5e;
+  font-size:13px;
+  margin-bottom:5px;
+}
+.generated-summary-month-text {
+  color:#5a6d80;
+  font-size:12px;
+  line-height:1.5;
+}
+.generated-summary-empty {
+  color:#8a99a8;
+  font-size:13px;
+  font-style:italic;
+}
+.generated-summary-actions {
+  display:flex;
+  justify-content:flex-end;
+  margin-top:14px;
+}
+.generated-summary-close {
+  border:1px solid #d8dce4;
+  background:white;
+  color:#5d6f82;
+  border-radius:9px;
+  padding:8px 12px;
+  font-weight:700;
+  font-size:12px;
+}
+@media(max-width:760px) {
+  .generated-summary-grid { grid-template-columns:1fr; }
+  .generated-summary-section.full { grid-column:auto; }
+}
+
 /* TEAM NOTICE */
 .notice-bar { max-width:1120px; margin:18px auto 0; padding:0 24px; }
 .notice-shell { display:flex; align-items:center; gap:12px; background:#fff8df; border:1px solid #f1df9c; border-radius:14px; padding:10px 12px; overflow:hidden; box-shadow:0 3px 12px rgba(30,55,80,.04); }
@@ -1397,9 +1497,20 @@ button { cursor: pointer; }
       <div class="year-empty">Loading year activity...</div>
     </div>
 
-    <button class="year-button" disabled title="AI summary will be added in a later step">
-      ✨ Generate Year Summary — Coming Next
+    <button class="year-button" id="generateYearSummaryButton" onclick="generateYearSummary()">
+      ✨ Generate Year Summary
     </button>
+
+    <div class="generated-summary" id="generatedYearSummary">
+      <div class="generated-summary-header">
+        <div class="generated-summary-kicker">YEAR SUMMARY REPORT</div>
+        <div class="generated-summary-title" id="generatedSummaryTitle">Year Summary</div>
+        <div class="generated-summary-note">
+          Generated directly from Team Pulse records. No AI interpretation is used in this version.
+        </div>
+      </div>
+      <div class="generated-summary-body" id="generatedSummaryBody"></div>
+    </div>
 
   </div>
 
@@ -1954,6 +2065,135 @@ function updateAcademicCalendar() {
 }
 
 
+
+
+
+/* GENERATED YEAR SUMMARY */
+
+function summaryRecordsForCurrentSelection() {
+  return getYearRecords();
+}
+
+function makeSummaryItems(records, type) {
+  return records
+    .filter(record => record.type === type)
+    .sort((a,b) => a.week_start.localeCompare(b.week_start));
+}
+
+function summaryItemHTML(record, showPerson) {
+  const person = showPerson ? `<strong>${escapeHTML(record.person)}:</strong> ` : "";
+  return `<li>${person}${escapeHTML(record.text)} <span style="color:#97a3af;font-size:11px;">(${escapeHTML(formatWeekTitle(record.week_start))})</span></li>`;
+}
+
+function generateYearSummary() {
+  const records = summaryRecordsForCurrentSelection();
+  const year = new Date().getFullYear();
+  const report = document.getElementById("generatedYearSummary");
+  const title = document.getElementById("generatedSummaryTitle");
+  const body = document.getElementById("generatedSummaryBody");
+
+  const label = selectedYearPerson === "Team" ? "Team" : selectedYearPerson;
+  title.textContent = `${year} Year Summary — ${label}`;
+
+  if (!records.length) {
+    body.innerHTML = `
+      <div class="generated-summary-empty">
+        No ${year} records are available for ${escapeHTML(label)} yet.
+      </div>
+      <div class="generated-summary-actions">
+        <button class="generated-summary-close" onclick="closeGeneratedYearSummary()">Close</button>
+      </div>`;
+    report.classList.add("show");
+    report.scrollIntoView({behavior:"smooth", block:"nearest"});
+    return;
+  }
+
+  const focuses = makeSummaryItems(records, "focus");
+  const wins = makeSummaryItems(records, "win");
+  const activeWeeks = new Set(records.map(record => record.week_start)).size;
+  const showPerson = selectedYearPerson === "Team";
+
+  const focusHTML = focuses.length
+    ? `<ul class="generated-summary-list">${focuses.map(r => summaryItemHTML(r, showPerson)).join("")}</ul>`
+    : `<div class="generated-summary-empty">No focus items recorded.</div>`;
+
+  const winHTML = wins.length
+    ? `<ul class="generated-summary-list">${wins.map(r => summaryItemHTML(r, showPerson)).join("")}</ul>`
+    : `<div class="generated-summary-empty">No wins recorded.</div>`;
+
+  const monthMap = {};
+  records.forEach(record => {
+    const date = parseDate(record.week_start);
+    const key = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}`;
+    if (!monthMap[key]) monthMap[key] = [];
+    monthMap[key].push(record);
+  });
+
+  const monthlyHTML = Object.keys(monthMap).sort().map(key => {
+    const monthRecords = monthMap[key];
+    const date = parseDate(monthRecords[0].week_start);
+    const monthName = date.toLocaleDateString("en-AU", {month:"long"});
+    const monthFocus = monthRecords.filter(r => r.type === "focus").length;
+    const monthWins = monthRecords.filter(r => r.type === "win").length;
+    const people = [...new Set(monthRecords.map(r => r.person))];
+    const peopleText = showPerson ? ` · ${people.map(escapeHTML).join(", ")}` : "";
+    return `
+      <div class="generated-summary-month">
+        <div class="generated-summary-month-title">${monthName}</div>
+        <div class="generated-summary-month-text">
+          ${monthFocus} focus ${monthFocus === 1 ? "item" : "items"} ·
+          ${monthWins} ${monthWins === 1 ? "win" : "wins"}${peopleText}
+        </div>
+      </div>`;
+  }).join("");
+
+  body.innerHTML = `
+    <div class="generated-summary-grid">
+      <div class="generated-summary-section full">
+        <div class="generated-summary-heading">Year at a Glance</div>
+        <div class="summary-stats">
+          <div class="stat">
+            <div class="stat-number">${activeWeeks}</div>
+            <div class="stat-label">Weeks Active</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">${focuses.length}</div>
+            <div class="stat-label">Focus Items</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">${wins.length}</div>
+            <div class="stat-label">Wins Shared</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="generated-summary-section">
+        <div class="generated-summary-heading">🎯 Focus Record</div>
+        ${focusHTML}
+      </div>
+
+      <div class="generated-summary-section">
+        <div class="generated-summary-heading">🏆 Achievements & Wins</div>
+        ${winHTML}
+      </div>
+
+      <div class="generated-summary-section full">
+        <div class="generated-summary-heading">📅 Monthly Journey</div>
+        ${monthlyHTML || '<div class="generated-summary-empty">No monthly activity recorded.</div>'}
+      </div>
+    </div>
+
+    <div class="generated-summary-actions">
+      <button class="generated-summary-close" onclick="closeGeneratedYearSummary()">Close Summary</button>
+    </div>`;
+
+  report.classList.add("show");
+  report.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+function closeGeneratedYearSummary() {
+  document.getElementById("generatedYearSummary")?.classList.remove("show");
+}
 
 
 /* ANNOUNCEMENTS */
@@ -2891,7 +3131,9 @@ let selectedYearPerson = "Team";
 
 function setYearPerson(person) {
 
-  selectedYearPerson = person;
+  
+  closeGeneratedYearSummary();
+selectedYearPerson = person;
 
   document
     .querySelectorAll(".year-tab")

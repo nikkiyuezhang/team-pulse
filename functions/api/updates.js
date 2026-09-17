@@ -5,19 +5,57 @@
   POST   = Add update
   PATCH  = Edit update
   DELETE = Delete update
+
+  All requests require TEAM_CODE.
 */
 
 
 const ALLOWED_PEOPLE = [
-  "Nikki",
+  "Megan",
   "Penny",
-  "Megan"
+  "Nikki"
 ];
 
 const ALLOWED_TYPES = [
   "focus",
   "win"
 ];
+
+
+/*
+  ================================
+  SECURITY
+  Check Team Code
+  ================================
+*/
+
+function isAuthorized(request, env) {
+
+  const providedCode =
+    request.headers.get("X-Team-Code");
+
+  return (
+    env.TEAM_CODE &&
+    providedCode &&
+    providedCode === env.TEAM_CODE
+  );
+
+}
+
+
+function unauthorizedResponse() {
+
+  return Response.json(
+    {
+      success: false,
+      error: "Team Code required."
+    },
+    {
+      status: 401
+    }
+  );
+
+}
 
 
 /*
@@ -29,7 +67,20 @@ const ALLOWED_TYPES = [
 
 export async function onRequestGet(context) {
 
-  const { env } = context;
+  const {
+    request,
+    env
+  } = context;
+
+
+  /*
+    Protect READ access too.
+  */
+
+  if (!isAuthorized(request, env)) {
+    return unauthorizedResponse();
+  }
+
 
   try {
 
@@ -88,6 +139,11 @@ export async function onRequestPost(context) {
     request,
     env
   } = context;
+
+
+  if (!isAuthorized(request, env)) {
+    return unauthorizedResponse();
+  }
 
 
   try {
@@ -198,6 +254,11 @@ export async function onRequestPatch(context) {
   } = context;
 
 
+  if (!isAuthorized(request, env)) {
+    return unauthorizedResponse();
+  }
+
+
   try {
 
     const body =
@@ -243,11 +304,7 @@ export async function onRequestPatch(context) {
 
 
     /*
-      Update the record.
-
-      person + type are also checked
-      so we do not accidentally edit
-      the wrong person's record.
+      Update the record
     */
 
     const result =
@@ -327,6 +384,11 @@ export async function onRequestDelete(context) {
     request,
     env
   } = context;
+
+
+  if (!isAuthorized(request, env)) {
+    return unauthorizedResponse();
+  }
 
 
   try {

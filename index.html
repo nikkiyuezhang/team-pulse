@@ -468,6 +468,47 @@ button { cursor: pointer; }
 }
 
 
+/* EXTRA COMPACT CURRENT WEEK + REMOVE LEADING DISPLAY WHITESPACE */
+.people {
+  padding: 0 16px;
+}
+
+.people .person {
+  padding: 9px 0;
+  gap: 10px;
+}
+
+.people .avatar {
+  width: 36px;
+  height: 36px;
+}
+
+.people .person-name {
+  margin-bottom: 2px;
+}
+
+.people .update-item {
+  margin-top: 3px;
+  padding: 7px 9px 6px;
+  border-radius: 9px;
+}
+
+.people .update-text {
+  line-height: 1.35;
+  white-space: normal;
+  margin: 0;
+}
+
+.people .update-actions {
+  margin-top: 4px;
+}
+
+/* History text: preserve intentional line breaks, but not template indentation */
+.history-entry {
+  white-space: normal;
+}
+
+
 /* PREVIOUS WEEKS */
 
 .previous-section {
@@ -929,6 +970,52 @@ button { cursor: pointer; }
 .year-button:disabled {
   opacity:.55;
   cursor:not-allowed;
+}
+
+
+/* COMPACT ANNUAL RECORD / MONTHLY HIGHLIGHTS */
+.month-person {
+  padding: 9px 0;
+}
+
+.month-person-heading {
+  margin-bottom: 7px;
+  gap: 7px;
+}
+
+.month-person-heading .avatar {
+  width: 28px;
+  height: 28px;
+}
+
+.month-columns {
+  gap: 10px;
+}
+
+.month-column-title {
+  margin-bottom: 5px;
+}
+
+.month-entry {
+  padding: 7px 9px 6px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  min-height: 0;
+  height: auto;
+}
+
+.month-entry-week {
+  margin-bottom: 2px;
+}
+
+.month-entry-text {
+  line-height: 1.35;
+  white-space: normal;
+  margin: 0;
+}
+
+.month-body {
+  padding: 4px 14px 10px;
 }
 
 
@@ -2417,7 +2504,7 @@ function renderType(
           <div class="update-item">
 
             <div class="update-text">
-              ${escapeHTML(update.text)}
+              ${escapeHTML(String(update.text || "").trim())}
             </div>
 
             <div class="update-actions">
@@ -2583,7 +2670,7 @@ function renderPreviousWeeks() {
               ? focuses.map(
                   update =>
                     `<div class="history-entry">
-                      <div>${escapeHTML(update.text)}</div>
+                      <div>${escapeHTML(String(update.text || "").trim())}</div>
                       <div class="update-actions">
                         <button class="edit-button" onclick="openEditModal(${update.id})">Edit</button>
                         <button class="delete-button" onclick="deleteUpdate(${update.id})">Delete</button>
@@ -2600,7 +2687,7 @@ function renderPreviousWeeks() {
               ? wins.map(
                   update =>
                     `<div class="history-entry">
-                      <div>${escapeHTML(update.text)}</div>
+                      <div>${escapeHTML(String(update.text || "").trim())}</div>
                       <div class="update-actions">
                         <button class="edit-button" onclick="openEditModal(${update.id})">Edit</button>
                         <button class="delete-button" onclick="deleteUpdate(${update.id})">Delete</button>
@@ -3413,7 +3500,7 @@ function renderMonthlyHighlights(records) {
                         ${formatWeekTitle(update.week_start)}
                       </div>
                       <div class="month-entry-text">
-                        ${escapeHTML(update.text)}
+                        ${escapeHTML(String(update.text || "").trim())}
                       </div>
                     </div>`
                 ).join("")
@@ -3431,7 +3518,7 @@ function renderMonthlyHighlights(records) {
                         ${formatWeekTitle(update.week_start)}
                       </div>
                       <div class="month-entry-text">
-                        ${escapeHTML(update.text)}
+                        ${escapeHTML(String(update.text || "").trim())}
                       </div>
                     </div>`
                 ).join("")

@@ -1399,41 +1399,117 @@ button { cursor: pointer; }
     <button class="notice-manage" onclick="openNoticeModal()">✏️ Manage</button>
   </div>
 </section>
-
 <section class="academic-section" id="academicCalendar">
+
 <div class="academic-card">
 
   <div class="academic-heading-row">
 
     <div>
-      <div class="academic-label">📅 UNE ACADEMIC CALENDAR</div>
-      <h2 class="academic-title" id="academicTitle">Academic Calendar</h2>
-      <div class="academic-description">
-        Key dates and countdowns for the next Census Date
+
+      <div class="academic-label">
+        📅 UNE ACADEMIC CALENDAR
       </div>
+
+      <h2
+        class="academic-title"
+        id="academicTitle"
+      >
+        Current Trimester
+      </h2>
+
+      <div
+        class="academic-description"
+        id="academicDescription"
+      >
+        Current teaching week and upcoming academic milestones
+      </div>
+
     </div>
 
-    <div class="today-badge" id="todayBadge">Today</div>
+    <div
+      class="today-badge"
+      id="todayBadge"
+    >
+      Today
+    </div>
 
+  </div>
+
+
+  <div
+    class="academic-description"
+    id="nextTrimesterLabel"
+    style="
+      margin-top:18px;
+      font-weight:700;
+      color:#ffffff;
+      letter-spacing:.3px;
+    "
+  >
+    NEXT TRIMESTER
   </div>
 
 
   <div class="countdown-grid">
 
     <div class="countdown-card start-countdown">
-      <div class="countdown-heading">▶ TRIMESTER STARTS IN</div>
-      <div class="countdown-content">
-        <div class="big-countdown" id="startDays">—</div>
-        <div class="week-countdown" id="startWeeks">—</div>
+
+      <div
+        class="countdown-heading"
+        id="startCountdownHeading"
+      >
+        ▶ STARTS IN
       </div>
+
+      <div class="countdown-content">
+
+        <div
+          class="big-countdown"
+          id="startDays"
+        >
+          —
+        </div>
+
+        <div
+          class="week-countdown"
+          id="startWeeks"
+        >
+          —
+        </div>
+
+      </div>
+
     </div>
 
+
     <div class="countdown-card census-countdown">
-      <div class="countdown-heading">🎯 CENSUS DATE IN</div>
-      <div class="countdown-content">
-        <div class="big-countdown" id="censusDays">—</div>
-        <div class="week-countdown" id="censusWeeks">—</div>
+
+      <div
+        class="countdown-heading"
+        id="censusCountdownHeading"
+      >
+        🎯 CENSUS IN
       </div>
+
+      <div class="countdown-content">
+
+        <div
+          class="big-countdown"
+          id="censusDays"
+        >
+          —
+        </div>
+
+        <div
+          class="week-countdown"
+          id="censusWeeks"
+        >
+          —
+        </div>
+
+      </div>
+
     </div>
 
   </div>
@@ -1442,24 +1518,53 @@ button { cursor: pointer; }
   <div class="timeline">
 
     <div class="timeline-line">
-      <div class="timeline-progress" id="timelineProgress"></div>
+
+      <div
+        class="timeline-progress"
+        id="timelineProgress"
+      ></div>
+
     </div>
+
 
     <div class="timeline-dates">
 
       <div class="timeline-item">
-        <div class="timeline-name">Teaching Starts</div>
-        <div id="teachingStart">—</div>
+
+        <div class="timeline-name">
+          Teaching Starts
+        </div>
+
+        <div id="teachingStart">
+          —
+        </div>
+
       </div>
 
-      <div class="timeline-item">
-        <div class="timeline-name">Census Date</div>
-        <div id="censusDate">—</div>
-      </div>
 
       <div class="timeline-item">
-        <div class="timeline-name">Teaching Ends</div>
-        <div id="teachingEnd">—</div>
+
+        <div class="timeline-name">
+          Census Date
+        </div>
+
+        <div id="censusDate">
+          —
+        </div>
+
+      </div>
+
+
+      <div class="timeline-item">
+
+        <div class="timeline-name">
+          Teaching Ends
+        </div>
+
+        <div id="teachingEnd">
+          —
+        </div>
+
       </div>
 
     </div>
@@ -1467,6 +1572,8 @@ button { cursor: pointer; }
   </div>
 
 </div>
+
+
 </section>
 
 

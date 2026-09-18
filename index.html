@@ -2259,10 +2259,26 @@ function updateAcademicCalendar() {
     const currentStart =
       parseDate(currentPeriod.start);
 
-    const teachingWeek =
-      Math.floor(
-        daysBetween(currentStart, today) / 7
-      ) + 1;
+
+let teachingWeek =
+  Math.floor(
+    daysBetween(currentStart, today) / 7
+  ) + 1;
+
+/*
+  UNE mid-trimester break is not counted
+  as a teaching week.
+
+  T2 2026:
+  3 Aug – 14 Aug = 2-week teaching break.
+*/
+if (
+  currentPeriod.name === "T2 2026" &&
+  today >= parseDate("2026-08-17")
+) {
+  teachingWeek -= 2;
+}
+    
 
 
     document

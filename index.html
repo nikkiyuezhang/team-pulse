@@ -2188,11 +2188,9 @@ function getNextCensusPeriod(today) {
   );
 }
 
-
 function updateAcademicCalendar() {
 
-  const today =
-    startOfDay(new Date());
+  const today = startOfDay(new Date());
 
   document
     .getElementById("todayBadge")
@@ -2200,36 +2198,236 @@ function updateAcademicCalendar() {
       "Today · " + formatDate(today);
 
 
-  const period =
-    getNextCensusPeriod(today);
+  /* --------------------------------
+     FIND CURRENT TRIMESTER
+  -------------------------------- */
 
-  if (!period) return;
+  const currentIndex =
+    academicPeriods.findIndex(period => {
+
+      const start = parseDate(period.start);
+      const end = parseDate(period.end);
+
+      return today >= start && today <= end;
+
+    });
 
 
-  const start =
-    parseDate(period.start);
+  let currentPeriod = null;
+  let nextPeriod = null;
 
-  const census =
-    parseDate(period.census);
 
-  const end =
-    parseDate(period.end);
+  if (currentIndex !== -1) {
+
+    currentPeriod =
+      academicPeriods[currentIndex];
+
+    nextPeriod =
+      academicPeriods[currentIndex + 1] || null;
+
+  } else {
+
+    /*
+      We are between trimesters.
+      The next trimester becomes the upcoming period.
+    */
+
+    const nextIndex =
+      academicPeriods.findIndex(
+        period => today < parseDate(period.start)
+      );
+
+    if (nextIndex !== -1) {
+
+      nextPeriod =
+        academicPeriods[nextIndex];
+
+      currentPeriod =
+        nextIndex > 0
+          ? academicPeriods[nextIndex - 1]
+          : null;
+    }
+  }
+
+
+  /* --------------------------------
+     CURRENT TRIMESTER + WEEK
+  -------------------------------- */
+
+  if (currentIndex !== -1 && currentPeriod) {
+
+    const currentStart =
+      parseDate(currentPeriod.start);
+
+    const teachingWeek =
+      Math.floor(
+        daysBetween(currentStart, today) / 7
+      ) + 1;
+
+
+    document
+      .getElementById("academicTitle")
+      .textContent =
+        `${currentPeriod.name} · WEEK ${teachingWeek}`;
+
+
+    document
+      .getElementById("academicDescription")
+      .textContent =
+        "Current Trimester";
+
+  } else if (currentPeriod) {
+
+    document
+      .getElementById("academicTitle")
+      .textContent =
+        currentPeriod.name;
+
+
+    document
+      .getElementById("academicDescription")
+      .textContent =
+        "Teaching finished · Between trimesters";
+
+  } else {
+
+    document
+      .getElementById("academicTitle")
+      .textContent =
+        "Academic Calendar";
+
+
+    document
+      .getElementById("academicDescription")
+      .textContent =
+        "Upcoming academic period";
+  }
+
+
+  /* --------------------------------
+     NEXT TRIMESTER
+  -------------------------------- */
+
+  if (!nextPeriod) {
+
+    document
+      .getElementById("nextTrimesterLabel")
+      .textContent =
+        "NO UPCOMING TRIMESTER";
+
+    return;
+  }
 
 
   document
-    .getElementById("academicTitle")
+    .getElementById("nextTrimesterLabel")
     .textContent =
-      period.name;
+      `NEXT · ${nextPeriod.name}`;
+
+
+  document
+    .getElementById("startCountdownHeading")
+    .textContent =
+      `▶ ${nextPeriod.name} STARTS IN`;
+
+
+  document
+    .getElementById("censusCountdownHeading")
+    .textContent =
+      `🎯 ${nextPeriod.name} CENSUS IN`;
+
+
+  const start =
+    parseDate(nextPeriod.start);
+
+  const census =
+    parseDate(nextPeriod.census);
+
+  const end =
+    parseDate(nextPeriod.end);
+
+
+  /* --------------------------------
+     NEXT TRIMESTER START COUNTDOWN
+  -------------------------------- */
+
+  const daysToStart =
+    daysBetween(today, start);
+
+  const startFullWeeks =
+    Math.floor(daysToStart / 7);
+
+  const startRemainingDays =
+    daysToStart % 7;
+
+
+  document
+    .getElementById("startDays")
+    .innerHTML =
+      `${startFullWeeks} <span>WEEKS</span>`;
+
+
+  document
+    .getElementById("startWeeks")
+    .innerHTML =
+      `${startRemainingDays} ${
+        startRemainingDays === 1
+          ? "day"
+          : "days"
+      }
+      <div class="countdown-date">
+        ${formatDate(start)}
+      </div>`;
+
+
+  /* --------------------------------
+     NEXT CENSUS COUNTDOWN
+  -------------------------------- */
+
+  const daysToCensus =
+    daysBetween(today, census);
+
+  const censusFullWeeks =
+    Math.floor(daysToCensus / 7);
+
+  const censusRemainingDays =
+    daysToCensus % 7;
+
+
+  document
+    .getElementById("censusDays")
+    .innerHTML =
+      `${censusFullWeeks} <span>WEEKS</span>`;
+
+
+  document
+    .getElementById("censusWeeks")
+    .innerHTML =
+      `${censusRemainingDays} ${
+        censusRemainingDays === 1
+          ? "day"
+          : "days"
+      }
+      <div class="countdown-date">
+        ${formatDate(census)}
+      </div>`;
+
+
+  /* --------------------------------
+     TIMELINE = NEXT TRIMESTER
+  -------------------------------- */
 
   document
     .getElementById("teachingStart")
     .textContent =
       formatDate(start);
 
+
   document
     .getElementById("censusDate")
     .textContent =
       formatDate(census);
+
 
   document
     .getElementById("teachingEnd")
@@ -2237,108 +2435,17 @@ function updateAcademicCalendar() {
       formatDate(end);
 
 
-  const daysToStart =
-    daysBetween(today,start);
-
-
-  if (daysToStart > 0) {
-
-    document
-      .getElementById("startDays")
-      .innerHTML =
-        `${daysToStart} <span>DAYS</span>`;
-
-    document
-      .getElementById("startWeeks")
-      .innerHTML =
-        `${formatWeeksAndDays(daysToStart)}
-        <div class="countdown-date">
-        until ${formatDate(start)}
-        </div>`;
-
-  } else {
-
-    const week =
-      Math.floor(
-        daysBetween(start,today)/7
-      )+1;
-
-    document
-      .getElementById("startDays")
-      .textContent =
-        daysToStart===0
-          ? "TODAY"
-          : "STARTED";
-
-    document
-      .getElementById("startWeeks")
-      .innerHTML =
-        daysToStart===0
-          ? `Trimester starts today
-             <div class="countdown-date">
-             ${formatDate(start)}
-             </div>`
-          : `Teaching Week ${week}
-             <div class="countdown-date">
-             Started ${formatDate(start)}
-             </div>`;
-  }
-
-
-  const daysToCensus =
-    daysBetween(today,census);
-
-
-  document
-    .getElementById("censusDays")
-    .innerHTML =
-      daysToCensus===0
-        ? "TODAY"
-        : `${daysToCensus} <span>DAYS</span>`;
-
-
-  document
-    .getElementById("censusWeeks")
-    .innerHTML =
-      daysToCensus===0
-        ? `Census Date
-           <div class="countdown-date">
-           ${formatDate(census)}
-           </div>`
-        : `${formatWeeksAndDays(daysToCensus)}
-           <div class="countdown-date">
-           until ${formatDate(census)}
-           </div>`;
-
-
-  let progress = 0;
-
-  if (today >= end) {
-
-    progress = 100;
-
-  } else if (today >= start) {
-
-    progress =
-      daysBetween(start,today) /
-      daysBetween(start,end) *
-      100;
-  }
-
+  /*
+    Because the timeline represents the
+    upcoming trimester, keep progress at 0
+    until that trimester starts.
+  */
 
   document
     .getElementById("timelineProgress")
-    .style.width =
-      Math.max(
-        0,
-        Math.min(100,progress)
-      ) + "%";
+    .style.width = "0%";
+
 }
-
-
-
-
-
 
 
 /* YEAR KEYWORD CLOUD */
